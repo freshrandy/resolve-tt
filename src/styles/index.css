@@ -1,0 +1,119 @@
+/* Import Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global base styles */
+body {
+  @apply font-sans bg-[#F5F7FA] text-ash antialiased; /* Match bg from original styles.container */
+}
+
+/* Define custom components/utilities using @layer */
+@layer components {
+  /* Base Card Style (matching original styles.card) */
+  .card {
+    @apply bg-white rounded-xl shadow-card p-6 mb-6;
+  }
+
+  /* Card Title Style (matching original styles.cardTitle) */
+  .card-title {
+    /* Use custom font size or Tailwind approximation */
+    @apply text-xl font-semibold text-slate mt-0 mb-4 pb-4 border-b border-cloudGrey;
+  }
+
+  /* Tab Base Style (matching original styles.tab) */
+  .tab {
+    @apply py-3 px-6 cursor-pointer border-r border-cloudGrey last:border-r-0 text-base transition-all duration-300 ease-in-out;
+  }
+
+  /* Active Tab Style (matching original styles.activeTab & colors.electricBlue) */
+  .tab-active {
+    @apply bg-tab-active-bg text-electricBlue font-medium;
+  }
+
+  /* Timeline Styles */
+  .timeline-line {
+    @apply absolute left-[8px] top-0 bottom-0 w-0.5 bg-cloudGrey; /* Match original left offset */
+  }
+  .timeline-point {
+    /* Match original styles.timelinePoint */
+    @apply absolute left-0 top-[0.1rem] /* Adjust vertical alignment */ w-[18px] h-[18px] rounded-full bg-primary border-[3px] border-white shadow-timeline;
+    /* Using style guide 'primary' color */
+    /* Optional: transform -translate-x-1/2 if left is exactly on the line */
+  }
+  .timeline-content {
+    /* Match original styles.timelineContent */
+    @apply bg-white rounded-xl p-4 shadow-subtle;
+  }
+  .timeline-title {
+    /* Match original styles.timelineTitle */
+    @apply font-semibold mb-2 text-slate;
+  }
+
+  /* Alert Style (matching original styles.alert) */
+  .alert-info {
+    @apply p-4 rounded-md mb-6 text-sm flex items-start gap-3;
+    /* Use status color from theme */
+    @apply bg-status-info/10 border-l-4 border-status-info text-slate;
+  }
+  /* Specific icon style for alert if needed */
+  .alert-icon {
+    @apply text-xl text-status-info mt-px; /* Adjust alignment/size */
+  }
+
+  /* Table Styles */
+  .table {
+    @apply w-full border-collapse mb-6;
+  }
+  .table th {
+    /* Match original styles.th */
+    @apply bg-cloudGrey p-3 px-4 text-left font-medium text-slate text-sm border-b border-gray-300; /* Slightly darker border */
+  }
+  .table td {
+    /* Match original styles.td */
+    @apply p-3 px-4 border-b border-cloudGrey text-ash text-sm align-top;
+  }
+
+  /* List Styles */
+  ul,
+  ol {
+    @apply list-inside space-y-2 mb-4 pl-4;
+  }
+  ul {
+    @apply list-disc;
+  }
+  ol {
+    @apply list-decimal;
+  }
+
+  .card ul,
+  .card ol {
+    @apply mb-0 space-y-1; /* Adjust spacing within card lists */
+  }
+
+  /* Heading styles - Map sizes or use Tailwind defaults */
+  h1 {
+    @apply text-4xl font-bold text-ash mb-2;
+  } /* Approximates 2.5rem */
+  h2 {
+    @apply text-2xl font-semibold text-slate mb-4;
+  } /* Approximates 1.75rem sectionTitle */
+  h3 {
+    @apply text-lg font-medium text-slate mb-2;
+  } /* Default h3 */
+  p {
+    @apply text-base leading-relaxed mb-4 text-ash;
+  } /* Default paragraph */
+}
+
+/* Custom Utilities */
+@layer utilities {
+  .bg-primary-gradient {
+    /* Match original primaryGradient */
+    background: linear-gradient(
+      135deg,
+      theme("colors.primary") 0%,
+      theme("colors.electricBlue") 100%
+    );
+  }
+}
