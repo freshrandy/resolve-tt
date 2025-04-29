@@ -4,13 +4,13 @@ import {
   FaInfoCircle,
   FaCalendarAlt,
   FaNetworkWired,
-  FaUsersCog, // Keep for Quick Resources if needed, otherwise remove
+  // FaUsersCog, // Removed unless needed elsewhere
   FaChartLine,
   FaLaptopHouse,
-  // FaCheckCircle, // Removed as Support section is gone
+  // FaCheckCircle, // Removed
   FaChevronDown,
   FaChevronRight,
-  FaChalkboardTeacher, // For Quick Resources
+  // FaChalkboardTeacher, // Removed
   FaBullseye, // Objectives
   FaSyncAlt, // Repeat Call Rate
   FaTruck, // Truck Roll
@@ -29,11 +29,10 @@ import {
 
 // Receive styles object as props
 const HomeContent = ({ styles }) => {
-  // State to track expanded sections - preparation removed
+  // State to track expanded sections
   const [expandedSections, setExpandedSections] = useState({
     objectives: true,
     context: true,
-    // preparation: true, // Removed
   });
 
   // Helper for section toggling
@@ -141,8 +140,12 @@ const HomeContent = ({ styles }) => {
 
   // Content for the Business Objectives
   const businessObjectivesContent = (
-    <div style={{ animation: "fadeIn 0.3s ease-in" }}>
-      {/* ... (Business Objectives content remains the same) ... */}
+    <div
+      style={{
+        animation: "fadeIn 0.3s ease-in",
+        paddingTop: "16px" /* Add padding top to separate from title */,
+      }}
+    >
       <p style={styles.paragraph}>
         The implementation of RouteThis Resolve aims to achieve several key
         business objectives by improving diagnostic accuracy, resolution
@@ -152,12 +155,12 @@ const HomeContent = ({ styles }) => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", // Adjusted minmax for better fit
+          gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
           gap: "16px",
           marginBottom: "24px",
         }}
       >
-        {/* Metric Cards - Using new icons */}
+        {/* Metric Cards */}
         <div
           style={{
             backgroundColor: `${styles.colors?.cloudGrey}30`,
@@ -198,7 +201,6 @@ const HomeContent = ({ styles }) => {
             Goal: Lower rate vs. baseline
           </p>
         </div>
-
         <div
           style={{
             backgroundColor: `${styles.colors?.cloudGrey}30`,
@@ -239,7 +241,6 @@ const HomeContent = ({ styles }) => {
             Goal: Lower rate vs. baseline
           </p>
         </div>
-
         <div
           style={{
             backgroundColor: `${styles.colors?.cloudGrey}30`,
@@ -280,7 +281,6 @@ const HomeContent = ({ styles }) => {
             Goal: Lower rate vs. baseline
           </p>
         </div>
-
         <div
           style={{
             backgroundColor: `${styles.colors?.cloudGrey}30`,
@@ -320,7 +320,6 @@ const HomeContent = ({ styles }) => {
             Goal: Higher score vs. baseline
           </p>
         </div>
-
         <div
           style={{
             backgroundColor: `${styles.colors?.cloudGrey}30`,
@@ -360,7 +359,6 @@ const HomeContent = ({ styles }) => {
             Goal: Stabilize/Improve post-trial
           </p>
         </div>
-
         <div
           style={{
             backgroundColor: `${styles.colors?.cloudGrey}30`,
@@ -433,22 +431,27 @@ const HomeContent = ({ styles }) => {
     </div>
   );
 
-  // Content for the TalkTalk Context section (extracted for clarity)
+  // Content for the TalkTalk Context section
   const talkTalkContextContent = (
-    <div style={{ animation: "fadeIn 0.3s ease-in" }}>
+    <div
+      style={{
+        animation: "fadeIn 0.3s ease-in",
+        paddingTop: "16px" /* Add padding top to separate from title */,
+      }}
+    >
       {/* Subscriber Info */}
       <div
         style={{
           display: "flex",
-          flexWrap: "wrap", // Allow wrapping on smaller screens
+          flexWrap: "wrap",
           gap: "16px",
           marginBottom: "24px",
         }}
       >
         <div
           style={{
-            flex: 1, // Grow equally
-            minWidth: "180px", // Minimum width before wrapping
+            flex: 1,
+            minWidth: "180px",
             backgroundColor: `${styles.colors?.electricBlue}10`,
             padding: "16px",
             borderRadius: "8px",
@@ -663,33 +666,27 @@ const HomeContent = ({ styles }) => {
           marginBottom: "24px",
         }}
       >
-        {/* Business Objectives Section - Left Column */}
+        {/* Business Objectives Section */}
         <motion.div
           custom={0}
           initial="hidden"
           animate="visible"
           variants={cardVariants}
-          style={{
-            ...styles.card,
-            flex: "1 1 60%",
-            minWidth: "350px",
-          }}
+          style={{ ...styles.card, flex: "1 1 60%", minWidth: "350px" }}
         >
+          {/* Clickable Header DIV - Styling REMOVED */}
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
               cursor: "pointer",
-              borderBottom: expandedSections.objectives
-                ? `1px solid ${styles.colors?.cloudGrey || "#e5e7eb"}`
-                : "none",
-              paddingBottom: expandedSections.objectives ? "12px" : "0",
-              marginBottom: expandedSections.objectives ? "16px" : "0",
+              // REMOVED borderBottom, paddingBottom, marginBottom
             }}
             onClick={() => toggleSection("objectives")}
           >
-            <h2 style={{ ...styles.cardTitle, marginBottom: 0 }}>
+            {/* Title H2 - Use default styles.cardTitle */}
+            <h2 style={styles.cardTitle}>
               <FaBullseye
                 style={{ marginRight: "8px", color: styles.colors?.primary }}
               />
@@ -701,30 +698,30 @@ const HomeContent = ({ styles }) => {
               <FaChevronRight />
             )}
           </div>
+          {/* Conditional Content Rendering */}
           {expandedSections.objectives && businessObjectivesContent}
         </motion.div>
 
-        {/* TalkTalk Context Section (Enhanced) - Right Column */}
+        {/* TalkTalk Context Section */}
         <motion.div
           custom={1}
           initial="hidden"
           animate="visible"
           variants={cardVariants}
-          style={{
-            ...styles.card,
-            flex: "1 1 30%",
-            minWidth: "300px",
-          }}
+          style={{ ...styles.card, flex: "1 1 30%", minWidth: "300px" }}
         >
+          {/* Clickable Header DIV - Styling REMOVED */}
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
               cursor: "pointer",
+              // REMOVED any extra styling here too for consistency
             }}
             onClick={() => toggleSection("context")}
           >
+            {/* Title H2 - Use default styles.cardTitle */}
             <h2 style={styles.cardTitle}>
               <FaNetworkWired
                 style={{
@@ -736,7 +733,7 @@ const HomeContent = ({ styles }) => {
             </h2>
             {expandedSections.context ? <FaChevronDown /> : <FaChevronRight />}
           </div>
-          {/* Render the enhanced context content */}
+          {/* Conditional Content Rendering */}
           {expandedSections.context && talkTalkContextContent}
         </motion.div>
       </div>
@@ -749,6 +746,7 @@ const HomeContent = ({ styles }) => {
         variants={cardVariants}
         style={styles.card}
       >
+        {/* Title H2 - Use default styles.cardTitle */}
         <h2 style={styles.cardTitle}>
           <FaCalendarAlt
             style={{ marginRight: "8px", color: styles.colors?.primary }}
@@ -756,7 +754,7 @@ const HomeContent = ({ styles }) => {
           Implementation Timeline
         </h2>
 
-        {/* Phase Implementation Sentence */}
+        {/* Phase Implementation Sentence - Added padding top to separate from title */}
         <div
           style={{
             backgroundColor: `${styles.colors?.primary}10`,
@@ -766,6 +764,7 @@ const HomeContent = ({ styles }) => {
             alignItems: "flex-start",
             gap: "12px",
             marginBottom: "24px",
+            marginTop: "16px" /* Add margin top */,
           }}
         >
           <div
@@ -805,11 +804,10 @@ const HomeContent = ({ styles }) => {
               backgroundColor: styles.colors?.cloudGrey || "#D1D5DB",
               display: phases.length > 1 ? "block" : "none",
               zIndex: 0,
-              // className: 'timeline-connector-line' // Use class for media query if needed
             }}
+            className="timeline-connector-line"
           />
-
-          {phases.map((phase, index) => (
+          {phases.map((phase) => (
             <div
               key={phase.id}
               style={{
@@ -874,213 +872,19 @@ const HomeContent = ({ styles }) => {
       </motion.div>
 
       {/* REMOVED Support & Preparation Section */}
+      {/* REMOVED Quick Resources Section */}
 
-      {/* Quick Access Grid Cards */}
-      <motion.div
-        custom={3} // Adjusted index
-        initial="hidden"
-        animate="visible"
-        variants={cardVariants}
-      >
-        <h2 style={{ ...styles.sectionTitle, marginBottom: "16px" }}>
-          <span
-            style={{
-              display: "inline-block",
-              width: "24px",
-              height: "3px",
-              backgroundColor: styles.colors?.primary,
-              marginRight: "8px",
-              verticalAlign: "middle",
-            }}
-          ></span>
-          Quick Resources
-        </h2>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-            gap: "16px",
-            marginBottom: "24px",
-          }}
-        >
-          {/* Training Materials Card */}
-          <motion.div
-            whileHover={{ y: -5, boxShadow: "0 10px 20px rgba(0, 0, 0, 0.1)" }}
-            style={{
-              padding: "20px",
-              backgroundColor: "white",
-              borderRadius: "12px",
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.05)",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              minHeight: "200px",
-              display: "flex",
-              flexDirection: "column",
-              borderTop: `3px solid ${styles.colors?.primary}`,
-            }}
-            // onClick={() => navigateTo('/training')} // Example navigation
-          >
-            <div
-              style={{
-                backgroundColor: `${styles.colors?.primary}20`,
-                width: "48px",
-                height: "48px",
-                borderRadius: "8px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                marginBottom: "16px",
-                fontSize: "1.5rem",
-                color: styles.colors?.primary,
-              }}
-            >
-              <FaChalkboardTeacher />
-            </div>
-            <h3 style={{ ...styles.heading3, marginTop: 0 }}>
-              Training Materials
-            </h3>
-            <p
-              style={{ ...styles.paragraph, marginBottom: "12px", flexGrow: 1 }}
-            >
-              Access agent/leader training guides, feature documentation, and
-              how-to's.
-            </p>
-            <div
-              style={{
-                color: styles.colors?.primary,
-                fontWeight: "500",
-                display: "flex",
-                alignItems: "center",
-                gap: "4px",
-              }}
-            >
-              View Training <FaChevronRight style={{ fontSize: "0.75rem" }} />
-            </div>
-          </motion.div>
-
-          {/* Trial Resources Card */}
-          <motion.div
-            whileHover={{ y: -5, boxShadow: "0 10px 20px rgba(0, 0, 0, 0.1)" }}
-            style={{
-              padding: "20px",
-              backgroundColor: "white",
-              borderRadius: "12px",
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.05)",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              minHeight: "200px",
-              display: "flex",
-              flexDirection: "column",
-              borderTop: `3px solid ${styles.colors?.electricBlue}`,
-            }}
-            // onClick={() => navigateTo('/resources')} // Example navigation
-          >
-            <div
-              style={{
-                backgroundColor: `${styles.colors?.electricBlue}20`,
-                width: "48px",
-                height: "48px",
-                borderRadius: "8px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                marginBottom: "16px",
-                fontSize: "1.5rem",
-                color: styles.colors?.electricBlue,
-              }}
-            >
-              <FaNetworkWired />
-            </div>
-            <h3 style={{ ...styles.heading3, marginTop: 0 }}>
-              Trial Resources
-            </h3>
-            <p
-              style={{ ...styles.paragraph, marginBottom: "12px", flexGrow: 1 }}
-            >
-              Find router info, phase details, workflows, and success metric
-              definitions.
-            </p>
-            <div
-              style={{
-                color: styles.colors?.electricBlue,
-                fontWeight: "500",
-                display: "flex",
-                alignItems: "center",
-                gap: "4px",
-              }}
-            >
-              View Resources <FaChevronRight style={{ fontSize: "0.75rem" }} />
-            </div>
-          </motion.div>
-
-          {/* Support & FAQ Card */}
-          <motion.div
-            whileHover={{ y: -5, boxShadow: "0 10px 20px rgba(0, 0, 0, 0.1)" }}
-            style={{
-              padding: "20px",
-              backgroundColor: "white",
-              borderRadius: "12px",
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.05)",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              minHeight: "200px",
-              display: "flex",
-              flexDirection: "column",
-              borderTop: `3px solid ${styles.colors?.primary}`,
-            }}
-            // onClick={() => navigateTo('/support')} // Example navigation
-          >
-            <div
-              style={{
-                backgroundColor: `${styles.colors?.primary}20`,
-                width: "48px",
-                height: "48px",
-                borderRadius: "8px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                marginBottom: "16px",
-                fontSize: "1.5rem",
-                color: styles.colors?.primary,
-              }}
-            >
-              <FaUsersCog />{" "}
-              {/* Changed from FaUsersCog to something more relevant like FaQuestionCircle if needed */}
-            </div>
-            <h3 style={{ ...styles.heading3, marginTop: 0 }}>Support & FAQ</h3>
-            <p
-              style={{ ...styles.paragraph, marginBottom: "12px", flexGrow: 1 }}
-            >
-              Get contact info, troubleshooting tips, VDI details, and
-              frequently asked questions.
-            </p>
-            <div
-              style={{
-                color: styles.colors?.primary,
-                fontWeight: "500",
-                display: "flex",
-                alignItems: "center",
-                gap: "4px",
-              }}
-            >
-              View Support <FaChevronRight style={{ fontSize: "0.75rem" }} />
-            </div>
-          </motion.div>
-        </div>
-      </motion.div>
-
-      {/* Custom CSS for animations */}
+      {/* Custom CSS for animations and responsive timeline connector */}
       <style>
         {`
           @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
           }
-          /* Optional: Hide timeline connector line on small screens */
-          @media (max-width: 767px) { /* Adjust breakpoint as needed */
+          /* Hide timeline connector line on small screens */
+          @media (max-width: 767px) {
             .timeline-connector-line {
-               display: none;
+               display: none !important; /* Use !important if needed to override inline style */
              }
            }
         `}
