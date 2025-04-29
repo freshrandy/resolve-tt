@@ -1,8 +1,17 @@
-import React from "react"; // Removed useState as tab state is handled by router
+import React from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
-// Import the refactored components
+// Import Icons for Tabs
+import {
+  FaHome,
+  FaChalkboardTeacher,
+  FaUserTie,
+  FaBook,
+  FaQuestionCircle,
+} from "react-icons/fa";
+
+// Import Components (assuming they exist in ./components/)
 import HeaderComponent from "./components/HeaderComponent";
 import TabsComponent from "./components/TabsComponent";
 import HomeContent from "./components/content/HomeContent";
@@ -13,25 +22,42 @@ import SupportContent from "./components/content/SupportContent";
 
 // --- Main App Component ---
 function App() {
-  const location = useLocation(); // For animations
-  const navigate = useNavigate(); // For navigation actions (if needed in content)
+  const location = useLocation();
+  const navigate = useNavigate();
 
   // --- Configuration Data ---
-  // Define tabs configuration here or import from constants file
+  // UPDATED: Added icons and isImportant flag
   const tabsConfig = [
-    { id: "home", label: "Overview", path: "/" },
-    { id: "agent-training", label: "Agent Training", path: "/agent-training" },
-    { id: "leadership", label: "Leadership", path: "/leadership" },
+    { id: "home", label: "Overview", path: "/", icon: FaHome },
+    {
+      id: "agent-training",
+      label: "Agent Training",
+      path: "/agent-training",
+      icon: FaChalkboardTeacher,
+      isImportant: true,
+    },
+    {
+      id: "leadership",
+      label: "Leadership",
+      path: "/leadership",
+      icon: FaUserTie,
+      isImportant: true,
+    },
     {
       id: "trial-resources",
       label: "Trial Resources",
       path: "/trial-resources",
+      icon: FaBook,
     },
-    { id: "support", label: "Support", path: "/support" },
+    {
+      id: "support",
+      label: "Support",
+      path: "/support",
+      icon: FaQuestionCircle,
+    },
   ];
 
-  // --- Styling (Inline Style Object - Central Definition) ---
-  // This object defines all styles used by child components
+  // --- Styling (Inline Style Object - UPDATED for Tabs) ---
   const colors = {
     primary: "#58DBB9",
     teal: "#58DBB9",
@@ -42,17 +68,19 @@ function App() {
     slate: "#20242A",
     cloudGrey: "#EEF2F6",
     tabActiveBg: "#E3F2FD",
+    tabImportantBg: "#fafafa", // Very light gray for important inactive bg
     info: "#3b82f6",
     infoBg: "rgba(59, 130, 246, 0.1)",
   };
   const primaryGradient = `linear-gradient(135deg, ${colors.primary} 0%, ${colors.electricBlue} 100%)`;
 
   const styles = {
+    // Container and Header styles remain the same...
     container: {
       fontFamily: '"DM Sans", sans-serif',
       maxWidth: "1200px",
       margin: "0 auto",
-      padding: "20px",
+      padding: "24px",
       backgroundColor: "#F5F7FA",
       minHeight: "100vh",
       color: colors.ash,
@@ -73,38 +101,62 @@ function App() {
       marginTop: "8px",
       marginBottom: 0,
     },
+
+    // ** UPDATED Tab Styles **
+    // Increased marginBottom, slightly stronger shadow
     tabsContainer: {
       display: "flex",
       flexWrap: "wrap",
       backgroundColor: "white",
       border: `1px solid ${colors.cloudGrey}`,
       borderRadius: "0.75rem",
-      marginBottom: "24px",
+      marginBottom: "32px",
       overflow: "hidden",
-      boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
+      boxShadow: "0 2px 5px rgba(0, 0, 0, 0.07)",
     },
+    // Base style for NavLink - Increased padding and font size
     tabLink: {
-      display: "block",
-      padding: "12px 24px",
+      display: "flex", // Use flexbox for icon + text alignment
+      alignItems: "center", // Vertically center icon and text
+      gap: "8px", // Space between icon and text
+      padding: "16px 28px", // Increased padding
       cursor: "pointer",
       borderRight: `1px solid ${colors.cloudGrey}`,
-      fontSize: "1rem",
+      fontSize: "1.05rem", // Slightly larger font
       color: colors.ash,
       textDecoration: "none",
       transition: "background-color 0.2s ease, color 0.2s ease",
       whiteSpace: "nowrap",
+      fontWeight: "400", // Default weight
     },
+    // Style for the icon within the tab link
+    tabIcon: {
+      fontSize: "1.1em", // Icon size relative to text
+      marginBottom: "-2px", // Fine-tune vertical alignment if needed
+      flexShrink: 0, // Prevent icon shrinking
+    },
+    // Style for active tab
     tabLinkActive: {
       backgroundColor: colors.tabActiveBg,
       color: colors.electricBlue,
-      fontWeight: "500",
+      fontWeight: "600", // Make active bolder
+      borderBottom: `3px solid ${colors.electricBlue}`, // Thicker border
     },
+    // Style for *important* but *inactive* tab
+    tabLinkImportantInactive: {
+      backgroundColor: colors.tabImportantBg, // Subtle background highlight
+      fontWeight: "500", // Slightly bolder than normal inactive
+      color: colors.slate, // Slightly darker text than default inactive
+    },
+
+    // Card, Grid, FeatureCard, Timeline, etc., styles remain the same...
     card: {
       backgroundColor: "white",
       borderRadius: "0.75rem",
       boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
       padding: "24px",
       marginBottom: "24px",
+      borderTop: `3px solid ${colors.primary}`,
     },
     cardTitle: {
       fontSize: "1.25rem",
@@ -132,6 +184,7 @@ function App() {
       display: "flex",
       flexDirection: "column",
       alignItems: "flex-start",
+      borderTop: `3px solid ${colors.primary}`,
     },
     featureIcon: {
       backgroundColor: colors.tabActiveBg,
@@ -199,7 +252,7 @@ function App() {
     timelineText: {
       fontSize: "0.875rem",
       color: colors.ash,
-      lineHeight: "1.5",
+      lineHeight: "1.6",
       margin: 0,
     },
     sectionTitle: {
@@ -211,7 +264,7 @@ function App() {
     },
     paragraph: {
       fontSize: "1rem",
-      lineHeight: "1.6",
+      lineHeight: "1.7",
       marginBottom: "16px",
       color: colors.ash,
     },
@@ -220,17 +273,17 @@ function App() {
       paddingLeft: "8px",
       marginBottom: "16px",
       fontSize: "1rem",
-      lineHeight: "1.6",
+      lineHeight: "1.7",
       color: colors.ash,
     },
     listItem: { marginBottom: "8px" },
-    strong: { fontWeight: "600" },
+    strong: { fontWeight: "600", color: colors.slate },
     heading3: {
       fontSize: "1.1rem",
       fontWeight: "600",
       color: colors.slate,
-      marginTop: "20px",
-      marginBottom: "8px",
+      marginTop: "24px",
+      marginBottom: "12px",
     },
     tableContainer: { overflowX: "auto", marginBottom: "24px" },
     table: { width: "100%", borderCollapse: "collapse", minWidth: "600px" },
@@ -268,10 +321,10 @@ function App() {
       marginTop: "2px",
       flexShrink: 0,
     },
-    alertText: { margin: 0 },
+    alertText: { margin: 0, lineHeight: "1.6" },
   };
 
-  // --- Animation Variants ---
+  // --- Animation Variants --- (Keep as before)
   const pageVariants = {
     initial: { opacity: 0, y: 10 },
     in: { opacity: 1, y: 0 },
@@ -282,7 +335,7 @@ function App() {
   // --- App Render ---
   return (
     <div style={styles.container}>
-      {/* Render Header - Pass relevant styles */}
+      {/* Header uses its specific styles */}
       <HeaderComponent
         headerStyle={styles.header}
         titleStyle={styles.headerTitle}
@@ -290,20 +343,21 @@ function App() {
         title="TalkTalk Resolve Training Portal"
         subtitle="WiFi Diagnostics & Support Solution"
       />
-
-      {/* Render Tabs - Pass tabs config and relevant styles */}
+      {/* Tabs now uses the new/updated styles */}
       <TabsComponent
-        tabs={tabsConfig}
+        tabs={tabsConfig} // Pass config with icons/flags
         containerStyle={styles.tabsContainer}
         linkStyle={styles.tabLink}
+        iconStyle={styles.tabIcon} // Pass icon style
         activeLinkStyle={styles.tabLinkActive}
+        importantInactiveStyle={styles.tabLinkImportantInactive} // Pass important style
       />
-
-      {/* Main content area with routing and animations */}
-      <main style={{ position: "relative", marginTop: "24px" }}>
+      {/* Main content section remains the same, passing down styles */}
+      <main style={{ position: "relative", marginTop: "32px" }}>
+        {" "}
+        {/* Increased marginTop */}
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
-            {/* Pass the 'styles' object down to content components */}
             <Route
               path="/"
               element={
@@ -384,7 +438,6 @@ function App() {
                 </motion.div>
               }
             />
-            {/* Optional 404 */}
             <Route
               path="*"
               element={

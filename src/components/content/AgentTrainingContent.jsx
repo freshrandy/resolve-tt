@@ -4,6 +4,7 @@ import { FaChevronDown } from "react-icons/fa";
 
 // Receive styles object as props
 const AgentTrainingContent = ({ styles }) => {
+  // Core features data remains the same
   const coreFeatures = [
     {
       title: "1. Network Scan",
@@ -36,6 +37,7 @@ const AgentTrainingContent = ({ styles }) => {
       details: ["Make config changes", "Works across TalkTalk portfolio"],
     },
   ];
+  // Derive button/panel styles from main styles object for consistency
   const disclosureButtonStyle = {
     display: "flex",
     justifyContent: "space-between",
@@ -61,8 +63,6 @@ const AgentTrainingContent = ({ styles }) => {
 
   return (
     <div>
-      {" "}
-      {/* Removed space-y-6 */}
       <div style={styles.card}>
         <h2 style={styles.cardTitle}>Getting Started</h2>
         <p style={styles.paragraph}>
@@ -76,6 +76,7 @@ const AgentTrainingContent = ({ styles }) => {
         <p style={styles.paragraph}>
           The solution consists of two main components:
         </p>
+        {/* Ensure last list uses styles.list but removes margin */}
         <ul style={{ ...styles.list, marginBottom: 0 }}>
           <li style={styles.listItem}>
             <strong style={styles.strong}>Agent Dashboard</strong>...
@@ -87,6 +88,7 @@ const AgentTrainingContent = ({ styles }) => {
       </div>
       <div style={styles.card}>
         <h2 style={styles.cardTitle}>System Requirements</h2>
+        {/* Ensure last list uses styles.list but removes margin */}
         <ul style={{ ...styles.list, marginBottom: 0 }}>
           <li style={styles.listItem}>
             <strong style={styles.strong}>Browser:</strong> Microsoft Edge...
@@ -95,7 +97,21 @@ const AgentTrainingContent = ({ styles }) => {
             <strong style={styles.strong}>Extensions:</strong> RouteThis Proxy
             Enhancer
           </li>
-          {/* ... other requirements */}
+          <li style={styles.listItem}>
+            <strong style={styles.strong}>VPN:</strong> Ivanti Secure Access...
+          </li>
+          <li style={styles.listItem}>
+            <strong style={styles.strong}>Internet Connection:</strong> Minimum
+            15-20 Mbps...
+          </li>
+          <li style={styles.listItem}>
+            <strong style={styles.strong}>Systems Access:</strong> MyDesk CRM,
+            Pathfinder, Trio
+          </li>
+          <li style={styles.listItem}>
+            <strong style={styles.strong}>Mobile Device:</strong> For testing
+            purposes
+          </li>
         </ul>
       </div>
       <div style={styles.card}>
@@ -113,6 +129,7 @@ const AgentTrainingContent = ({ styles }) => {
               {({ open }) => (
                 <>
                   <Disclosure.Button style={disclosureButtonStyle}>
+                    {/* Ensure italic text has regular weight */}
                     <span>
                       {feature.title} -{" "}
                       <i style={{ fontWeight: "400" }}>{feature.description}</i>
@@ -135,6 +152,7 @@ const AgentTrainingContent = ({ styles }) => {
                     leaveTo="transform scale-95 opacity-0"
                   >
                     <Disclosure.Panel style={disclosurePanelStyle}>
+                      {/* Use styles.list/listItem for nested list */}
                       <ul
                         style={{
                           ...styles.list,

@@ -1,15 +1,13 @@
 import React from "react";
-// Removed Recharts imports
 
-// Receive styles object as props
 const TrialResourcesContent = ({ styles }) => {
   return (
     <div>
-      {" "}
-      {/* Removed space-y-6 */}
       <div style={styles.card}>
         <h2 style={styles.cardTitle}>TalkTalk Router Portfolio</h2>
+        {/* Use styles.tableContainer */}
         <div style={styles.tableContainer}>
+          {/* Use styles.table, styles.th, styles.td */}
           <table style={styles.table}>
             <thead>
               <tr>
@@ -20,18 +18,18 @@ const TrialResourcesContent = ({ styles }) => {
               </tr>
             </thead>
             <tbody>
-              {/* Table rows */}
               <tr>
                 <td style={styles.td}>Sagemcom</td>
                 <td style={styles.td}>FAST5364</td>
-                {/* ... */}
+                <td style={styles.td}>Wi-Fi Hub (WFH)</td>
+                <td style={styles.td}>Wi-Fi 5</td>
               </tr>
               <tr>
                 <td style={styles.td}>Huawei</td>
                 <td style={styles.td}>DG8041W</td>
-                {/* ... */}
+                <td style={styles.td}>Wi-Fi Hub Black (WFHB)</td>
+                <td style={styles.td}>Wi-Fi 5</td>
               </tr>
-              {/* ... other router rows */}
               <tr>
                 <td style={styles.td}>Sagemcom</td>
                 <td style={styles.td}>FAST5464</td>
@@ -62,24 +60,40 @@ const TrialResourcesContent = ({ styles }) => {
       </div>
       <div style={styles.card}>
         <h2 style={styles.cardTitle}>Phase 1: SMC Testing</h2>
+        {/* Use styles.list/listItem, remove margin on last list */}
         <ul style={{ ...styles.list, marginBottom: 0 }}>
           <li style={styles.listItem}>10 Second Level Support agents...</li>
-          {/* ... */}
+          <li style={styles.listItem}>1-2 week timeframe...</li>
+          <li style={styles.listItem}>Target of 150 uses...</li>
+          <li style={styles.listItem}>Feedback form completion mandatory...</li>
+          <li style={styles.listItem}>30-minute interview with RouteThis...</li>
         </ul>
       </div>
       <div style={styles.card}>
         <h2 style={styles.cardTitle}>Phase 2: Call Center Testing</h2>
+        {/* Use styles.list/listItem, remove margin on last list */}
         <ul style={{ ...styles.list, marginBottom: 0 }}>
-          <li style={styles.listItem}>15-20 Call Center agents...</li>
-          {/* ... */}
+          <li style={styles.listItem}>
+            15-20 Call Center agents in South Africa...
+          </li>
+          <li style={styles.listItem}>30-day timeframe...</li>
+          <li style={styles.listItem}>
+            Integration into call center workflow...
+          </li>
+          <li style={styles.listItem}>
+            Focus on quantitative success metrics...
+          </li>
+          <li style={styles.listItem}>Weekly metrics reporting...</li>
         </ul>
       </div>
       <div style={styles.card}>
-        {/* Renamed from Overview to just Success Metrics List */}
         <h2 style={styles.cardTitle}>Success Metrics</h2>
-        {/* Removed the grid and the chart div */}
         <div>
+          {" "}
+          {/* Simple div wrapper now */}
+          {/* Use styles.heading3 */}
           <h3 style={styles.heading3}>Key Metrics Tracked</h3>
+          {/* Use styles.list/listItem/strong, remove margin on last list */}
           <ul style={{ ...styles.list, marginBottom: 0 }}>
             <li style={styles.listItem}>
               <strong style={styles.strong}>Repeat Call In Rate:</strong> ...
