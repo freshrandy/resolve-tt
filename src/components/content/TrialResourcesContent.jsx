@@ -4,18 +4,26 @@ import {
   FaChevronDown,
   FaChevronRight,
   FaRoute, // Router Portfolio
-  FaInfoCircle, // Deployment Scenarios Info
+  FaInfoCircle, // Deployment Scenarios Info, Notes
   FaDatabase, // Data Requirements
   FaTicketAlt, // Ticket ID
   FaFileExport, // Daily Export
   FaLink, // Data Matching
   FaChartLine, // Weekly Reporting
-} from "react-icons/fa"; // Added necessary icons
+  FaLaptopHouse, // VDI Compatibility title
+  FaVideo, // Video quality/functionality
+  FaNetworkWired, // Connection speed, VPN
+  FaCheckCircle, // Testing results success
+  FaEdge, // Edge Browser (might need Brand icon pack if using official)
+  FaShieldAlt, // VPN Alt
+  FaPlug, // Extension required
+} from "react-icons/fa"; // Added VDI related icons
 
 const TrialResourcesContent = ({ styles }) => {
-  // State for expanded sections
+  // State for expanded sections - Added vdiCompatibility
   const [expandedSections, setExpandedSections] = useState({
     routerPortfolio: true,
+    vdiCompatibility: true, // Added new section state
     dataRequirements: true,
   });
 
@@ -101,8 +109,13 @@ const TrialResourcesContent = ({ styles }) => {
     },
   ];
 
-  // Helper for list item styling
-  const renderListItem = (icon, text, isStrong = false) => (
+  // Helper for general list item styling
+  const renderListItem = (text) => (
+    <li style={{ ...styles.listItem, marginBottom: "6px" }}>{text}</li>
+  );
+
+  // Helper for icon list item styling
+  const renderIconListItem = (icon, text, isStrong = false) => (
     <li
       style={{
         ...styles.listItem,
@@ -140,7 +153,6 @@ const TrialResourcesContent = ({ styles }) => {
         variants={cardVariants}
         style={styles.card}
       >
-        {/* Collapsible Header */}
         <div
           style={{
             display: "flex",
@@ -162,17 +174,15 @@ const TrialResourcesContent = ({ styles }) => {
             <FaChevronRight />
           )}
         </div>
-        {/* Collapsible Content */}
         {expandedSections.routerPortfolio && (
           <div style={{ animation: "fadeIn 0.3s ease-in", paddingTop: "16px" }}>
+            {/* Content remains the same */}
             <p style={styles.paragraph}>
               Understanding TalkTalk's current router portfolio is essential for
               effective troubleshooting using Resolve:
             </p>
-            {/* Router Table */}
             <div style={{ ...styles.tableContainer, marginBottom: "24px" }}>
               {" "}
-              {/* Added margin bottom */}
               <table style={styles.table}>
                 <thead>
                   <tr>
@@ -196,7 +206,6 @@ const TrialResourcesContent = ({ styles }) => {
                 </tbody>
               </table>
             </div>
-            {/* Deployment Scenarios */}
             <h3
               style={{
                 ...styles.heading3,
@@ -219,6 +228,11 @@ const TrialResourcesContent = ({ styles }) => {
                 can help identify this.
               </li>
               <li style={styles.listItem}>
+                <strong style={styles.strong}>Shell Energy Acquired:</strong> A
+                significant number (~500k+) use unsupported devices, increasing
+                troubleshooting complexity.
+              </li>
+              <li style={styles.listItem}>
                 <strong style={styles.strong}>BYOD/Mesh:</strong> Resolve's
                 network scan helps identify non-TalkTalk routers or mesh systems
                 in use.
@@ -228,13 +242,7 @@ const TrialResourcesContent = ({ styles }) => {
         )}
       </motion.div>
 
-      {/* REMOVED Phase 1 Card */}
-
-      {/* REMOVED Phase 2 Card */}
-
-      {/* REMOVED Success Metrics Card */}
-
-      {/* Data Requirements Card */}
+      {/* NEW VDI Compatibility Card */}
       <motion.div
         custom={1}
         initial="hidden"
@@ -243,6 +251,133 @@ const TrialResourcesContent = ({ styles }) => {
         style={styles.card}
       >
         {/* Collapsible Header */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            cursor: "pointer",
+          }}
+          onClick={() => toggleSection("vdiCompatibility")}
+        >
+          <h2 style={styles.cardTitle}>
+            <FaLaptopHouse
+              style={{ marginRight: "8px", color: styles.colors?.primary }}
+            />
+            VDI Compatibility Information
+          </h2>
+          {expandedSections.vdiCompatibility ? (
+            <FaChevronDown />
+          ) : (
+            <FaChevronRight />
+          )}
+        </div>
+        {/* Collapsible Content */}
+        {expandedSections.vdiCompatibility && (
+          <div style={{ animation: "fadeIn 0.3s ease-in", paddingTop: "16px" }}>
+            <p style={styles.paragraph}>
+              Testing has confirmed that the Resolve video feature works
+              reliably through TalkTalk's VDI environment when the{" "}
+              <strong style={styles.strong}>
+                RouteThis Proxy Enhancer extension is installed
+              </strong>
+              .
+            </p>
+            <h3
+              style={{
+                ...styles.heading3,
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                marginTop: "20px",
+              }}
+            >
+              <FaInfoCircle style={{ color: styles.colors?.electricBlue }} />{" "}
+              Key Considerations:
+            </h3>
+            <ul style={{ ...styles.list, marginBottom: "24px" }}>
+              {renderListItem(
+                "Video quality may be slightly pixelated but functional for troubleshooting."
+              )}
+              {renderListItem(
+                "Initial connection may have slightly longer round trip time but should stabilize."
+              )}
+              {renderListItem(
+                "Video restarts may trigger temporary 'poor connection' warnings."
+              )}
+              {renderListItem(
+                "Works reliably on both home and office VPN connections."
+              )}
+              {renderListItem(
+                "Minimum recommended agent internet speed: 15-20 Mbps."
+              )}
+            </ul>
+
+            {/* VDI Testing Results Sub-section */}
+            <div
+              style={{
+                padding: "16px",
+                backgroundColor: `${styles.colors?.cloudGrey}40`,
+                borderRadius: "8px",
+                borderLeft: `3px solid ${
+                  styles.colors?.electricBlue || "#4338CA"
+                }`,
+              }}
+            >
+              <h3
+                style={{
+                  ...styles.heading3,
+                  marginTop: 0,
+                  marginBottom: "12px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <FaCheckCircle
+                  style={{ color: styles.colors?.success || "#10B981" }}
+                />{" "}
+                VDI Testing Results Summary
+              </h3>
+              <ul
+                style={{
+                  ...styles.list,
+                  listStyle: "none",
+                  paddingLeft: 0,
+                  marginBottom: 0,
+                }}
+              >
+                {/* Using renderIconListItem for structured results */}
+                {renderIconListItem(
+                  <FaEdge />,
+                  `Edge browser version tested: 135.0.3179.73 (or newer recommended)`
+                )}
+                {renderIconListItem(
+                  <FaShieldAlt />,
+                  `VPN Tested: Ivanti Secure Access (compatible with new TalkTalk VPN)`
+                )}
+                {renderIconListItem(
+                  <FaVideo />,
+                  `Video Functionality: Tested successfully in home & office environments`
+                )}
+                {renderIconListItem(
+                  <FaPlug />,
+                  `Extension Requirement: RouteThis Proxy Enhancer is mandatory for optimal video performance.`
+                )}
+              </ul>
+            </div>
+          </div>
+        )}
+      </motion.div>
+
+      {/* Data Requirements Card */}
+      <motion.div
+        custom={2}
+        initial="hidden"
+        animate="visible"
+        variants={cardVariants}
+        style={styles.card}
+      >
         <div
           style={{
             display: "flex",
@@ -264,9 +399,9 @@ const TrialResourcesContent = ({ styles }) => {
             <FaChevronRight />
           )}
         </div>
-        {/* Collapsible Content */}
         {expandedSections.dataRequirements && (
           <div style={{ animation: "fadeIn 0.3s ease-in", paddingTop: "16px" }}>
+            {/* Content remains the same */}
             <p style={styles.paragraph}>
               Accurate data capture is vital for measuring the trial's impact.
               Please ensure the following:
@@ -279,22 +414,22 @@ const TrialResourcesContent = ({ styles }) => {
                 marginBottom: 0,
               }}
             >
-              {renderListItem(
+              {renderIconListItem(
                 <FaTicketAlt />,
                 "Ticket ID Field: Must be populated in the Resolve dashboard session notes for every Phase 2 interaction. This is crucial for matching usage data to KPIs.",
-                true // Make label strong
+                true
               )}
-              {renderListItem(
+              {renderIconListItem(
                 <FaFileExport />,
                 "Daily Export: RouteThis will provide TalkTalk with a daily export of agent activity including populated Ticket IDs.",
                 true
               )}
-              {renderListItem(
+              {renderIconListItem(
                 <FaLink />,
                 "Data Matching: TalkTalk will use the exported Ticket IDs to correlate Resolve usage with internal metrics (Repeat Calls, Truck Rolls, CPE, NPS, AHT).",
                 true
               )}
-              {renderListItem(
+              {renderIconListItem(
                 <FaChartLine />,
                 "Weekly Reporting: TalkTalk project team will provide weekly summaries comparing metrics for Resolve sessions against baseline data.",
                 true
@@ -339,11 +474,11 @@ const TrialResourcesContent = ({ styles }) => {
       {/* Custom CSS for animations */}
       <style>
         {`
-          @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-          }
-        `}
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+      `}
       </style>
     </div>
   );
