@@ -340,8 +340,8 @@ function App() {
         headerStyle={styles.header}
         titleStyle={styles.headerTitle}
         subtitleStyle={styles.headerSubtitle}
-        title="TalkTalk Resolve Training Portal"
-        subtitle="WiFi Diagnostics & Support Solution"
+        title="RouteThis Resolve Trial Portal"
+        subtitle="TalkTalk - WiFi Diagnostics & Support Solution"
       />
       {/* Tabs now uses the new/updated styles */}
       <TabsComponent
