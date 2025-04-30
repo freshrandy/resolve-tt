@@ -354,7 +354,7 @@ function App() {
         headerStyle={styles.header}
         titleStyle={styles.headerTitle}
         subtitleStyle={styles.headerSubtitle}
-        title="TalkTalk Resolve Trial Portal"
+        title="TalkTalk Trial - Info Portal"
         subtitle="INTERNAL USE ONLY | RouteThis Professional Services Team"
       />
       {/* Tabs now uses the new/updated styles */}

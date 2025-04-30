@@ -4,20 +4,17 @@ import {
   FaInfoCircle,
   FaCalendarAlt,
   FaNetworkWired,
-  // FaUsersCog, // Removed unless needed elsewhere
   FaChartLine,
   FaLaptopHouse,
-  // FaCheckCircle, // Removed
   FaChevronDown,
   FaChevronRight,
-  // FaChalkboardTeacher, // Removed
-  FaBullseye, // Objectives
-  FaSyncAlt, // Repeat Call Rate
-  FaTruck, // Truck Roll
-  FaExchangeAlt, // CPE Replacement
-  FaThumbsUp, // NPS
-  FaClock, // AHT
-  FaComments, // Agent Feedback
+  // FaBullseye, // Removed
+  // FaSyncAlt, // Removed
+  // FaTruck, // Removed
+  // FaExchangeAlt, // Removed
+  // FaThumbsUp, // Removed
+  // FaClock, // Removed
+  // FaComments, // Removed
   FaUsers, // Subscriber base
   FaEyeSlash, // Visibility issue
   FaRoute, // Legacy routers
@@ -25,17 +22,20 @@ import {
   FaExclamationTriangle, // Challenges
   FaBroadcastTower, // Shell Acquisition
   FaWrench, // Truck roll cost
-} from "react-icons/fa";
+  FaListAlt, // Trial Parameters / Key Activities / Success Metrics
+  FaClipboardList, // Feedback Form
+  FaUserTie, // Interviews
+} from "react-icons/fa"; // Removed unused icons
 
 // Receive styles object as props
 const HomeContent = ({ styles }) => {
-  // State to track expanded sections
+  // State to track expanded sections - objectives removed
   const [expandedSections, setExpandedSections] = useState({
-    objectives: true,
+    // objectives: true, // Removed
     context: true,
   });
 
-  // Helper for section toggling
+  // Toggle helper
   const toggleSection = (section) => {
     setExpandedSections((prev) => ({
       ...prev,
@@ -50,42 +50,133 @@ const HomeContent = ({ styles }) => {
       opacity: 1,
       y: 0,
       transition: {
-        delay: i * 0.1,
+        delay: i * 0.08, // Adjusted delay slightly
         duration: 0.5,
         ease: "easeOut",
       },
     }),
   };
 
-  // Phases data for timeline
+  // Updated Phases data for timeline with new Phase 1 content
   const phases = [
     {
       id: "phase1",
-      title: "Phase 1: SMC Testing",
+      title: "Phase 1: SMC Trial Overview", // Updated Title
       dates: "May 2025 (1-2 weeks)",
       content: (
         <>
-          <p style={styles.paragraph}>
-            10 UK-based Second Line Support (2LS) agents within the Service
-            Management Center (SMC) will use Resolve for 1-2 weeks, targeting
-            150 uses. Focus: technical validation and usability.
-          </p>
-          <p style={styles.paragraph}>
-            <strong style={styles.strong}>Key Activities:</strong>
-          </p>
-          <ul
-            style={{
-              ...styles.list,
-              marginTop: "8px",
-              paddingLeft: "16px",
-              marginBottom: 0,
-            }}
-          >
-            <li style={styles.listItem}>Feedback form completion</li>
-            <li style={styles.listItem}>Targeted agent interviews</li>
-            <li style={styles.listItem}>VDI performance validation</li>
-            <li style={styles.listItem}>Workflow integration assessment</li>
-          </ul>
+          {/* Using subsections for clarity */}
+          <div>
+            <h4
+              style={{
+                ...styles.heading3,
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                marginTop: 0,
+                marginBottom: "8px",
+              }}
+            >
+              <FaListAlt style={{ color: styles.colors?.electricBlue }} /> Trial
+              Parameters
+            </h4>
+            <ul
+              style={{
+                ...styles.list,
+                paddingLeft: "20px",
+                marginBottom: "16px",
+              }}
+            >
+              <li style={styles.listItem}>
+                Participants: 10 UK-based Second Line Support (SMC) agents
+              </li>
+              <li style={styles.listItem}>Duration: 1-2 week timeframe</li>
+              <li style={styles.listItem}>
+                Target Usage: 150 uses across all tools (collective)
+              </li>
+              <li style={styles.listItem}>
+                Focus: Quality of testing and feedback, thorough exploration
+                required.
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              style={{
+                ...styles.heading3,
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                marginTop: 0,
+                marginBottom: "8px",
+              }}
+            >
+              <FaClipboardList style={{ color: styles.colors?.electricBlue }} />{" "}
+              Agent Key Activities
+            </h4>
+            <ul
+              style={{
+                ...styles.list,
+                paddingLeft: "20px",
+                marginBottom: "16px",
+              }}
+            >
+              <li style={{ ...styles.listItem, marginBottom: "8px" }}>
+                <strong style={styles.strong}>Mandatory Feedback:</strong>{" "}
+                Agents will need to complete the "RouteThis Resolve Usage
+                Survey" form after <strong style={styles.strong}>EACH</strong>{" "}
+                use:
+                <ul
+                  style={{
+                    ...styles.list,
+                    paddingLeft: "20px",
+                    marginTop: "6px",
+                  }}
+                >
+                  <li style={styles.listItem}>
+                    Select tools used (Scan, Speedtest, Photo, Video, Deadspots,
+                    Router Login).
+                  </li>
+                  <li style={styles.listItem}>Rate ease of use (1-5 stars).</li>
+                  <li style={styles.listItem}>
+                    Indicate if Resolve helped resolution.
+                  </li>
+                  <li style={styles.listItem}>Provide additional comments.</li>
+                </ul>
+              </li>
+              <li style={styles.listItem}>
+                <strong style={styles.strong}>Interviews:</strong> Participate
+                in a 30-minute interview with RouteThis team (if selected).
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              style={{
+                ...styles.heading3,
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                marginTop: 0,
+                marginBottom: "8px",
+              }}
+            >
+              <FaUserTie style={{ color: styles.colors?.electricBlue }} />{" "}
+              Success Measurement
+            </h4>
+            <p style={styles.paragraph}>
+              Success for this technical validation phase is measured{" "}
+              <strong style={styles.strong}>qualitatively</strong> via:
+            </p>
+            <ul
+              style={{ ...styles.list, paddingLeft: "20px", marginBottom: 0 }}
+            >
+              <li style={styles.listItem}>Feedback forms submitted</li>
+              <li style={styles.listItem}>Direct agent interviews</li>
+              <li style={styles.listItem}>Manager observations & feedback</li>
+              <li style={styles.listItem}>Trial team weekly check-ins</li>
+            </ul>
+          </div>
         </>
       ),
       icon: <FaLaptopHouse />,
@@ -100,7 +191,8 @@ const HomeContent = ({ styles }) => {
         <>
           <p style={styles.paragraph}>
             15-20 South Africa-based Call Center agents will integrate Resolve
-            into daily workflows for 30 days. Focus: operational impact and ROI.
+            into daily workflows for 30 days. Focus: operational impact and ROI
+            based on key metrics.
           </p>
           <p style={styles.paragraph}>
             <strong style={styles.strong}>Integration Points:</strong>
@@ -109,7 +201,9 @@ const HomeContent = ({ styles }) => {
             <li style={styles.listItem}>
               Use for suspected in-home WiFi issues
             </li>
-            <li style={styles.listItem}>Leverage tools (Scan, Video, etc.)</li>
+            <li style={styles.listItem}>
+              Leverage tools (Scan, Video, etc.) for diagnosis
+            </li>
             <li style={styles.listItem}>
               Apply before escalating WiFi tickets
             </li>
@@ -138,308 +232,15 @@ const HomeContent = ({ styles }) => {
     },
   ];
 
-  // Content for the Business Objectives
-  const businessObjectivesContent = (
-    <div
-      style={{
-        animation: "fadeIn 0.3s ease-in",
-        paddingTop: "16px" /* Add padding top to separate from title */,
-      }}
-    >
-      <p style={styles.paragraph}>
-        The implementation of RouteThis Resolve aims to achieve several key
-        business objectives by improving diagnostic accuracy, resolution
-        efficiency, and customer experience for WiFi-related issues.
-      </p>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
-          gap: "16px",
-          marginBottom: "24px",
-        }}
-      >
-        {/* Metric Cards */}
-        <div
-          style={{
-            backgroundColor: `${styles.colors?.cloudGrey}30`,
-            padding: "16px",
-            borderRadius: "8px",
-            borderTop: `3px solid ${styles.colors?.electricBlue}`,
-          }}
-        >
-          <h3
-            style={{
-              ...styles.heading3,
-              marginTop: 0,
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
-          >
-            <FaSyncAlt style={{ color: styles.colors?.electricBlue }} /> Repeat
-            Call Rate
-          </h3>
-          <p style={{ ...styles.paragraph, fontSize: "0.9rem" }}>
-            Reduce repeat contacts for the same issue within a set timeframe
-            (e.g., 7 days).
-          </p>
-          <p
-            style={{ ...styles.paragraph, marginBottom: 0, fontWeight: "500" }}
-          >
-            <span
-              style={{
-                display: "inline-block",
-                width: "10px",
-                height: "10px",
-                backgroundColor: styles.colors?.success,
-                borderRadius: "50%",
-                marginRight: "6px",
-              }}
-            ></span>
-            Goal: Lower rate vs. baseline
-          </p>
-        </div>
-        <div
-          style={{
-            backgroundColor: `${styles.colors?.cloudGrey}30`,
-            padding: "16px",
-            borderRadius: "8px",
-            borderTop: `3px solid ${styles.colors?.electricBlue}`,
-          }}
-        >
-          <h3
-            style={{
-              ...styles.heading3,
-              marginTop: 0,
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
-          >
-            <FaTruck style={{ color: styles.colors?.electricBlue }} /> Truck
-            Roll Rate
-          </h3>
-          <p style={{ ...styles.paragraph, fontSize: "0.9rem" }}>
-            Decrease unnecessary technician dispatches for WiFi problems
-            solvable remotely.
-          </p>
-          <p
-            style={{ ...styles.paragraph, marginBottom: 0, fontWeight: "500" }}
-          >
-            <span
-              style={{
-                display: "inline-block",
-                width: "10px",
-                height: "10px",
-                backgroundColor: styles.colors?.success,
-                borderRadius: "50%",
-                marginRight: "6px",
-              }}
-            ></span>
-            Goal: Lower rate vs. baseline
-          </p>
-        </div>
-        <div
-          style={{
-            backgroundColor: `${styles.colors?.cloudGrey}30`,
-            padding: "16px",
-            borderRadius: "8px",
-            borderTop: `3px solid ${styles.colors?.electricBlue}`,
-          }}
-        >
-          <h3
-            style={{
-              ...styles.heading3,
-              marginTop: 0,
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
-          >
-            <FaExchangeAlt style={{ color: styles.colors?.electricBlue }} /> CPE
-            Replacement
-          </h3>
-          <p style={{ ...styles.paragraph, fontSize: "0.9rem" }}>
-            Minimize unnecessary router/equipment replacements through better
-            diagnosis.
-          </p>
-          <p
-            style={{ ...styles.paragraph, marginBottom: 0, fontWeight: "500" }}
-          >
-            <span
-              style={{
-                display: "inline-block",
-                width: "10px",
-                height: "10px",
-                backgroundColor: styles.colors?.success,
-                borderRadius: "50%",
-                marginRight: "6px",
-              }}
-            ></span>
-            Goal: Lower rate vs. baseline
-          </p>
-        </div>
-        <div
-          style={{
-            backgroundColor: `${styles.colors?.cloudGrey}30`,
-            padding: "16px",
-            borderRadius: "8px",
-            borderTop: `3px solid ${styles.colors?.electricBlue}`,
-          }}
-        >
-          <h3
-            style={{
-              ...styles.heading3,
-              marginTop: 0,
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
-          >
-            <FaThumbsUp style={{ color: styles.colors?.electricBlue }} /> NPS
-          </h3>
-          <p style={{ ...styles.paragraph, fontSize: "0.9rem" }}>
-            Improve customer satisfaction scores derived from post-interaction
-            surveys.
-          </p>
-          <p
-            style={{ ...styles.paragraph, marginBottom: 0, fontWeight: "500" }}
-          >
-            <span
-              style={{
-                display: "inline-block",
-                width: "10px",
-                height: "10px",
-                backgroundColor: styles.colors?.success,
-                borderRadius: "50%",
-                marginRight: "6px",
-              }}
-            ></span>
-            Goal: Higher score vs. baseline
-          </p>
-        </div>
-        <div
-          style={{
-            backgroundColor: `${styles.colors?.cloudGrey}30`,
-            padding: "16px",
-            borderRadius: "8px",
-            borderTop: `3px solid ${styles.colors?.electricBlue}`,
-          }}
-        >
-          <h3
-            style={{
-              ...styles.heading3,
-              marginTop: 0,
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
-          >
-            <FaClock style={{ color: styles.colors?.electricBlue }} /> AHT
-          </h3>
-          <p style={{ ...styles.paragraph, fontSize: "0.9rem" }}>
-            Optimize Average Handle Time for WiFi issues (may rise during agent
-            learning phase).
-          </p>
-          <p
-            style={{ ...styles.paragraph, marginBottom: 0, fontWeight: "500" }}
-          >
-            <span
-              style={{
-                display: "inline-block",
-                width: "10px",
-                height: "10px",
-                backgroundColor: styles.colors?.warning,
-                borderRadius: "50%",
-                marginRight: "6px",
-              }}
-            ></span>
-            Goal: Stabilize/Improve post-trial
-          </p>
-        </div>
-        <div
-          style={{
-            backgroundColor: `${styles.colors?.cloudGrey}30`,
-            padding: "16px",
-            borderRadius: "8px",
-            borderTop: `3px solid ${styles.colors?.electricBlue}`,
-          }}
-        >
-          <h3
-            style={{
-              ...styles.heading3,
-              marginTop: 0,
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
-          >
-            <FaComments style={{ color: styles.colors?.electricBlue }} /> Agent
-            Feedback
-          </h3>
-          <p style={{ ...styles.paragraph, fontSize: "0.9rem" }}>
-            Gather positive qualitative feedback on platform usability and
-            effectiveness.
-          </p>
-          <p
-            style={{ ...styles.paragraph, marginBottom: 0, fontWeight: "500" }}
-          >
-            <span
-              style={{
-                display: "inline-block",
-                width: "10px",
-                height: "10px",
-                backgroundColor: styles.colors?.info,
-                borderRadius: "50%",
-                marginRight: "6px",
-              }}
-            ></span>
-            Goal: Positive sentiment reports
-          </p>
-        </div>
-      </div>
-
-      <div
-        style={{
-          backgroundColor: `${styles.colors?.primary}10`,
-          padding: "16px",
-          borderRadius: "8px",
-          display: "flex",
-          alignItems: "flex-start",
-          gap: "12px",
-        }}
-      >
-        <div
-          style={{
-            color: styles.colors?.info,
-            fontSize: "1.5rem",
-            marginTop: "2px",
-            flexShrink: 0,
-          }}
-        >
-          <FaInfoCircle />
-        </div>
-        <p style={{ ...styles.paragraph, marginBottom: 0 }}>
-          <strong style={styles.strong}>Success Tracking:</strong> Metrics will
-          be compared pre- and post-Resolve for WiFi-related issues, using
-          Ticket IDs provided during the trial for accurate data matching and
-          analysis.
-        </p>
-      </div>
-    </div>
-  );
-
-  // Content for the TalkTalk Context section
+  // Content for the TalkTalk Context section (Enhanced for full width)
   const talkTalkContextContent = (
     <div
       style={{
         animation: "fadeIn 0.3s ease-in",
-        paddingTop: "16px" /* Add padding top to separate from title */,
+        paddingTop: "16px",
       }}
     >
-      {/* Subscriber Info */}
+      {/* Subscriber Info (Still side-by-side) */}
       <div
         style={{
           display: "flex",
@@ -450,8 +251,7 @@ const HomeContent = ({ styles }) => {
       >
         <div
           style={{
-            flex: 1,
-            minWidth: "180px",
+            flex: "1 1 200px", // Allow shrinking more
             backgroundColor: `${styles.colors?.electricBlue}10`,
             padding: "16px",
             borderRadius: "8px",
@@ -481,8 +281,7 @@ const HomeContent = ({ styles }) => {
         </div>
         <div
           style={{
-            flex: 1,
-            minWidth: "180px",
+            flex: "1 1 200px", // Allow shrinking more
             backgroundColor: `${styles.colors?.warning}10`,
             padding: "16px",
             borderRadius: "8px",
@@ -527,234 +326,200 @@ const HomeContent = ({ styles }) => {
         <FaExclamationTriangle style={{ color: styles.colors?.warning }} /> Key
         Challenges & Trial Motivation
       </h3>
-      <ul
+      {/* Using Grid for challenges */}
+      <div
         style={{
-          ...styles.list,
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", // Responsive columns
+          gap: "16px 24px", // Row and Column gap
           listStyle: "none",
           paddingLeft: 0,
           marginBottom: 0,
         }}
       >
-        <li
-          style={{
-            ...styles.listItem,
-            display: "flex",
-            alignItems: "center",
-            gap: "12px",
-            marginBottom: "12px",
-            borderBottom: `1px dashed ${styles.colors?.cloudGrey || "#e5e7eb"}`,
-            paddingBottom: "12px",
-          }}
-        >
+        <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
           <FaEyeSlash
             style={{
-              fontSize: "1.2rem",
+              fontSize: "1.5rem",
               color: styles.colors?.electricBlue,
               flexShrink: 0,
+              marginTop: "4px",
             }}
           />
           <div>
-            <strong style={styles.strong}>~60% Lack Visibility:</strong> No
-            insight into the majority of home WiFi environments.
+            <strong
+              style={{
+                ...styles.strong,
+                display: "block",
+                marginBottom: "4px",
+              }}
+            >
+              Lack of Network Visibility
+            </strong>
+            <span style={{ fontSize: "0.9rem", color: styles.colors?.ash }}>
+              No diagnostic insight into ~60% of customer home WiFi
+              environments.
+            </span>
           </div>
-        </li>
-        <li
-          style={{
-            ...styles.listItem,
-            display: "flex",
-            alignItems: "center",
-            gap: "12px",
-            marginBottom: "12px",
-            borderBottom: `1px dashed ${styles.colors?.cloudGrey || "#e5e7eb"}`,
-            paddingBottom: "12px",
-          }}
-        >
+        </div>
+        <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
           <FaRoute
             style={{
-              fontSize: "1.2rem",
+              fontSize: "1.5rem",
               color: styles.colors?.electricBlue,
               flexShrink: 0,
+              marginTop: "4px",
             }}
           />
           <div>
-            <strong style={styles.strong}>~33% Legacy/BYOD:</strong> Significant
-            portion using older or unsupported routers.
+            <strong
+              style={{
+                ...styles.strong,
+                display: "block",
+                marginBottom: "4px",
+              }}
+            >
+              Legacy & BYOD Routers
+            </strong>
+            <span style={{ fontSize: "0.9rem", color: styles.colors?.ash }}>
+              ~33% of customers use older or third-party equipment, complicating
+              support.
+            </span>
           </div>
-        </li>
-        <li
-          style={{
-            ...styles.listItem,
-            display: "flex",
-            alignItems: "center",
-            gap: "12px",
-            marginBottom: "12px",
-            borderBottom: `1px dashed ${styles.colors?.cloudGrey || "#e5e7eb"}`,
-            paddingBottom: "12px",
-          }}
-        >
+        </div>
+        <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
           <FaBroadcastTower
             style={{
-              fontSize: "1.2rem",
+              fontSize: "1.5rem",
               color: styles.colors?.warning,
               flexShrink: 0,
+              marginTop: "4px",
             }}
           />
           <div>
-            <strong style={styles.strong}>Acquisition Pressure:</strong>{" "}
-            Integrating Shell Energy customers increases the unsupported device
-            challenge.
+            <strong
+              style={{
+                ...styles.strong,
+                display: "block",
+                marginBottom: "4px",
+              }}
+            >
+              Acquisition Pressure
+            </strong>
+            <span style={{ fontSize: "0.9rem", color: styles.colors?.ash }}>
+              Integrating ~500k+ Shell Energy customers adds to the unsupported
+              device challenge.
+            </span>
           </div>
-        </li>
-        <li
-          style={{
-            ...styles.listItem,
-            display: "flex",
-            alignItems: "center",
-            gap: "12px",
-            marginBottom: "12px",
-            borderBottom: `1px dashed ${styles.colors?.cloudGrey || "#e5e7eb"}`,
-            paddingBottom: "12px",
-          }}
-        >
+        </div>
+        <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
           <FaSignOutAlt
             style={{
-              fontSize: "1.2rem",
+              fontSize: "1.5rem",
               color: styles.colors?.danger || "#EF4444",
               flexShrink: 0,
+              marginTop: "4px",
             }}
           />
           <div>
-            <strong style={styles.strong}>Significant Churn:</strong> 3% of all
-            churn linked to poor WiFi; 6% of WiFi contacts end in churn.
+            <strong
+              style={{
+                ...styles.strong,
+                display: "block",
+                marginBottom: "4px",
+              }}
+            >
+              Significant WiFi Churn
+            </strong>
+            <span style={{ fontSize: "0.9rem", color: styles.colors?.ash }}>
+              Poor WiFi experience contributes to 3% of *all* churn and 6% churn
+              after WiFi-related contacts.
+            </span>
           </div>
-        </li>
-        <li
-          style={{
-            ...styles.listItem,
-            display: "flex",
-            alignItems: "center",
-            gap: "12px",
-            marginBottom: 0,
-          }}
-        >
-          {" "}
-          {/* Removed bottom border/padding */}
+        </div>
+        <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
           <FaWrench
             style={{
-              fontSize: "1.2rem",
+              fontSize: "1.5rem",
               color: styles.colors?.danger || "#EF4444",
               flexShrink: 0,
+              marginTop: "4px",
             }}
           />
           <div>
-            <strong style={styles.strong}>High Truck Roll Costs:</strong> Each
-            unnecessary visit costs £52 - £151.54.
+            <strong
+              style={{
+                ...styles.strong,
+                display: "block",
+                marginBottom: "4px",
+              }}
+            >
+              High Truck Roll Costs
+            </strong>
+            <span style={{ fontSize: "0.9rem", color: styles.colors?.ash }}>
+              Each unnecessary technician visit costs £52 - £151.54, impacting
+              operational expenses.
+            </span>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   );
 
   return (
     <div>
-      {/* Two Column Layout */}
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "24px",
-          marginBottom: "24px",
-        }}
+      {/* MOVED TalkTalk Context Section to the top */}
+      <motion.div
+        custom={0} // First card
+        initial="hidden"
+        animate="visible"
+        variants={cardVariants}
+        style={{ ...styles.card }} // Full width
       >
-        {/* Business Objectives Section */}
-        <motion.div
-          custom={0}
-          initial="hidden"
-          animate="visible"
-          variants={cardVariants}
-          style={{ ...styles.card, flex: "1 1 60%", minWidth: "350px" }}
+        {/* Clickable Header DIV */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            cursor: "pointer",
+          }}
+          onClick={() => toggleSection("context")}
         >
-          {/* Clickable Header DIV - Styling REMOVED */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              cursor: "pointer",
-              // REMOVED borderBottom, paddingBottom, marginBottom
-            }}
-            onClick={() => toggleSection("objectives")}
-          >
-            {/* Title H2 - Use default styles.cardTitle */}
-            <h2 style={styles.cardTitle}>
-              <FaBullseye
-                style={{ marginRight: "8px", color: styles.colors?.primary }}
-              />
-              Business Objectives & Success Metrics
-            </h2>
-            {expandedSections.objectives ? (
-              <FaChevronDown />
-            ) : (
-              <FaChevronRight />
-            )}
-          </div>
-          {/* Conditional Content Rendering */}
-          {expandedSections.objectives && businessObjectivesContent}
-        </motion.div>
+          <h2 style={styles.cardTitle}>
+            <FaNetworkWired
+              style={{
+                marginRight: "8px",
+                color: styles.colors?.electricBlue,
+              }}
+            />
+            TalkTalk Context & Trial Motivation
+          </h2>
+          {expandedSections.context ? <FaChevronDown /> : <FaChevronRight />}
+        </div>
+        {/* Conditional Content Rendering */}
+        {expandedSections.context && talkTalkContextContent}
+      </motion.div>
 
-        {/* TalkTalk Context Section */}
-        <motion.div
-          custom={1}
-          initial="hidden"
-          animate="visible"
-          variants={cardVariants}
-          style={{ ...styles.card, flex: "1 1 30%", minWidth: "300px" }}
-        >
-          {/* Clickable Header DIV - Styling REMOVED */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              cursor: "pointer",
-              // REMOVED any extra styling here too for consistency
-            }}
-            onClick={() => toggleSection("context")}
-          >
-            {/* Title H2 - Use default styles.cardTitle */}
-            <h2 style={styles.cardTitle}>
-              <FaNetworkWired
-                style={{
-                  marginRight: "8px",
-                  color: styles.colors?.electricBlue,
-                }}
-              />
-              TalkTalk Context
-            </h2>
-            {expandedSections.context ? <FaChevronDown /> : <FaChevronRight />}
-          </div>
-          {/* Conditional Content Rendering */}
-          {expandedSections.context && talkTalkContextContent}
-        </motion.div>
-      </div>
+      {/* REMOVED Business Objectives Section */}
 
       {/* Implementation Timeline Section */}
       <motion.div
-        custom={2} // Adjusted index
+        custom={1} // Updated index
         initial="hidden"
         animate="visible"
         variants={cardVariants}
         style={styles.card}
       >
-        {/* Title H2 - Use default styles.cardTitle */}
+        {/* Title H2 */}
         <h2 style={styles.cardTitle}>
           <FaCalendarAlt
             style={{ marginRight: "8px", color: styles.colors?.primary }}
           />
-          Implementation Timeline
+          Implementation Timeline & Phase Details
         </h2>
 
-        {/* Phase Implementation Sentence - Added padding top to separate from title */}
+        {/* Phase Implementation Sentence */}
         <div
           style={{
             backgroundColor: `${styles.colors?.primary}10`,
@@ -764,19 +529,9 @@ const HomeContent = ({ styles }) => {
             alignItems: "flex-start",
             gap: "12px",
             marginBottom: "24px",
-            marginTop: "16px" /* Add margin top */,
+            marginTop: "16px",
           }}
         >
-          <div
-            style={{
-              color: styles.colors?.primary,
-              fontSize: "1.5rem",
-              marginTop: "2px",
-              flexShrink: 0,
-            }}
-          >
-            <FaInfoCircle />
-          </div>
           <p style={{ ...styles.paragraph, marginBottom: 0 }}>
             The trial consists of two key phases: a technical validation with
             SMC agents, followed by an operational trial with Call Center agents
@@ -865,14 +620,12 @@ const HomeContent = ({ styles }) => {
                   </span>
                 </div>
               </div>
+              {/* Phase Content (Now includes updated Phase 1) */}
               <div>{phase.content}</div>
             </div>
           ))}
         </div>
       </motion.div>
-
-      {/* REMOVED Support & Preparation Section */}
-      {/* REMOVED Quick Resources Section */}
 
       {/* Custom CSS for animations and responsive timeline connector */}
       <style>
@@ -884,7 +637,7 @@ const HomeContent = ({ styles }) => {
           /* Hide timeline connector line on small screens */
           @media (max-width: 767px) {
             .timeline-connector-line {
-               display: none !important; /* Use !important if needed to override inline style */
+               display: none !important;
              }
            }
         `}

@@ -532,16 +532,7 @@ const AgentTrainingContent = ({ styles }) => {
             <p
               style={{
                 ...styles.paragraph,
-                fontWeight: "500",
-                marginBottom: "4px",
-              }}
-            >
-              Learn RouteThis Resolve
-            </p>
-            <p
-              style={{
-                ...styles.paragraph,
-                fontSize: "0.8rem",
+                fontSize: "1rem",
                 marginBottom: "12px",
                 color: styles.colors?.ash,
               }}
@@ -549,23 +540,20 @@ const AgentTrainingContent = ({ styles }) => {
               Download Resolve Agent Guide
             </p>
             <a
-              href="#"
-              /* Replace # with actual PDF link */ style={{
+              href="https://drive.google.com/file/d/1J2ZSQPZig_8U_eVXQFf9dUIZWIy8QCNP/view?usp=sharing"
+              target="_blank" // Open in new tab
+              rel="noopener noreferrer" // Security measure for target="_blank"
+              style={{
                 display: "inline-block",
                 padding: "6px 12px",
-                fontSize: "0.85rem",
+                fontSize: "1.25rem",
                 backgroundColor: styles.colors?.primary || "#58DBB9",
-                color: "white",
+                color: "white", // Assuming styles.colors.primaryContrast might be better if defined
                 borderRadius: "6px",
                 textDecoration: "none",
                 fontWeight: "500",
                 transition: "background-color 0.2s",
-                // Add hover effect inline or via CSS class
               }}
-              onClick={(e) => {
-                e.preventDefault();
-                alert("PDF download link placeholder");
-              }} // Placeholder action
             >
               Download
             </a>
