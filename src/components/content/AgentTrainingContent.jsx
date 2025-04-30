@@ -5,9 +5,9 @@ import {
   FaChevronDown,
   FaChevronRight,
   FaPlay, // Getting Started title
-  FaTasks, // Objectives title
+  // FaTasks, // REMOVED: Objectives title
   FaCogs, // Requirements title
-  FaDownload, // Extension Install, Manual Method
+  FaDownload, // Extension Install, Manual Method, Download Icon
   FaClipboardCheck, // When to Use title
   FaUserCheck, // Golden Rules, Objections(Permission), How to Use
   FaLink, // Integration, Connecting title, Use Cases
@@ -32,14 +32,15 @@ import {
   FaDesktop, // Agent Dashboard icon
   FaStar, // Highlight/Emphasis Icon
   FaLightbulb, // FAQ Answer prefix
+  FaListUl, // Table of Contents icon
 } from "react-icons/fa"; // Added/Consolidated necessary icons
 
 // Receive styles object as props
 const AgentTrainingContent = ({ styles }) => {
-  // State for expanded sections, default most to visible
+  // State for expanded sections, REMOVED objectives
   const [expandedSections, setExpandedSections] = useState({
     gettingStarted: true,
-    objectives: true,
+    // objectives: true, // REMOVED
     requirements: true,
     whenToUse: true,
     loggingIn: true,
@@ -47,10 +48,9 @@ const AgentTrainingContent = ({ styles }) => {
     // coreFeatures managed by Disclosure
     introducing: true,
     objections: true,
-    // NEW sections added
     troubleshooting: true,
     faq: true,
-    documentation: true, // Keep documentation last
+    documentation: true,
   });
 
   // Toggle helper
@@ -68,7 +68,7 @@ const AgentTrainingContent = ({ styles }) => {
       opacity: 1,
       y: 0,
       transition: {
-        delay: i * 0.08, // Slightly faster stagger
+        delay: i * 0.08,
         duration: 0.5,
         ease: "easeOut",
       },
@@ -77,23 +77,25 @@ const AgentTrainingContent = ({ styles }) => {
 
   // Define Core Features with detailed content as JSX
   const coreFeatures = [
+    // ... (coreFeatures data remains the same)
     {
       id: "network-scan",
       title: "1. Network Scan",
       description: "Primary diagnostic tool",
       icon: <FaBroadcastTower />,
       isPrimary: true,
-      /* ... content ... */
       content: (
         <>
+          {" "}
           <p style={styles.paragraph}>
+            {" "}
             The primary diagnostic tool -{" "}
             <strong style={styles.strong}>always start here</strong>. Runs for
             approximately 2 minutes. Collects 150+ data points about customer's
             network. Categorizes issues by impact level (high impact vs.
             warnings). Organizes findings into five areas: User Devices, WiFi
-            Network, Router, Line Quality, and Key Websites.
-          </p>
+            Network, Router, Line Quality, and Key Websites.{" "}
+          </p>{" "}
           <h4
             style={{
               fontWeight: "600",
@@ -104,32 +106,35 @@ const AgentTrainingContent = ({ styles }) => {
               gap: "6px",
             }}
           >
-            <FaUserCheck /> Agent Instructions:
-          </h4>
+            {" "}
+            <FaUserCheck /> Agent Instructions:{" "}
+          </h4>{" "}
           <ul
             style={{ ...styles.list, paddingLeft: "16px", marginBottom: "8px" }}
           >
+            {" "}
             <li style={styles.listItem}>
               Have customer stand near their router/ONT.
-            </li>
+            </li>{" "}
             <li style={styles.listItem}>
               Request they stay on the app during scanning.
-            </li>
+            </li>{" "}
             <li style={styles.listItem}>
               Use scan time to gather additional information.
-            </li>
+            </li>{" "}
             <li style={styles.listItem}>
               After scan completes, prioritize high-impact issues.
-            </li>
+            </li>{" "}
             <li style={styles.listItem}>
               Follow fix-it workflows systematically.
-            </li>
-          </ul>
+            </li>{" "}
+          </ul>{" "}
           <p style={{ ...styles.paragraph, marginBottom: 0 }}>
+            {" "}
             <strong style={styles.strong}>Best Practice:</strong> Always run a
             network scan first, even if you think you know the issue. The scan
-            might identify additional issues not initially apparent.
-          </p>
+            might identify additional issues not initially apparent.{" "}
+          </p>{" "}
         </>
       ),
     },
@@ -139,14 +144,15 @@ const AgentTrainingContent = ({ styles }) => {
       description: "Measures connection speeds",
       icon: <FaTachometerAlt />,
       isPrimary: false,
-      /* ... content ... */
       content: (
         <>
+          {" "}
           <p style={styles.paragraph}>
+            {" "}
             Automatically included in network scan. Can be run independently for
             before/after comparisons. Tests wireless connection speeds. Agent
-            must enter customer's plan speeds for context.
-          </p>
+            must enter customer's plan speeds for context.{" "}
+          </p>{" "}
           <h4
             style={{
               fontWeight: "600",
@@ -157,20 +163,22 @@ const AgentTrainingContent = ({ styles }) => {
               gap: "6px",
             }}
           >
-            <FaQuestionCircle /> What to Know:
-          </h4>
+            {" "}
+            <FaQuestionCircle /> What to Know:{" "}
+          </h4>{" "}
           <ul style={{ ...styles.list, paddingLeft: "16px", marginBottom: 0 }}>
+            {" "}
             <li style={styles.listItem}>
               How to interpret speed test results.
-            </li>
-            <li style={styles.listItem}>When to run standalone speed tests.</li>
+            </li>{" "}
+            <li style={styles.listItem}>When to run standalone speed tests.</li>{" "}
             <li style={styles.listItem}>
               Comparing results to customer's expected plan speeds.
-            </li>
+            </li>{" "}
             <li style={styles.listItem}>
               Speed test limitations based on router models.
-            </li>
-          </ul>
+            </li>{" "}
+          </ul>{" "}
         </>
       ),
     },
@@ -180,28 +188,29 @@ const AgentTrainingContent = ({ styles }) => {
       description: "See what customer sees",
       icon: <FaVideo />,
       isPrimary: false,
-      /* ... content ... */
       content: (
         <>
+          {" "}
           <ul
             style={{ ...styles.list, paddingLeft: "16px", marginBottom: "8px" }}
           >
+            {" "}
             <li style={styles.listItem}>
               <strong style={styles.strong}>Photo tool:</strong> Captures still
               images.
-            </li>
+            </li>{" "}
             <li style={styles.listItem}>
               <strong style={styles.strong}>Video tool:</strong> Provides live
               camera feed.
-            </li>
+            </li>{" "}
             <li style={styles.listItem}>
               <strong style={styles.strong}>Annotation capabilities:</strong>{" "}
               Draw, circle, highlight areas.
-            </li>
+            </li>{" "}
             <li style={styles.listItem}>
               Works over mobile data when WiFi is unavailable.
-            </li>
-          </ul>
+            </li>{" "}
+          </ul>{" "}
           <h4
             style={{
               fontWeight: "600",
@@ -212,25 +221,27 @@ const AgentTrainingContent = ({ styles }) => {
               gap: "6px",
             }}
           >
-            <FaLink /> TalkTalk Use Cases:
-          </h4>
+            {" "}
+            <FaLink /> TalkTalk Use Cases:{" "}
+          </h4>{" "}
           <ul
             style={{ ...styles.list, paddingLeft: "16px", marginBottom: "8px" }}
           >
+            {" "}
             <li style={styles.listItem}>
               FTTP: Checking ONT lights (use early in the process).
-            </li>
+            </li>{" "}
             <li style={styles.listItem}>
               Verifying cable connections between ONT and router.
-            </li>
-            <li style={styles.listItem}>Confirming router status lights.</li>
+            </li>{" "}
+            <li style={styles.listItem}>Confirming router status lights.</li>{" "}
             <li style={styles.listItem}>
               Guiding customers through physical changes.
-            </li>
+            </li>{" "}
             <li style={styles.listItem}>
               Identifying equipment issues with legacy/BYOD equipment.
-            </li>
-          </ul>
+            </li>{" "}
+          </ul>{" "}
           <h4
             style={{
               fontWeight: "600",
@@ -241,20 +252,22 @@ const AgentTrainingContent = ({ styles }) => {
               gap: "6px",
             }}
           >
-            <FaLaptopHouse /> VDI Considerations
-          </h4>
+            {" "}
+            <FaLaptopHouse /> VDI Considerations{" "}
+          </h4>{" "}
           <ul style={{ ...styles.list, paddingLeft: "16px", marginBottom: 0 }}>
+            {" "}
             <li style={styles.listItem}>
               Video quality may be slightly pixelated but functional.
-            </li>
+            </li>{" "}
             <li style={styles.listItem}>
               Initial connection may have slightly longer round trip time.
-            </li>
+            </li>{" "}
             <li style={styles.listItem}>
               Video restarts may trigger "poor connection" warnings, but service
               should stabilize.
-            </li>
-          </ul>
+            </li>{" "}
+          </ul>{" "}
         </>
       ),
     },
@@ -264,14 +277,15 @@ const AgentTrainingContent = ({ styles }) => {
       description: "Maps WiFi coverage",
       icon: <FaMapMarkedAlt />,
       isPrimary: false,
-      /* ... content ... */
       content: (
         <>
+          {" "}
           <p style={styles.paragraph}>
+            {" "}
             Identifies areas of poor WiFi coverage. Maps signal strength
             throughout home. Customer walks through home while app measures
-            signal quality. Results displayed as green/yellow/red indicators.
-          </p>
+            signal quality. Results displayed as green/yellow/red indicators.{" "}
+          </p>{" "}
           <h4
             style={{
               fontWeight: "600",
@@ -282,20 +296,24 @@ const AgentTrainingContent = ({ styles }) => {
               gap: "6px",
             }}
           >
-            <FaUserCheck /> How to Use:
-          </h4>
+            {" "}
+            <FaUserCheck /> How to Use:{" "}
+          </h4>{" "}
           <ul style={{ ...styles.list, paddingLeft: "16px", marginBottom: 0 }}>
-            <li style={styles.listItem}>Have customer stand next to router.</li>
+            {" "}
+            <li style={styles.listItem}>
+              Have customer stand next to router.
+            </li>{" "}
             <li style={styles.listItem}>
               Initiate test and have customer walk to problem areas.
-            </li>
+            </li>{" "}
             <li style={styles.listItem}>
               Observe signal strength changes in real-time.
-            </li>
+            </li>{" "}
             <li style={styles.listItem}>
               Use results to recommend optimal equipment placement.
-            </li>
-          </ul>
+            </li>{" "}
+          </ul>{" "}
         </>
       ),
     },
@@ -305,15 +323,16 @@ const AgentTrainingContent = ({ styles }) => {
       description: "Remote router access",
       icon: <FaServer />,
       isPrimary: false,
-      /* ... content ... */
       content: (
         <>
+          {" "}
           <p style={styles.paragraph}>
+            {" "}
             Remote access to customer's router settings. Enables direct
             configuration changes by agent. Reduces handling time for
             configuration issues. Works across managed and customer-owned
-            routers.
-          </p>
+            routers.{" "}
+          </p>{" "}
           <h4
             style={{
               fontWeight: "600",
@@ -324,25 +343,28 @@ const AgentTrainingContent = ({ styles }) => {
               gap: "6px",
             }}
           >
-            <FaRoute /> Router-Specific Notes:
-          </h4>
+            {" "}
+            <FaRoute /> Router-Specific Notes:{" "}
+          </h4>{" "}
           <ul style={{ ...styles.list, paddingLeft: "16px", marginBottom: 0 }}>
+            {" "}
             <li style={styles.listItem}>
               Capabilities vary across TalkTalk router portfolio.
-            </li>
+            </li>{" "}
             <li style={styles.listItem}>
               eero management differs from standard TalkTalk routers.
-            </li>
+            </li>{" "}
             <li style={styles.listItem}>
               BYOD routers may have limited remote management capabilities.
-            </li>
-          </ul>
+            </li>{" "}
+          </ul>{" "}
         </>
       ),
     },
   ];
 
   // --- Disclosure Button and Panel Styles ---
+  // (Styles remain the same as previous version)
   const baseDisclosureButtonStyle = {
     display: "flex",
     justifyContent: "space-between",
@@ -361,18 +383,18 @@ const AgentTrainingContent = ({ styles }) => {
   };
   const disclosureButtonStyle = {
     ...baseDisclosureButtonStyle,
-    color: styles.colors?.electricBlue || "#0066FF", // Using blue instead of green for text
+    color: styles.colors?.electricBlue || "#0066FF",
     backgroundColor: styles.colors?.primary
       ? `${styles.colors.primary}08`
-      : "rgba(88, 219, 185, 0.08)", // Much lighter green
-    border: `1px solid ${styles.colors?.cloudGrey || "#EEF2F6"}`, // Light border
+      : "rgba(88, 219, 185, 0.08)",
+    border: `1px solid ${styles.colors?.cloudGrey || "#EEF2F6"}`,
   };
   const primaryDisclosureButtonStyle = {
     ...baseDisclosureButtonStyle,
     color: styles.colors?.primaryContrast || "white",
     backgroundColor: styles.colors?.primary
       ? `${styles.colors.primary}90`
-      : "#3FA697", // Slightly darker teal
+      : "#3FA697",
     border: `1px solid ${styles.colors?.primaryDark || "#47A891"}`,
     boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
   };
@@ -392,11 +414,169 @@ const AgentTrainingContent = ({ styles }) => {
   };
   // --- End Styles ---
 
+  // Section IDs for Table of Contents links
+  const sectionIds = {
+    gettingStarted: "getting-started",
+    requirements: "system-requirements",
+    whenToUse: "when-to-use",
+    loggingIn: "logging-in",
+    connecting: "connecting-customer",
+    coreFeatures: "core-features",
+    introducing: "introducing-resolve",
+    objections: "addressing-objections",
+    troubleshooting: "troubleshooting",
+    faq: "faq",
+    documentation: "documentation",
+  };
+
   return (
     <div>
+      {/* NEW Table of Contents / Download Section */}
+      <motion.div
+        custom={0} // First element
+        initial="hidden"
+        animate="visible"
+        variants={cardVariants}
+        style={styles.card}
+      >
+        <div style={{ display: "flex", gap: "24px", flexWrap: "wrap" }}>
+          {/* Left Column: Table of Contents (75%) */}
+          <div style={{ flex: "3 1 600px" }}>
+            {" "}
+            {/* Flex-basis around 600px */}
+            <h2
+              style={{
+                ...styles.cardTitle,
+                marginBottom: "16px",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+              }}
+            >
+              <FaListUl style={{ color: styles.colors?.primary }} />
+              Agent Training Content Sections
+            </h2>
+            <ul
+              style={{
+                listStyle: "none",
+                paddingLeft: 0,
+                marginBottom: 0,
+                columns: 2, // Create two columns for the list
+                gap: "16px",
+                fontSize: "0.9rem",
+              }}
+            >
+              {/* Create links using the sectionIds */}
+              {Object.entries(sectionIds).map(([key, id]) => (
+                <li
+                  key={id}
+                  style={{ marginBottom: "8px", breakInside: "avoid-column" }}
+                >
+                  <a
+                    href={`#${id}`}
+                    style={{
+                      color: styles.colors?.electricBlue || "#0066FF",
+                      textDecoration: "none",
+                      fontWeight: "500",
+                      display: "inline-block", // Allows padding/hover bg
+                      padding: "2px 6px",
+                      borderRadius: "4px",
+                      transition: "background-color 0.2s",
+                      ":hover": {
+                        // Pseudo-selector needs CSS or specific handling in JS
+                        backgroundColor: `${styles.colors?.electricBlue}10`,
+                        textDecoration: "underline",
+                      },
+                    }}
+                    // Basic smooth scroll for browsers that support it
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document
+                        .getElementById(id)
+                        ?.scrollIntoView({ behavior: "smooth" });
+                      // Optional: Update URL hash without page jump
+                      // window.history.pushState(null, '', `#${id}`);
+                    }}
+                  >
+                    {/* Convert key to Title Case (basic version) */}
+                    {key
+                      .replace(/([A-Z])/g, " $1")
+                      .replace(/^./, (str) => str.toUpperCase())}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Right Column: Download Icon (25%) */}
+          <div
+            style={{
+              flex: "1 1 150px", // Flex-basis around 150px
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              padding: "16px",
+              backgroundColor: `${styles.colors?.cloudGrey}30`,
+              borderRadius: "8px",
+            }}
+          >
+            <FaDownload
+              style={{
+                fontSize: "2.5rem",
+                color: styles.colors?.primary || "#58DBB9",
+                marginBottom: "12px",
+              }}
+            />
+            <p
+              style={{
+                ...styles.paragraph,
+                fontWeight: "500",
+                marginBottom: "4px",
+              }}
+            >
+              Learn RouteThis Resolve
+            </p>
+            <p
+              style={{
+                ...styles.paragraph,
+                fontSize: "0.8rem",
+                marginBottom: "12px",
+                color: styles.colors?.ash,
+              }}
+            >
+              Download Resolve Agent Guide
+            </p>
+            <a
+              href="#"
+              /* Replace # with actual PDF link */ style={{
+                display: "inline-block",
+                padding: "6px 12px",
+                fontSize: "0.85rem",
+                backgroundColor: styles.colors?.primary || "#58DBB9",
+                color: "white",
+                borderRadius: "6px",
+                textDecoration: "none",
+                fontWeight: "500",
+                transition: "background-color 0.2s",
+                // Add hover effect inline or via CSS class
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                alert("PDF download link placeholder");
+              }} // Placeholder action
+            >
+              Download
+            </a>
+          </div>
+        </div>
+      </motion.div>
+
       {/* Introduction Card */}
       <motion.div
-        custom={0}
+        id={sectionIds.gettingStarted} // Add ID here
+        custom={1} // Update index
         initial="hidden"
         animate="visible"
         variants={cardVariants}
@@ -490,67 +670,12 @@ const AgentTrainingContent = ({ styles }) => {
         </div>
       </motion.div>
 
-      {/* Training Objectives Card (Collapsible) */}
-      <motion.div
-        custom={1}
-        initial="hidden"
-        animate="visible"
-        variants={cardVariants}
-        style={styles.card}
-      >
-        {/* Content remains the same */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            cursor: "pointer",
-          }}
-          onClick={() => toggleSection("objectives")}
-        >
-          <h2 style={styles.cardTitle}>
-            <FaTasks
-              style={{ marginRight: "8px", color: styles.colors?.primary }}
-            />
-            Training Objectives
-          </h2>
-          {expandedSections.objectives ? <FaChevronDown /> : <FaChevronRight />}
-        </div>
-        {expandedSections.objectives && (
-          <div style={{ animation: "fadeIn 0.3s ease-in", paddingTop: "16px" }}>
-            <p style={styles.paragraph}>
-              By the end of this training, you will be able to:
-            </p>
-            <ul style={{ ...styles.list, marginBottom: 0 }}>
-              <li style={styles.listItem}>
-                Understand when and how to use RouteThis Resolve
-              </li>
-              <li style={styles.listItem}>
-                Guide customers through app installation/scanning
-              </li>
-              <li style={styles.listItem}>
-                Interpret scan results and follow fix-it workflows
-              </li>
-              <li style={styles.listItem}>
-                Use all Resolve features effectively
-              </li>
-              <li style={styles.listItem}>
-                Document actions properly in MyDesk
-              </li>
-              <li style={styles.listItem}>
-                Address common customer questions/objections
-              </li>
-              <li style={styles.listItem}>
-                Contribute to the trial's success metrics
-              </li>
-            </ul>
-          </div>
-        )}
-      </motion.div>
+      {/* REMOVED Training Objectives Card */}
 
       {/* System Requirements Card (Collapsible) */}
       <motion.div
-        custom={2}
+        id={sectionIds.requirements} // Add ID here
+        custom={2} // Update index
         initial="hidden"
         animate="visible"
         variants={cardVariants}
@@ -663,7 +788,8 @@ const AgentTrainingContent = ({ styles }) => {
 
       {/* When to Use Resolve Card (Collapsible) */}
       <motion.div
-        custom={3}
+        id={sectionIds.whenToUse} // Add ID here
+        custom={3} // Update index
         initial="hidden"
         animate="visible"
         variants={cardVariants}
@@ -828,7 +954,8 @@ const AgentTrainingContent = ({ styles }) => {
 
       {/* Logging In Card (Collapsible) */}
       <motion.div
-        custom={4}
+        id={sectionIds.loggingIn} // Add ID here
+        custom={4} // Update index
         initial="hidden"
         animate="visible"
         variants={cardVariants}
@@ -879,7 +1006,8 @@ const AgentTrainingContent = ({ styles }) => {
 
       {/* Connecting With Customer Card (Collapsible + TWO COLUMNS) */}
       <motion.div
-        custom={5}
+        id={sectionIds.connecting} // Add ID here
+        custom={5} // Update index
         initial="hidden"
         animate="visible"
         variants={cardVariants}
@@ -980,7 +1108,8 @@ const AgentTrainingContent = ({ styles }) => {
 
       {/* Core Features Card (Disclosure based) */}
       <motion.div
-        custom={6}
+        id={sectionIds.coreFeatures} // Add ID here
+        custom={6} // Update index
         initial="hidden"
         animate="visible"
         variants={cardVariants}
@@ -1138,7 +1267,8 @@ const AgentTrainingContent = ({ styles }) => {
 
       {/* Introducing Resolve Card (Collapsible) */}
       <motion.div
-        custom={7}
+        id={sectionIds.introducing} // Add ID here
+        custom={7} // Update index
         initial="hidden"
         animate="visible"
         variants={cardVariants}
@@ -1249,7 +1379,8 @@ const AgentTrainingContent = ({ styles }) => {
 
       {/* Addressing Objections Card (Collapsible) */}
       <motion.div
-        custom={8}
+        id={sectionIds.objections} // Add ID here
+        custom={8} // Update index
         initial="hidden"
         animate="visible"
         variants={cardVariants}
@@ -1379,14 +1510,16 @@ const AgentTrainingContent = ({ styles }) => {
         )}
       </motion.div>
 
-      {/* NEW Troubleshooting Card */}
+      {/* Troubleshooting Card (Collapsible) */}
       <motion.div
-        custom={9}
+        id={sectionIds.troubleshooting} // Add ID here
+        custom={9} // Update index
         initial="hidden"
         animate="visible"
         variants={cardVariants}
         style={styles.card}
       >
+        {/* Content remains the same */}
         <div
           style={{
             display: "flex",
@@ -1410,7 +1543,6 @@ const AgentTrainingContent = ({ styles }) => {
         </div>
         {expandedSections.troubleshooting && (
           <div style={{ animation: "fadeIn 0.3s ease-in", paddingTop: "16px" }}>
-            {/* Login Issues */}
             <div style={{ marginBottom: "20px" }}>
               <h3
                 style={{
@@ -1437,7 +1569,6 @@ const AgentTrainingContent = ({ styles }) => {
                 </li>
               </ul>
             </div>
-            {/* App Installation Issues */}
             <div style={{ marginBottom: "20px" }}>
               <h3
                 style={{
@@ -1462,7 +1593,6 @@ const AgentTrainingContent = ({ styles }) => {
                 </li>
               </ul>
             </div>
-            {/* Video/Photo Issues */}
             <div style={{ marginBottom: "20px" }}>
               <h3
                 style={{
@@ -1492,7 +1622,6 @@ const AgentTrainingContent = ({ styles }) => {
                 </li>
               </ul>
             </div>
-            {/* Scan Issues */}
             <div style={{ marginBottom: "20px" }}>
               <h3
                 style={{
@@ -1525,10 +1654,7 @@ const AgentTrainingContent = ({ styles }) => {
                 </li>
               </ul>
             </div>
-            {/* Documentation Issues */}
             <div style={{ marginBottom: 0 }}>
-              {" "}
-              {/* Last item */}
               <h3
                 style={{
                   ...styles.heading3,
@@ -1559,14 +1685,16 @@ const AgentTrainingContent = ({ styles }) => {
         )}
       </motion.div>
 
-      {/* NEW FAQ Card */}
+      {/* FAQ Card (Collapsible) */}
       <motion.div
-        custom={10}
+        id={sectionIds.faq} // Add ID here
+        custom={10} // Update index
         initial="hidden"
         animate="visible"
         variants={cardVariants}
         style={styles.card}
       >
+        {/* Content remains the same */}
         <div
           style={{
             display: "flex",
@@ -1586,7 +1714,6 @@ const AgentTrainingContent = ({ styles }) => {
         </div>
         {expandedSections.faq && (
           <div style={{ animation: "fadeIn 0.3s ease-in", paddingTop: "16px" }}>
-            {/* Q&A 1 */}
             <div
               style={{
                 marginBottom: "16px",
@@ -1625,7 +1752,6 @@ const AgentTrainingContent = ({ styles }) => {
                 </span>
               </p>
             </div>
-            {/* Q&A 2 */}
             <div
               style={{
                 marginBottom: "16px",
@@ -1666,7 +1792,6 @@ const AgentTrainingContent = ({ styles }) => {
                 </span>
               </p>
             </div>
-            {/* Q&A 3 */}
             <div
               style={{
                 marginBottom: "16px",
@@ -1709,7 +1834,6 @@ const AgentTrainingContent = ({ styles }) => {
                 </span>
               </p>
             </div>
-            {/* Q&A 4 */}
             <div
               style={{
                 marginBottom: "16px",
@@ -1749,10 +1873,7 @@ const AgentTrainingContent = ({ styles }) => {
                 </span>
               </p>
             </div>
-            {/* Q&A 5 */}
             <div style={{ marginBottom: 0 }}>
-              {" "}
-              {/* Last item */}
               <p style={styles.paragraph}>
                 <strong style={styles.strong}>
                   Q: How do we gather feedback during the trial?
@@ -1789,7 +1910,8 @@ const AgentTrainingContent = ({ styles }) => {
 
       {/* Documentation Requirements Card (Now last) */}
       <motion.div
-        custom={11}
+        id={sectionIds.documentation} // Add ID here
+        custom={11} // Update index
         initial="hidden"
         animate="visible"
         variants={cardVariants}
@@ -1872,6 +1994,11 @@ const AgentTrainingContent = ({ styles }) => {
              background-color: ${
                styles.colors?.primaryDark || "#47A891"
              } !important;
+          }
+          /* Basic styles for ToC links */
+          a[href^="#"]:hover {
+             background-color: rgba(0, 102, 255, 0.1); /* Example hover using electric blue with alpha */
+             text-decoration: underline;
           }
         `}
       </style>
