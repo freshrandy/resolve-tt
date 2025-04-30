@@ -228,11 +228,6 @@ const TrialResourcesContent = ({ styles }) => {
                 can help identify this.
               </li>
               <li style={styles.listItem}>
-                <strong style={styles.strong}>Shell Energy Acquired:</strong> A
-                significant number (~500k+) use unsupported devices, increasing
-                troubleshooting complexity.
-              </li>
-              <li style={styles.listItem}>
                 <strong style={styles.strong}>BYOD/Mesh:</strong> Resolve's
                 network scan helps identify non-TalkTalk routers or mesh systems
                 in use.

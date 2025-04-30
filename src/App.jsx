@@ -26,7 +26,6 @@ function App() {
   const navigate = useNavigate();
 
   // --- Configuration Data ---
-  // UPDATED: Added icons and isImportant flag
   const tabsConfig = [
     { id: "home", label: "Overview", path: "/", icon: FaHome },
     {
@@ -48,12 +47,6 @@ function App() {
       label: "Trial Resources",
       path: "/trial-resources",
       icon: FaBook,
-    },
-    {
-      id: "support",
-      label: "Support",
-      path: "/support",
-      icon: FaQuestionCircle,
     },
   ];
 
@@ -81,8 +74,6 @@ function App() {
       maxWidth: "1200px",
       margin: "0 auto",
       padding: "24px",
-      backgroundColor: "#F5F7FA",
-      minHeight: "100vh",
       color: colors.ash,
     },
     header: {
@@ -116,22 +107,22 @@ function App() {
     },
     // Base style for NavLink - Increased padding and font size
     tabLink: {
-      display: "flex", // Use flexbox for icon + text alignment
-      alignItems: "center", // Vertically center icon and text
-      gap: "8px", // Space between icon and text
-      padding: "16px 28px", // Increased padding
+      display: "flex",
+      alignItems: "center",
+      gap: "10px", // Slightly more space between icon and text
+      padding: "20px 36px", // Significantly increased padding
       cursor: "pointer",
       borderRight: `1px solid ${colors.cloudGrey}`,
-      fontSize: "1.05rem", // Slightly larger font
+      fontSize: "1.2rem", // Larger font size
       color: colors.ash,
       textDecoration: "none",
       transition: "background-color 0.2s ease, color 0.2s ease",
       whiteSpace: "nowrap",
-      fontWeight: "400", // Default weight
+      fontWeight: "500", // Slightly bolder
     },
     // Style for the icon within the tab link
     tabIcon: {
-      fontSize: "1.1em", // Icon size relative to text
+      fontSize: "1.3em", // Icon size relative to text
       marginBottom: "-2px", // Fine-tune vertical alignment if needed
       flexShrink: 0, // Prevent icon shrinking
     },
@@ -322,6 +313,17 @@ function App() {
       flexShrink: 0,
     },
     alertText: { margin: 0, lineHeight: "1.6" },
+    footer: {
+      background: primaryGradient,
+      color: "white",
+      padding: "16px 24px",
+      textAlign: "center",
+      marginTop: "40px",
+      borderRadius: "0.75rem",
+      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+      fontSize: "0.95rem",
+      fontWeight: "500",
+    },
   };
 
   // --- Animation Variants --- (Keep as before)
@@ -332,6 +334,18 @@ function App() {
   };
   const pageTransition = { type: "tween", ease: "easeInOut", duration: 0.3 };
 
+  React.useEffect(() => {
+    // Apply background color to the entire page
+    document.body.style.backgroundColor = "#F5F7FA";
+    document.body.style.margin = "0";
+
+    // Clean up function to reset styles when component unmounts
+    return () => {
+      document.body.style.backgroundColor = "";
+      document.body.style.margin = "";
+    };
+  }, []);
+
   // --- App Render ---
   return (
     <div style={styles.container}>
@@ -340,8 +354,8 @@ function App() {
         headerStyle={styles.header}
         titleStyle={styles.headerTitle}
         subtitleStyle={styles.headerSubtitle}
-        title="RouteThis Resolve Trial Portal"
-        subtitle="TalkTalk - WiFi Diagnostics & Support Solution"
+        title="TalkTalk Resolve Trial Portal"
+        subtitle="INTERNAL USE ONLY | RouteThis Professional Services Team"
       />
       {/* Tabs now uses the new/updated styles */}
       <TabsComponent
@@ -423,22 +437,6 @@ function App() {
               }
             />
             <Route
-              path="/support"
-              element={
-                <motion.div
-                  key="support"
-                  initial="initial"
-                  animate="in"
-                  exit="out"
-                  variants={pageVariants}
-                  transition={pageTransition}
-                >
-                  {" "}
-                  <SupportContent styles={styles} />{" "}
-                </motion.div>
-              }
-            />
-            <Route
               path="*"
               element={
                 <div style={styles.card}>
@@ -452,6 +450,9 @@ function App() {
           </Routes>
         </AnimatePresence>
       </main>
+      <footer style={styles.footer}>
+        Prepared by: Randy Panté | RouteThis Professional Services
+      </footer>
     </div>
   );
 }
