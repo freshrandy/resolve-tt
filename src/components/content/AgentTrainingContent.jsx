@@ -361,15 +361,18 @@ const AgentTrainingContent = ({ styles }) => {
   };
   const disclosureButtonStyle = {
     ...baseDisclosureButtonStyle,
-    color: styles.colors?.primary || "#58DBB9",
+    color: styles.colors?.electricBlue || "#0066FF", // Using blue instead of green for text
     backgroundColor: styles.colors?.primary
-      ? `${styles.colors.primary}15`
-      : "rgba(88, 219, 185, 0.1)",
+      ? `${styles.colors.primary}08`
+      : "rgba(88, 219, 185, 0.08)", // Much lighter green
+    border: `1px solid ${styles.colors?.cloudGrey || "#EEF2F6"}`, // Light border
   };
   const primaryDisclosureButtonStyle = {
     ...baseDisclosureButtonStyle,
     color: styles.colors?.primaryContrast || "white",
-    backgroundColor: styles.colors?.primary || "#58DBB9",
+    backgroundColor: styles.colors?.primary
+      ? `${styles.colors.primary}90`
+      : "#3FA697", // Slightly darker teal
     border: `1px solid ${styles.colors?.primaryDark || "#47A891"}`,
     boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
   };

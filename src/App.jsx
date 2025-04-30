@@ -450,9 +450,7 @@ function App() {
           </Routes>
         </AnimatePresence>
       </main>
-      <footer style={styles.footer}>
-        Prepared by: Randy Panté | RouteThis Professional Services
-      </footer>
+      <footer style={styles.footer}>Prepared by: Randy Panté</footer>
     </div>
   );
 }
