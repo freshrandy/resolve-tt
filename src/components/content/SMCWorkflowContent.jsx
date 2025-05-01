@@ -3,31 +3,45 @@ import { motion } from "framer-motion";
 import {
   FaChevronDown,
   FaChevronRight,
-  FaSitemap,
-  FaNetworkWired,
-  FaTools,
-  FaClipboardList,
-  // Remove FaUserHeadset as it doesn't exist
-  FaHeadset, // Use FaHeadset instead if you need a headset icon
-  FaRoute,
-  FaPhoneAlt,
-  FaEye,
-  FaWifi,
-  FaServer,
-  FaExchangeAlt,
+  FaSitemap, // Workflow Overview
+  FaClipboardList, // Pre-Contact, Documentation Req
+  FaClipboardCheck,
   FaFileAlt,
-  FaLaptopCode,
-  FaInfoCircle,
-} from "react-icons/fa";
+  FaPhoneAlt, // Customer Contact
+  FaTools, // Resolution Phase, Appendix Tools
+  FaRoute, // Router/Special Cases
+  FaProjectDiagram, // Mermaid Placeholder Icon
+  FaFileInvoice, // Case Receipt
+  FaSearch, // Initial Investigation
+  FaTasks, // Pre-Contact Strategy / Key Activities
+  FaUsersCog, // Customer Engagement / SMC Role
+  FaMobileAlt, // Resolve Implementation
+  FaChartPie, // Diagnostics Analysis
+  FaEye, // Visual Diagnostics
+  FaBroadcastTower, // Coverage Analysis
+  FaServer, // Router Configuration
+  FaCheckCircle, // Implementing Fixes / Decision Point
+  FaArrowRight, // Next Steps
+  FaEdit, // Documentation & Feedback
+  FaLaptopCode, // Router-Specific Workflows
+  FaExclamationCircle, // Special Cases
+  FaInfoCircle, // Notes / Outstanding Items
+  FaTable, // Appendix Table
+  FaQuestionCircle, // Appendix Question
+} from "react-icons/fa"; // Added relevant icons
 
 const SMCWorkflowContent = ({ styles }) => {
-  // State for expanded sections
+  // State for expanded sections, default most to visible
   const [expandedSections, setExpandedSections] = useState({
-    overview: true,
-    preScan: true,
-    duringCall: true,
-    postCall: true,
+    workflowOverview: true,
+    preContact: true,
+    contactPhase: true,
+    resolutionPhase: true,
+    routerWorkflows: true,
     specialCases: true,
+    documentation: true,
+    outstanding: false, // Default closed
+    appendix: false, // Default closed
   });
 
   // Toggle helper
@@ -52,9 +66,87 @@ const SMCWorkflowContent = ({ styles }) => {
     }),
   };
 
+  // Helper to render list items consistently
+  const renderListItem = (text, indent = false) => (
+    <li
+      style={{
+        ...styles.listItem,
+        paddingLeft: indent ? "20px" : "0",
+        marginBottom: "6px",
+      }}
+    >
+      {text}
+    </li>
+  );
+
+  // Helper for sub-section lists with strong labels
+  const renderSubListItem = (label, text) => (
+    <li style={{ ...styles.listItem, marginBottom: "6px" }}>
+      <strong style={styles.strong}>{label}:</strong> {text}
+    </li>
+  );
+
+  // Helper for Decision Criteria Table Row
+  const renderDecisionRow = (useCase, dontUseCase) => (
+    <tr>
+      <td
+        style={{
+          ...styles.td,
+          borderBottom: `1px solid ${styles.colors?.cloudGrey || "#e5e7eb"}`,
+        }}
+      >
+        ✅ {useCase}
+      </td>
+      <td
+        style={{
+          ...styles.td,
+          borderBottom: `1px solid ${styles.colors?.cloudGrey || "#e5e7eb"}`,
+        }}
+      >
+        ❌ {dontUseCase}
+      </td>
+    </tr>
+  );
+
+  // Helper for styling code blocks
+  const codeBlockStyle = {
+    backgroundColor: styles.colors?.ash ? `${styles.colors.ash}10` : "#F3F4F6", // Light greyish background
+    padding: "12px",
+    borderRadius: "6px",
+    fontFamily: "monospace",
+    fontSize: "0.85rem",
+    color: styles.colors?.ash || "#374151",
+    whiteSpace: "pre-wrap", // Handles line breaks
+    wordBreak: "break-word",
+    marginTop: "8px",
+    marginBottom: "16px",
+    border: `1px solid ${styles.colors?.cloudGrey || "#E5E7EB"}`,
+  };
+
   return (
     <div>
-      {/* Introduction Card */}
+      {/* Introduction Text (Not a card) */}
+      <div
+        style={{
+          marginBottom: "16px",
+          padding: "16px",
+          backgroundColor: `${styles.colors?.primary}10`,
+          borderRadius: "8px",
+          borderLeft: `4px solid ${styles.colors?.primary}`,
+        }}
+      >
+        <h1 style={{ ...styles.cardTitle, marginTop: 0, fontSize: "1.5rem" }}>
+          SMC Agent Workflow Guide: RouteThis Resolve
+        </h1>
+        <p style={{ ...styles.paragraph, marginBottom: 0 }}>
+          This guide outlines how Service Management Center (SMC) agents
+          integrate RouteThis Resolve into existing processes during the Phase 1
+          trial, focusing on complex technical cases escalated from first-line
+          support.
+        </p>
+      </div>
+
+      {/* Workflow Integration Card */}
       <motion.div
         custom={0}
         initial="hidden"
@@ -62,40 +154,67 @@ const SMCWorkflowContent = ({ styles }) => {
         variants={cardVariants}
         style={styles.card}
       >
-        <h2 style={styles.cardTitle}>
-          <FaSitemap
-            style={{ marginRight: "8px", color: styles.colors?.primary }}
-          />
-          SMC Workflow Overview - IN PROGRESS
-        </h2>
-        <p style={styles.paragraph}>
-          This section provides a workflow guide for Service Management Center
-          (SMC) agents participating in the Phase 1 trial of RouteThis Resolve.
-        </p>
-        {/* Placeholder for workflow diagram - to be populated */}
         <div
           style={{
-            border: `1px dashed ${styles.colors?.cloudGrey || "#ccc"}`,
-            borderRadius: "8px",
-            padding: "24px",
-            textAlign: "center",
-            marginTop: "16px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            cursor: "pointer",
           }}
+          onClick={() => toggleSection("workflowOverview")}
         >
-          <FaInfoCircle
-            style={{
-              fontSize: "2rem",
-              color: styles.colors?.ash,
-              marginBottom: "16px",
-            }}
-          />
-          <p style={{ margin: 0, color: styles.colors?.ash }}>
-            Workflow diagram to be populated
-          </p>
+          <h2 style={styles.cardTitle}>
+            <FaSitemap
+              style={{ marginRight: "8px", color: styles.colors?.primary }}
+            />{" "}
+            Workflow Overview
+          </h2>
+          {expandedSections.workflowOverview ? (
+            <FaChevronDown />
+          ) : (
+            <FaChevronRight />
+          )}
         </div>
+        {expandedSections.workflowOverview && (
+          <div style={{ animation: "fadeIn 0.3s ease-in", paddingTop: "16px" }}>
+            <p style={styles.paragraph}>
+              The following diagram illustrates the standard SMC case flow with
+              integrated decision points for using RouteThis Resolve.
+            </p>
+            {/* Placeholder for Mermaid Diagram */}
+            <div
+              style={{
+                border: `1px dashed ${styles.colors?.cloudGrey || "#ccc"}`,
+                borderRadius: "8px",
+                padding: "24px",
+                textAlign: "center",
+                marginTop: "16px",
+                backgroundColor: `${styles.colors?.cloudGrey}20`,
+              }}
+            >
+              <FaProjectDiagram
+                style={{
+                  fontSize: "2.5rem",
+                  color: styles.colors?.ash,
+                  marginBottom: "16px",
+                }}
+              />
+              <p
+                style={{
+                  margin: 0,
+                  color: styles.colors?.ash,
+                  fontStyle: "italic",
+                }}
+              >
+                Mermaid Flowchart Placeholder <br /> (Visual representation of
+                the decision process described below)
+              </p>
+            </div>
+          </div>
+        )}
       </motion.div>
 
-      {/* Pre-Scan Phase */}
+      {/* Pre-Contact Phase Card */}
       <motion.div
         custom={1}
         initial="hidden"
@@ -110,34 +229,163 @@ const SMCWorkflowContent = ({ styles }) => {
             alignItems: "center",
             cursor: "pointer",
           }}
-          onClick={() => toggleSection("preScan")}
+          onClick={() => toggleSection("preContact")}
         >
           <h2 style={styles.cardTitle}>
             <FaClipboardList
               style={{ marginRight: "8px", color: styles.colors?.primary }}
-            />
+            />{" "}
             Pre-Contact Phase
           </h2>
-          {expandedSections.preScan ? <FaChevronDown /> : <FaChevronRight />}
+          {expandedSections.preContact ? <FaChevronDown /> : <FaChevronRight />}
         </div>
-        {expandedSections.preScan && (
+        {expandedSections.preContact && (
           <div style={{ animation: "fadeIn 0.3s ease-in", paddingTop: "16px" }}>
-            <p style={styles.paragraph}>
-              The pre-contact phase content will be populated here, covering:
-            </p>
-            <ul style={styles.list}>
-              <li style={styles.listItem}>Case receipt and review</li>
-              <li style={styles.listItem}>Initial technical investigation</li>
-              <li style={styles.listItem}>Pre-contact strategy planning</li>
-              <li style={styles.listItem}>
-                Decision criteria for using Resolve
-              </li>
-            </ul>
+            {/* Subsection 1: Case Receipt */}
+            <div style={{ marginBottom: "20px" }}>
+              <h3
+                style={{
+                  ...styles.heading3,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <FaFileInvoice style={{ color: styles.colors?.electricBlue }} />{" "}
+                1. Case Receipt & Review
+              </h3>
+              <ul style={styles.list}>
+                {renderListItem(
+                  "Review escalated ticket notes from first-line agent."
+                )}
+                {renderListItem(
+                  "Note specific WiFi symptoms, patterns, and customer descriptions."
+                )}
+                {renderListItem(
+                  "Check previous case history for recurring WiFi issues."
+                )}
+                {renderListItem("Tools: MyDesk, Trio")}
+                {renderListItem(
+                  "Decision: Initial issue category (Connectivity? Speed? Coverage?)."
+                )}
+              </ul>
+            </div>
+            {/* Subsection 2: Investigation */}
+            <div style={{ marginBottom: "20px" }}>
+              <h3
+                style={{
+                  ...styles.heading3,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <FaSearch style={{ color: styles.colors?.electricBlue }} /> 2.
+                Initial Technical Investigation
+              </h3>
+              <ul style={styles.list}>
+                {renderListItem(
+                  "Run appropriate line tests: FTTP (~30s), FTTC (~2m), MPF (~5m)."
+                )}
+                {renderListItem(
+                  "Check service index, historical line stability, router model/firmware/uptime."
+                )}
+                {renderListItem(
+                  "Tools: Pathfinder, ASSIA (if applicable), Eero Dashboard (if applicable)."
+                )}
+                {renderListItem(
+                  "Decision: Does initial testing reveal a line/infrastructure fault?"
+                )}
+              </ul>
+            </div>
+            {/* Subsection 3: Strategy */}
+            <div style={{ marginBottom: "20px" }}>
+              <h3
+                style={{
+                  ...styles.heading3,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <FaTasks style={{ color: styles.colors?.electricBlue }} /> 3.
+                Pre-Contact Strategy & Decision
+              </h3>
+              <ul style={styles.list}>
+                {renderListItem(
+                  "Determine if RouteThis Resolve is appropriate based on line tests and symptoms."
+                )}
+                {renderListItem("Prepare specific questions for the customer.")}
+                {renderListItem("Prepare introduction script for Resolve.")}
+                {renderListItem(
+                  "Decision Point: Will Resolve add diagnostic value?"
+                )}
+              </ul>
+              {/* Decision Criteria Table */}
+              <h4
+                style={{
+                  ...styles.heading3,
+                  fontSize: "1em",
+                  marginTop: "16px",
+                  marginBottom: "8px",
+                }}
+              >
+                Decision Criteria for Using Resolve
+              </h4>
+              <div style={{ ...styles.tableContainer, marginBottom: 0 }}>
+                <table style={{ ...styles.table, tableLayout: "fixed" }}>
+                  <thead>
+                    <tr>
+                      <th style={{ ...styles.th, width: "50%" }}>
+                        ✅ Use Resolve When...
+                      </th>
+                      <th style={{ ...styles.th, width: "50%" }}>
+                        ❌ Don't Use Resolve When...
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {renderDecisionRow(
+                      "Line tests show no external fault",
+                      "Clear line/infrastructure fault detected"
+                    )}
+                    {renderDecisionRow(
+                      "Customer reports intermittent connectivity",
+                      "Service is completely down due to outage"
+                    )}
+                    {renderDecisionRow(
+                      "Speed issues occur on wireless devices",
+                      "Issue is strictly billing/account related"
+                    )}
+                    {renderDecisionRow(
+                      "Coverage problems / dead zones reported",
+                      "Customer uses wired-only equipment"
+                    )}
+                    {renderDecisionRow(
+                      "FTTP/ONT light status needs verification",
+                      "Thorough WiFi diagnostics already done"
+                    )}
+                    {renderDecisionRow(
+                      "Suspected router misconfiguration",
+                      "Customer cannot/refuses mobile apps"
+                    )}
+                    {renderDecisionRow(
+                      "Some devices work, others don't",
+                      "Issue is with a specific content provider"
+                    )}
+                    {renderDecisionRow(
+                      "Multiple previous attempts failed",
+                      "Issue not dependent on home WiFi"
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         )}
       </motion.div>
 
-      {/* During Call Phase */}
+      {/* Customer Contact Phase Card */}
       <motion.div
         custom={2}
         initial="hidden"
@@ -152,35 +400,283 @@ const SMCWorkflowContent = ({ styles }) => {
             alignItems: "center",
             cursor: "pointer",
           }}
-          onClick={() => toggleSection("duringCall")}
+          onClick={() => toggleSection("contactPhase")}
         >
           <h2 style={styles.cardTitle}>
             <FaPhoneAlt
               style={{ marginRight: "8px", color: styles.colors?.primary }}
-            />
+            />{" "}
             Customer Contact Phase
           </h2>
-          {expandedSections.duringCall ? <FaChevronDown /> : <FaChevronRight />}
+          {expandedSections.contactPhase ? (
+            <FaChevronDown />
+          ) : (
+            <FaChevronRight />
+          )}
         </div>
-        {expandedSections.duringCall && (
+        {expandedSections.contactPhase && (
           <div style={{ animation: "fadeIn 0.3s ease-in", paddingTop: "16px" }}>
-            <p style={styles.paragraph}>
-              The customer contact phase content will be populated here,
-              covering:
-            </p>
-            <ul style={styles.list}>
-              <li style={styles.listItem}>Customer engagement</li>
-              <li style={styles.listItem}>RouteThis Resolve implementation</li>
-              <li style={styles.listItem}>Diagnostics analysis</li>
-              <li style={styles.listItem}>Visual diagnostics</li>
-              <li style={styles.listItem}>Coverage analysis</li>
-              <li style={styles.listItem}>Router configuration</li>
-            </ul>
+            {/* Subsection 4: Engagement */}
+            <div style={{ marginBottom: "20px" }}>
+              <h3
+                style={{
+                  ...styles.heading3,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <FaUsersCog style={{ color: styles.colors?.electricBlue }} /> 4.
+                Customer Engagement & Introduction
+              </h3>
+              <ul style={styles.list}>
+                {renderListItem("Introduce yourself as SMC specialist.")}
+                {renderListItem("Confirm customer identity and issue summary.")}
+                {renderListItem("Explain previous checks (line tests clear).")}
+                {renderListItem(
+                  "Introduce need for advanced in-home diagnostics via Resolve."
+                )}
+              </ul>
+              <h4
+                style={{
+                  ...styles.heading3,
+                  fontSize: "1em",
+                  marginTop: "16px",
+                  marginBottom: "8px",
+                }}
+              >
+                SMC-Specific Introduction Script
+              </h4>
+              <div style={codeBlockStyle}>
+                "Hello, I'm [Name] from the TalkTalk Service Management Center,
+                looking into the WiFi issue that was escalated to our team. I've
+                already checked your line and can see [brief summary of line
+                test results], which suggests the issue may be within your home
+                WiFi environment.
+                <br />
+                <br />
+                To help diagnose this properly, we need deeper insights than our
+                standard tools provide. I'd like to use our advanced diagnostic
+                system called Resolve, which will require you to use your mobile
+                phone to scan your home network. This gives us much more
+                detailed technical information about your WiFi setup without
+                accessing any personal data.
+                <br />
+                <br />
+                As a specialist team, we find this tool particularly helpful for
+                complex issues like yours. Would it be okay if I send you a text
+                message with a link to start this process? It only takes about 2
+                minutes to complete."
+              </div>
+            </div>
+
+            {/* Subsection 5: Implementation */}
+            <div style={{ marginBottom: "20px" }}>
+              <h3
+                style={{
+                  ...styles.heading3,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <FaMobileAlt style={{ color: styles.colors?.electricBlue }} />{" "}
+                5. RouteThis Resolve Implementation
+              </h3>
+              <ul style={styles.list}>
+                {renderListItem(
+                  "Send text link via Resolve dashboard (Click 'Scan for New Issues')."
+                )}
+                {renderListItem("Guide customer to stand near router/ONT.")}
+                {renderListItem(
+                  "Walk through app permissions (Location is needed for WiFi scan)."
+                )}
+                {renderListItem(
+                  "Help initiate Network Scan; advise not to minimize app."
+                )}
+                {renderListItem(
+                  "Use scan time (~2 min) to gather more context about the issue."
+                )}
+                {renderListItem("Decision: Does scan complete successfully?")}
+              </ul>
+            </div>
+
+            {/* Subsection 6: Analysis */}
+            <div style={{ marginBottom: "20px" }}>
+              <h3
+                style={{
+                  ...styles.heading3,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <FaChartPie style={{ color: styles.colors?.electricBlue }} /> 6.
+                Diagnostics Analysis
+              </h3>
+              <ul style={styles.list}>
+                {renderListItem(
+                  "Review scan results, prioritizing high-impact issues first."
+                )}
+                {renderListItem("Explain key findings simply to the customer.")}
+                {renderListItem("Correlate findings with reported symptoms.")}
+                {renderListItem(
+                  "Select the most relevant fix-it workflow(s) to follow."
+                )}
+                {renderListItem(
+                  "Decision: Is additional visual diagnostic needed (e.g., check lights/cables)?"
+                )}
+              </ul>
+            </div>
+
+            {/* Subsection 7: Visual Diagnostics */}
+            <div style={{ marginBottom: "20px" }}>
+              <h3
+                style={{
+                  ...styles.heading3,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <FaEye style={{ color: styles.colors?.electricBlue }} /> 7.
+                Visual Diagnostics (Live View - When Required)
+              </h3>
+              <ul style={styles.list}>
+                {renderListItem(
+                  "Initiate Photo or Video tool if physical check needed."
+                )}
+                {renderListItem(
+                  "Guide customer on what to show (ONT lights, cable ports, router lights)."
+                )}
+                {renderListItem(
+                  "Use annotation tools to highlight points of interest."
+                )}
+                {renderListItem(
+                  "Save critical images if needed for documentation/escalation."
+                )}
+                {renderListItem(
+                  "Decision: Do visuals confirm suspected issue (e.g., wrong port, error light)?"
+                )}
+              </ul>
+              {/* FTTP Specific Box */}
+              <div
+                style={{
+                  marginTop: "16px",
+                  padding: "16px",
+                  backgroundColor: `${styles.colors?.cloudGrey}40`,
+                  borderRadius: "8px",
+                  borderLeft: `3px solid ${
+                    styles.colors?.electricBlue || "#4338CA"
+                  }`,
+                }}
+              >
+                <h4
+                  style={{
+                    ...styles.heading3,
+                    fontSize: "1em",
+                    marginTop: 0,
+                    marginBottom: "12px",
+                  }}
+                >
+                  FTTP-Specific Visual Diagnostic Process:
+                </h4>
+                <ol
+                  style={{
+                    ...styles.list,
+                    listStyle: "decimal",
+                    paddingLeft: "20px",
+                    marginBottom: 0,
+                  }}
+                >
+                  {renderListItem("Show ONT device lights first.")}
+                  {renderListItem(
+                    "Verify lights: Power (Solid Green), PON (Solid Green), LOS (Off), Internet (Solid/Blinking Green)."
+                  )}
+                  {renderListItem("Verify fiber cable secure in ONT.")}
+                  {renderListItem(
+                    "Verify Ethernet cable: ONT port -> Router WAN port."
+                  )}
+                  {renderListItem("Check Router indicator lights.")}
+                  {renderListItem(
+                    "Inspect any additional network gear (switches, extenders)."
+                  )}
+                </ol>
+              </div>
+            </div>
+
+            {/* Subsection 8: Coverage */}
+            <div style={{ marginBottom: "20px" }}>
+              <h3
+                style={{
+                  ...styles.heading3,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <FaBroadcastTower
+                  style={{ color: styles.colors?.electricBlue }}
+                />{" "}
+                8. Coverage Analysis (Dead Spot Detector)
+              </h3>
+              <ul style={styles.list}>
+                {renderListItem(
+                  "Use if customer reports poor signal in specific areas."
+                )}
+                {renderListItem(
+                  "Initiate tool; have customer start near router."
+                )}
+                {renderListItem(
+                  "Guide customer walking room-by-room, focusing on problem areas."
+                )}
+                {renderListItem(
+                  "Analyze real-time map and final results (Green/Yellow/Red)."
+                )}
+                {renderListItem(
+                  "Decision: Does coverage require router relocation or suggest extenders?"
+                )}
+              </ul>
+            </div>
+
+            {/* Subsection 9: Router Config */}
+            <div style={{ marginBottom: 0 }}>
+              {" "}
+              {/* Last subsection */}
+              <h3
+                style={{
+                  ...styles.heading3,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <FaServer style={{ color: styles.colors?.electricBlue }} /> 9.
+                Router Configuration (When Appropriate)
+              </h3>
+              <ul style={styles.list}>
+                {renderListItem(
+                  "Use Router Login feature (if supported for model)."
+                )}
+                {renderListItem(
+                  "Verify current settings (WiFi channel, band steering, security)."
+                )}
+                {renderListItem(
+                  "Make necessary adjustments based on scan findings (e.g., change channel)."
+                )}
+                {renderListItem(
+                  "Re-run Speed Test or limited scan to test effectiveness."
+                )}
+                {renderListItem(
+                  "Decision: Are config changes sufficient, or is issue elsewhere?"
+                )}
+              </ul>
+            </div>
           </div>
         )}
       </motion.div>
 
-      {/* Resolution Phase */}
+      {/* Resolution Phase Card */}
       <motion.div
         custom={3}
         initial="hidden"
@@ -195,33 +691,241 @@ const SMCWorkflowContent = ({ styles }) => {
             alignItems: "center",
             cursor: "pointer",
           }}
-          onClick={() => toggleSection("postCall")}
+          onClick={() => toggleSection("resolutionPhase")}
         >
           <h2 style={styles.cardTitle}>
             <FaTools
               style={{ marginRight: "8px", color: styles.colors?.primary }}
-            />
+            />{" "}
             Resolution Phase
           </h2>
-          {expandedSections.postCall ? <FaChevronDown /> : <FaChevronRight />}
+          {expandedSections.resolutionPhase ? (
+            <FaChevronDown />
+          ) : (
+            <FaChevronRight />
+          )}
         </div>
-        {expandedSections.postCall && (
+        {expandedSections.resolutionPhase && (
           <div style={{ animation: "fadeIn 0.3s ease-in", paddingTop: "16px" }}>
-            <p style={styles.paragraph}>
-              The resolution phase content will be populated here, covering:
-            </p>
-            <ul style={styles.list}>
-              <li style={styles.listItem}>Implementing fixes</li>
-              <li style={styles.listItem}>Next steps determination</li>
-              <li style={styles.listItem}>Documentation & feedback</li>
-            </ul>
+            {/* Subsection 10: Fixes */}
+            <div style={{ marginBottom: "20px" }}>
+              <h3
+                style={{
+                  ...styles.heading3,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <FaCheckCircle style={{ color: styles.colors?.electricBlue }} />{" "}
+                10. Implementing Fixes & Testing
+              </h3>
+              <ul style={styles.list}>
+                {renderListItem(
+                  "Implement fixes identified by Resolve (workflows, manual changes)."
+                )}
+                {renderListItem(
+                  "Guide customer through any necessary physical changes or reboots."
+                )}
+                {renderListItem(
+                  "Re-test using Speed Test or another Network Scan."
+                )}
+                {renderListItem(
+                  "Provide customer education on preventing recurrence (e.g., router placement)."
+                )}
+                {renderListItem(
+                  "Decision: Has the primary issue been resolved?"
+                )}
+              </ul>
+            </div>
+            {/* Subsection 11: Next Steps */}
+            <div style={{ marginBottom: "20px" }}>
+              <h3
+                style={{
+                  ...styles.heading3,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <FaArrowRight style={{ color: styles.colors?.electricBlue }} />{" "}
+                11. Next Steps Determination
+              </h3>
+              <ul style={styles.list}>
+                {renderListItem(
+                  "If issue persists, determine appropriate next action."
+                )}
+                {renderListItem(
+                  "Schedule CPE replacement via standard process if diagnostics indicate hardware failure."
+                )}
+                {renderListItem(
+                  "Arrange engineer visit if in-home wiring or complex issue suspected."
+                )}
+                {renderListItem(
+                  "Clearly set follow-up expectations with the customer."
+                )}
+                {renderListItem(
+                  "Decision: What is the final appropriate resolution/escalation path?"
+                )}
+              </ul>
+            </div>
+            {/* Subsection 12: Docs */}
+            <div style={{ marginBottom: 0 }}>
+              {" "}
+              {/* Last subsection */}
+              <h3
+                style={{
+                  ...styles.heading3,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <FaEdit style={{ color: styles.colors?.electricBlue }} /> 12.
+                Documentation & Feedback (Crucial)
+              </h3>
+              <ul style={styles.list}>
+                {renderListItem(
+                  "Document detailed findings and actions in MyDesk notes."
+                )}
+                {renderListItem(
+                  "CRITICAL: Add the RouteThis Customer Key to MyDesk notes."
+                )}
+                {renderListItem(
+                  "CRITICAL: Complete mandatory RouteThis feedback form IMMEDIATELY after the call."
+                )}
+                {renderListItem(
+                  "Record specific tools used and their effectiveness in MyDesk."
+                )}
+                {renderListItem(
+                  "Tag case appropriately per trial guidelines for metrics."
+                )}
+              </ul>
+            </div>
           </div>
         )}
       </motion.div>
 
-      {/* Special Cases */}
+      {/* Router-Specific & Special Cases Card */}
       <motion.div
         custom={4}
+        initial="hidden"
+        animate="visible"
+        variants={cardVariants}
+        style={styles.card}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            cursor: "pointer",
+          }}
+          onClick={() => toggleSection("routerWorkflows")}
+        >
+          <h2 style={styles.cardTitle}>
+            <FaRoute
+              style={{ marginRight: "8px", color: styles.colors?.primary }}
+            />{" "}
+            Router-Specific Workflows
+          </h2>
+          {expandedSections.routerWorkflows ? (
+            <FaChevronDown />
+          ) : (
+            <FaChevronRight />
+          )}
+        </div>
+        {expandedSections.routerWorkflows && (
+          <div style={{ animation: "fadeIn 0.3s ease-in", paddingTop: "16px" }}>
+            <div style={{ marginBottom: "16px" }}>
+              <h4
+                style={{
+                  ...styles.heading3,
+                  fontSize: "1em",
+                  marginTop: 0,
+                  marginBottom: "8px",
+                }}
+              >
+                TalkTalk WiFi Hub / WiFi Hub 2 (Sagemcom)
+              </h4>
+              <ul style={styles.list}>
+                {renderListItem("Most compatible with Router Login feature.")}
+                {renderListItem(
+                  "Focus: Channel congestion, band steering settings."
+                )}
+                {renderListItem("Check firmware if router uptime > 30 days.")}
+              </ul>
+            </div>
+            <div style={{ marginBottom: "16px" }}>
+              <h4
+                style={{
+                  ...styles.heading3,
+                  fontSize: "1em",
+                  marginTop: 0,
+                  marginBottom: "8px",
+                }}
+              >
+                WiFi Hub Black (Huawei)
+              </h4>
+              <ul style={styles.list}>
+                {renderListItem("Partial Router Login compatibility.")}
+                {renderListItem("Focus: Channel settings, band separation.")}
+                {renderListItem(
+                  "Visual verification via Live View is often helpful."
+                )}
+              </ul>
+            </div>
+            <div style={{ marginBottom: "16px" }}>
+              <h4
+                style={{
+                  ...styles.heading3,
+                  fontSize: "1em",
+                  marginTop: 0,
+                  marginBottom: "8px",
+                }}
+              >
+                Eero Systems
+              </h4>
+              <ul style={styles.list}>
+                {renderListItem(
+                  "Limited Router Login; primary management via Eero App."
+                )}
+                {renderListItem(
+                  "Network Scan identifies mesh nodes & connection quality."
+                )}
+                {renderListItem(
+                  "May need to guide customer through Eero App for changes."
+                )}
+              </ul>
+            </div>
+            <div style={{ marginBottom: 0 }}>
+              {" "}
+              {/* Last item */}
+              <h4
+                style={{
+                  ...styles.heading3,
+                  fontSize: "1em",
+                  marginTop: 0,
+                  marginBottom: "8px",
+                }}
+              >
+                Customer-Owned (BYOD) Routers
+              </h4>
+              <ul style={{ ...styles.list, marginBottom: 0 }}>
+                {renderListItem("Router Login usually unsupported.")}
+                {renderListItem("Rely heavily on Network Scan diagnostics.")}
+                {renderListItem(
+                  "Use Live View to guide customer through their router's admin interface if config changes needed."
+                )}
+              </ul>
+            </div>
+          </div>
+        )}
+      </motion.div>
+
+      {/* Special Cases Card */}
+      <motion.div
+        custom={5}
         initial="hidden"
         animate="visible"
         variants={cardVariants}
@@ -237,10 +941,10 @@ const SMCWorkflowContent = ({ styles }) => {
           onClick={() => toggleSection("specialCases")}
         >
           <h2 style={styles.cardTitle}>
-            <FaRoute
+            <FaExclamationCircle
               style={{ marginRight: "8px", color: styles.colors?.primary }}
-            />
-            Router-Specific & Special Case Workflows
+            />{" "}
+            Special Case Considerations
           </h2>
           {expandedSections.specialCases ? (
             <FaChevronDown />
@@ -250,15 +954,478 @@ const SMCWorkflowContent = ({ styles }) => {
         </div>
         {expandedSections.specialCases && (
           <div style={{ animation: "fadeIn 0.3s ease-in", paddingTop: "16px" }}>
-            <p style={styles.paragraph}>
-              The special cases content will be populated here, covering:
+            <div style={{ marginBottom: "16px" }}>
+              <h4
+                style={{
+                  ...styles.heading3,
+                  fontSize: "1em",
+                  marginTop: 0,
+                  marginBottom: "8px",
+                }}
+              >
+                Shell Energy Acquired Customers
+              </h4>
+              <ul style={styles.list}>
+                {renderListItem(
+                  "Higher likelihood of older/unsupported equipment."
+                )}
+                {renderListItem(
+                  "Pay extra attention to router model identification in scan/Live View."
+                )}
+                {renderListItem(
+                  "May require more detailed explanation of Resolve process."
+                )}
+                {renderListItem(
+                  "Clearly document if equipment replacement is the necessary resolution."
+                )}
+              </ul>
+            </div>
+            <div style={{ marginBottom: "16px" }}>
+              <h4
+                style={{
+                  ...styles.heading3,
+                  fontSize: "1em",
+                  marginTop: 0,
+                  marginBottom: "8px",
+                }}
+              >
+                Intermittent Issues
+              </h4>
+              <ul style={styles.list}>
+                {renderListItem(
+                  "Run Network Scan during problem times if possible, or multiple scans."
+                )}
+                {renderListItem(
+                  "Focus on environment scan results (interference, congestion)."
+                )}
+                {renderListItem(
+                  "Utilize customer education features heavily (e.g., channel changing)."
+                )}
+              </ul>
+            </div>
+            <div style={{ marginBottom: 0 }}>
+              {" "}
+              {/* Last item */}
+              <h4
+                style={{
+                  ...styles.heading3,
+                  fontSize: "1em",
+                  marginTop: 0,
+                  marginBottom: "8px",
+                }}
+              >
+                Multi-Device Households
+              </h4>
+              <ul style={{ ...styles.list, marginBottom: 0 }}>
+                {renderListItem(
+                  "Analyze 'Connected Devices' section in Network Scan carefully."
+                )}
+                {renderListItem(
+                  "Look for interference patterns or overloaded router."
+                )}
+                {renderListItem(
+                  "Verify network capacity vs. number/type of connected devices."
+                )}
+              </ul>
+            </div>
+          </div>
+        )}
+      </motion.div>
+
+      {/* Documentation Requirements Card */}
+      <motion.div
+        custom={6}
+        initial="hidden"
+        animate="visible"
+        variants={cardVariants}
+        style={styles.card}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            cursor: "pointer",
+          }}
+          onClick={() => toggleSection("documentation")}
+        >
+          <h2 style={styles.cardTitle}>
+            <FaClipboardList
+              style={{ marginRight: "8px", color: styles.colors?.primary }}
+            />{" "}
+            Documentation & Feedback Requirements
+          </h2>
+          {expandedSections.documentation ? (
+            <FaChevronDown />
+          ) : (
+            <FaChevronRight />
+          )}
+        </div>
+        {expandedSections.documentation && (
+          <div style={{ animation: "fadeIn 0.3s ease-in", paddingTop: "16px" }}>
+            <div style={{ marginBottom: "20px" }}>
+              <h3
+                style={{
+                  ...styles.heading3,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <FaEdit style={{ color: styles.colors?.electricBlue }} />{" "}
+                Required MyDesk Documentation
+              </h3>
+              <ul style={styles.list}>
+                {renderSubListItem(
+                  "Customer Details",
+                  "Name and Account Number."
+                )}
+                {renderSubListItem(
+                  "RouteThis Key",
+                  "Paste the Customer Key generated by Resolve."
+                )}
+                {renderSubListItem(
+                  "Router Info",
+                  "Model and Firmware Version (if available)."
+                )}
+                {renderSubListItem(
+                  "Tools Used",
+                  "List features used (Scan, Live View, etc.)."
+                )}
+                {renderSubListItem(
+                  "Key Findings",
+                  "Summarize diagnostics (e.g., 'High congestion', 'Double NAT')."
+                )}
+                {renderSubListItem(
+                  "Actions Taken",
+                  "Describe steps based on findings."
+                )}
+                {renderSubListItem(
+                  "Resolution",
+                  "Status (Resolved/Escalated) and Next Steps."
+                )}
+                {renderSubListItem(
+                  "Customer Feedback",
+                  "Note any comments on using the tool."
+                )}
+              </ul>
+            </div>
+            <div style={{ marginBottom: "20px" }}>
+              <h3
+                style={{
+                  ...styles.heading3,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <FaClipboardCheck
+                  style={{ color: styles.colors?.electricBlue }}
+                />{" "}
+                Trial Feedback Form Requirements (Mandatory)
+              </h3>
+              <ul style={styles.list}>
+                {renderListItem(
+                  "Complete IMMEDIATELY after each Resolve interaction during Phase 1."
+                )}
+                {renderListItem("Rate tool effectiveness (1-5 scale).")}
+                {renderListItem("Note specific features used.")}
+                {renderListItem(
+                  "Estimate time saved/added vs. traditional methods."
+                )}
+                {renderListItem("Report any technical issues encountered.")}
+                {renderListItem("Provide suggestions for improvement.")}
+              </ul>
+            </div>
+            {/* Example MyDesk Notes */}
+            <div style={{ marginBottom: 0 }}>
+              {" "}
+              {/* Last subsection */}
+              <h3
+                style={{
+                  ...styles.heading3,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <FaFileAlt style={{ color: styles.colors?.electricBlue }} />{" "}
+                Example MyDesk Documentation
+              </h3>
+              <div style={codeBlockStyle}>
+                {`CASE: WiFi Connectivity Issues - Multiple Devices
+
+DIAGNOSIS: Used RouteThis Resolve (Customer Key: RH7K) to perform network diagnostics. Network Scan identified:
+- High channel congestion on 2.4GHz band (15 competing networks)
+- Router uptime of 73 days without reboot
+- Double NAT configuration detected (customer's own secondary router)
+
+ACTIONS:
+1. Used Live View to verify router/ONT physical connections - confirmed correct
+2. Guided customer to remove secondary router and connect directly
+3. Rebooted primary TalkTalk router
+4. Changed WiFi channel to less congested option (Ch 11)
+5. Ran second scan confirming improvements
+
+RESOLUTION:
+Issue resolved. Customer confirmed all devices now connecting successfully with improved speeds. Educated customer on router placement and avoiding double router setup.
+
+NOTES:
+Customer found RouteThis easy to use. Live View particularly helpful in identifying the customer's TP-Link router causing Double NAT.`}
+              </div>
+            </div>
+          </div>
+        )}
+      </motion.div>
+
+      {/* Outstanding Items Card */}
+      <motion.div
+        custom={7}
+        initial="hidden"
+        animate="visible"
+        variants={cardVariants}
+        style={styles.card}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            cursor: "pointer",
+          }}
+          onClick={() => toggleSection("outstanding")}
+        >
+          <h2 style={styles.cardTitle}>
+            <FaInfoCircle
+              style={{ marginRight: "8px", color: styles.colors?.primary }}
+            />{" "}
+            Outstanding Implementation Items
+          </h2>
+          {expandedSections.outstanding ? (
+            <FaChevronDown />
+          ) : (
+            <FaChevronRight />
+          )}
+        </div>
+        {expandedSections.outstanding && (
+          <div style={{ animation: "fadeIn 0.3s ease-in", paddingTop: "16px" }}>
+            <p style={{ ...styles.paragraph, fontStyle: "italic" }}>
+              The following aspects require further clarification or
+              confirmation from TalkTalk project leads:
             </p>
             <ul style={styles.list}>
-              <li style={styles.listItem}>Router-specific workflows</li>
-              <li style={styles.listItem}>Shell Energy acquired customers</li>
-              <li style={styles.listItem}>Intermittent issues</li>
-              <li style={styles.listItem}>Multi-device households</li>
+              <li>
+                <strong style={styles.strong}>MyDesk Integration:</strong> Exact
+                tagging/categorization, required fields for metrics, any
+                specific templates.
+              </li>
+              <li>
+                <strong style={styles.strong}>Technical Environment:</strong>{" "}
+                Confirmation of new VPN performance, final browser compatibility
+                results.
+              </li>
+              <li>
+                <strong style={styles.strong}>Procedural Approvals:</strong>{" "}
+                Confirmation on CPE replacement/engineer visit triggers based
+                solely on Resolve.
+              </li>
+              <li>
+                <strong style={styles.strong}>Trial Specifics:</strong> Final
+                feedback form URL, expected case volume, specific metric
+                targets.
+              </li>
+              <li>
+                <strong style={styles.strong}>Training Gaps:</strong>{" "}
+                Confirmation of completion, identification of needed refreshers.
+              </li>
             </ul>
+          </div>
+        )}
+      </motion.div>
+
+      {/* Appendix Card */}
+      <motion.div
+        custom={8}
+        initial="hidden"
+        animate="visible"
+        variants={cardVariants}
+        style={styles.card}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            cursor: "pointer",
+          }}
+          onClick={() => toggleSection("appendix")}
+        >
+          <h2 style={styles.cardTitle}>
+            <FaTools
+              style={{ marginRight: "8px", color: styles.colors?.primary }}
+            />{" "}
+            Appendix: Quick Reference Guide
+          </h2>
+          {expandedSections.appendix ? <FaChevronDown /> : <FaChevronRight />}
+        </div>
+        {expandedSections.appendix && (
+          <div style={{ animation: "fadeIn 0.3s ease-in", paddingTop: "16px" }}>
+            <div style={{ marginBottom: "24px" }}>
+              <h3
+                style={{
+                  ...styles.heading3,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <FaQuestionCircle
+                  style={{ color: styles.colors?.electricBlue }}
+                />{" "}
+                Resolve Feature Selection Guide
+              </h3>
+              <div style={styles.tableContainer}>
+                <table style={{ ...styles.table, tableLayout: "fixed" }}>
+                  <thead>
+                    <tr>
+                      <th style={{ ...styles.th, width: "25%" }}>
+                        Customer Problem
+                      </th>
+                      <th style={{ ...styles.th, width: "25%" }}>
+                        First Tool to Use
+                      </th>
+                      <th style={{ ...styles.th, width: "25%" }}>
+                        Secondary Tools
+                      </th>
+                      <th style={{ ...styles.th, width: "25%" }}>Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style={styles.td}>"Internet is slow"</td>
+                      <td style={styles.td}>Network Scan</td>
+                      <td style={styles.td}>Speed Test</td>
+                      <td style={styles.td}>Capture plan speeds</td>
+                    </tr>
+                    <tr>
+                      <td style={styles.td}>"WiFi doesn't reach..."</td>
+                      <td style={styles.td}>Network Scan</td>
+                      <td style={styles.td}>Dead Spot Detector</td>
+                      <td style={styles.td}>Check physical barriers</td>
+                    </tr>
+                    <tr>
+                      <td style={styles.td}>"Some devices connect..."</td>
+                      <td style={styles.td}>Network Scan</td>
+                      <td style={styles.td}>Live View</td>
+                      <td style={styles.td}>Check MAC filtering</td>
+                    </tr>
+                    <tr>
+                      <td style={styles.td}>"Router lights strange"</td>
+                      <td style={styles.td}>Network Scan</td>
+                      <td style={styles.td}>Live View (Video)</td>
+                      <td style={styles.td}>Focus on status lights</td>
+                    </tr>
+                    <tr>
+                      <td style={styles.td}>"Connection drops..."</td>
+                      <td style={styles.td}>Network Scan</td>
+                      <td style={styles.td}>Router Login</td>
+                      <td style={styles.td}>Check scheduled reboots</td>
+                    </tr>
+                    <tr>
+                      <td style={styles.td}>"New device won't connect"</td>
+                      <td style={styles.td}>Network Scan</td>
+                      <td style={styles.td}>Live View</td>
+                      <td style={styles.td}>Verify password entry</td>
+                    </tr>
+                    <tr>
+                      <td style={styles.td}>"Router keeps rebooting"</td>
+                      <td style={styles.td}>Network Scan</td>
+                      <td style={styles.td}>Live View</td>
+                      <td style={styles.td}>Check power source</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div>
+              {" "}
+              {/* Last subsection */}
+              <h3
+                style={{
+                  ...styles.heading3,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <FaRoute style={{ color: styles.colors?.electricBlue }} />{" "}
+                Common Issue Resolution Paths
+              </h3>
+              <div style={styles.tableContainer}>
+                <table style={{ ...styles.table, tableLayout: "fixed" }}>
+                  <thead>
+                    <tr>
+                      <th style={{ ...styles.th, width: "25%" }}>
+                        Issue Detected
+                      </th>
+                      <th style={{ ...styles.th, width: "25%" }}>
+                        Primary Action
+                      </th>
+                      <th style={{ ...styles.th, width: "25%" }}>
+                        Fallback Action
+                      </th>
+                      <th style={{ ...styles.th, width: "25%" }}>
+                        Escalation Path
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style={styles.td}>Channel Congestion</td>
+                      <td style={styles.td}>Change WiFi Channel</td>
+                      <td style={styles.td}>Split 2.4/5GHz</td>
+                      <td style={styles.td}>N/A</td>
+                    </tr>
+                    <tr>
+                      <td style={styles.td}>Signal Weakness</td>
+                      <td style={styles.td}>Optimize Placement</td>
+                      <td style={styles.td}>Dead Spot Analysis</td>
+                      <td style={styles.td}>Recommend Extenders</td>
+                    </tr>
+                    <tr>
+                      <td style={styles.td}>Double NAT</td>
+                      <td style={styles.td}>Remove 2nd Router</td>
+                      <td style={styles.td}>Configure Bridge Mode</td>
+                      <td style={styles.td}>N/A</td>
+                    </tr>
+                    <tr>
+                      <td style={styles.td}>Device Compatibility</td>
+                      <td style={styles.td}>Verify Standards</td>
+                      <td style={styles.td}>Update Drivers</td>
+                      <td style={styles.td}>Recommend Hardwiring</td>
+                    </tr>
+                    <tr>
+                      <td style={styles.td}>Router Overloaded</td>
+                      <td style={styles.td}>Reboot Router</td>
+                      <td style={styles.td}>Limit Devices</td>
+                      <td style={styles.td}>Consider Replacement</td>
+                    </tr>
+                    <tr>
+                      <td style={styles.td}>Outdated Firmware</td>
+                      <td style={styles.td}>Update Firmware</td>
+                      <td style={styles.td}>Factory Reset</td>
+                      <td style={styles.td}>N/A</td>
+                    </tr>
+                    <tr>
+                      <td style={styles.td}>Physical Damage</td>
+                      <td style={styles.td}>Identify w/ Live View</td>
+                      <td style={styles.td}>N/A</td>
+                      <td style={styles.td}>Replace Equipment</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         )}
       </motion.div>

@@ -46,7 +46,7 @@ function App() {
     },
     {
       id: "leadership",
-      label: "Leadership",
+      label: "Leadership Best Practices",
       path: "/leadership",
       icon: FaUserTie,
       isImportant: true,
@@ -122,7 +122,7 @@ function App() {
       padding: "20px 36px", // Significantly increased padding
       cursor: "pointer",
       borderRight: `1px solid ${colors.cloudGrey}`,
-      fontSize: "1.2rem", // Larger font size
+      fontSize: "0.9rem", // Larger font size
       color: colors.ash,
       textDecoration: "none",
       transition: "background-color 0.2s ease, color 0.2s ease",
@@ -131,7 +131,7 @@ function App() {
     },
     // Style for the icon within the tab link
     tabIcon: {
-      fontSize: "1.3em", // Icon size relative to text
+      fontSize: "0.9em", // Icon size relative to text
       marginBottom: "-2px", // Fine-tune vertical alignment if needed
       flexShrink: 0, // Prevent icon shrinking
     },
