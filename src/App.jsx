@@ -9,12 +9,14 @@ import {
   FaUserTie,
   FaBook,
   FaQuestionCircle,
+  FaSitemap,
 } from "react-icons/fa";
 
-// Import Components (assuming they exist in ./components/)
+// Import Components
 import HeaderComponent from "./components/HeaderComponent";
 import TabsComponent from "./components/TabsComponent";
 import HomeContent from "./components/content/HomeContent";
+import SMCWorkflowContent from "./components/content/SMCWorkflowContent";
 import AgentTrainingContent from "./components/content/AgentTrainingContent";
 import LeadershipContent from "./components/content/LeadershipContent";
 import TrialResourcesContent from "./components/content/TrialResourcesContent";
@@ -28,6 +30,13 @@ function App() {
   // --- Configuration Data ---
   const tabsConfig = [
     { id: "home", label: "Overview", path: "/", icon: FaHome },
+    {
+      id: "smc-workflow",
+      label: "SMC Workflow",
+      path: "/smc-workflow",
+      icon: FaSitemap, // Using FaSitemap for workflow
+      isImportant: true,
+    },
     {
       id: "agent-training",
       label: "Agent Training",
@@ -385,6 +394,22 @@ function App() {
                 >
                   {" "}
                   <HomeContent styles={styles} navigate={navigate} />{" "}
+                </motion.div>
+              }
+            />
+            <Route
+              path="/smc-workflow"
+              element={
+                <motion.div
+                  key="smc"
+                  initial="initial"
+                  animate="in"
+                  exit="out"
+                  variants={pageVariants}
+                  transition={pageTransition}
+                >
+                  {" "}
+                  <SMCWorkflowContent styles={styles} />{" "}
                 </motion.div>
               }
             />
