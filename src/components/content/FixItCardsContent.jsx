@@ -515,9 +515,8 @@ const FixItCardsContent = ({ styles }) => {
           Fix-It Cards Reference Guide
         </h2>
         <p style={styles.paragraph}>
-          This guide contains common network troubleshooting scenarios. Click on
-          a card to view detailed information, steps to take, and quick tips for
-          resolution.
+          Fix It Cards enabled for TalkTalk trial - included agent walkthrough
+          and more info.
         </p>
       </motion.div>
 
