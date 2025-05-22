@@ -1,3 +1,4 @@
+// App.jsx
 import React from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -8,8 +9,9 @@ import {
   FaChalkboardTeacher,
   FaUserTie,
   FaBook,
-  FaQuestionCircle,
+  // FaQuestionCircle, // Not used in tabsConfig
   FaSitemap,
+  FaTools,
 } from "react-icons/fa";
 
 // Import Components
@@ -20,7 +22,8 @@ import SMCWorkflowContent from "./components/content/SMCWorkflowContent";
 import AgentTrainingContent from "./components/content/AgentTrainingContent";
 import LeadershipContent from "./components/content/LeadershipContent";
 import TrialResourcesContent from "./components/content/TrialResourcesContent";
-import SupportContent from "./components/content/SupportContent";
+// import SupportContent from "./components/content/SupportContent"; // Not used in routes
+import FixItCardsContent from "./components/content/FixItCardsContent";
 
 // --- Main App Component ---
 function App() {
@@ -34,22 +37,29 @@ function App() {
       id: "smc-workflow",
       label: "SMC Workflow",
       path: "/smc-workflow",
-      icon: FaSitemap, // Using FaSitemap for workflow
-      isImportant: true,
+      icon: FaSitemap,
+      isImportant: true, // Assuming these should be important for highlight
     },
     {
       id: "agent-training",
       label: "Agent Training",
       path: "/agent-training",
       icon: FaChalkboardTeacher,
-      isImportant: true,
+      isImportant: true, // Assuming these should be important for highlight
+    },
+    {
+      id: "fix-it-cards",
+      label: "Fix-It Cards",
+      path: "/fix-it-cards",
+      icon: FaTools,
+      isImportant: true, // Assuming these should be important for highlight
     },
     {
       id: "leadership",
       label: "Leadership Best Practices",
       path: "/leadership",
       icon: FaUserTie,
-      isImportant: true,
+      // isImportant: true, // Keep as per your original if not all are important
     },
     {
       id: "trial-resources",
@@ -59,25 +69,31 @@ function App() {
     },
   ];
 
-  // --- Styling (Inline Style Object - UPDATED for Tabs) ---
+  // --- Styling (Inline Style Object - Your existing styles with additions) ---
   const colors = {
     primary: "#58DBB9",
     teal: "#58DBB9",
     secondary: "#4EBAA1",
     jade: "#4EBAA1",
     electricBlue: "#0066FF",
-    ash: "#3D4550",
-    slate: "#20242A",
-    cloudGrey: "#EEF2F6",
+    ash: "#3D4550", // Used in FixItCards
+    slate: "#20242A", // Used in FixItCards
+    cloudGrey: "#EEF2F6", // Used in FixItCards
     tabActiveBg: "#E3F2FD",
-    tabImportantBg: "#fafafa", // Very light gray for important inactive bg
-    info: "#3b82f6",
+    tabImportantBg: "#fafafa",
+    info: "#3b82f6", // Used in FixItCards
     infoBg: "rgba(59, 130, 246, 0.1)",
+    // Added from my suggestion for FixItCards
+    success: "#28a745",
+    danger: "#dc3545",
+    warning: "#ffc107",
+    light: "#F5F7FA", // Added for body background
+    dark: "#343a40", // General dark text color
   };
   const primaryGradient = `linear-gradient(135deg, ${colors.primary} 0%, ${colors.electricBlue} 100%)`;
 
   const styles = {
-    // Container and Header styles remain the same...
+    // Your existing styles
     container: {
       fontFamily: '"DM Sans", sans-serif',
       maxWidth: "1200px",
@@ -101,9 +117,6 @@ function App() {
       marginTop: "8px",
       marginBottom: 0,
     },
-
-    // ** UPDATED Tab Styles **
-    // Increased marginBottom, slightly stronger shadow
     tabsContainer: {
       display: "flex",
       flexWrap: "wrap",
@@ -114,42 +127,36 @@ function App() {
       overflow: "hidden",
       boxShadow: "0 2px 5px rgba(0, 0, 0, 0.07)",
     },
-    // Base style for NavLink - Increased padding and font size
     tabLink: {
       display: "flex",
       alignItems: "center",
-      gap: "10px", // Slightly more space between icon and text
-      padding: "20px 36px", // Significantly increased padding
+      gap: "10px",
+      padding: "20px 36px",
       cursor: "pointer",
       borderRight: `1px solid ${colors.cloudGrey}`,
-      fontSize: "0.9rem", // Larger font size
+      fontSize: "0.9rem",
       color: colors.ash,
       textDecoration: "none",
       transition: "background-color 0.2s ease, color 0.2s ease",
       whiteSpace: "nowrap",
-      fontWeight: "500", // Slightly bolder
+      fontWeight: "500",
     },
-    // Style for the icon within the tab link
     tabIcon: {
-      fontSize: "0.9em", // Icon size relative to text
-      marginBottom: "-2px", // Fine-tune vertical alignment if needed
-      flexShrink: 0, // Prevent icon shrinking
+      fontSize: "0.9em",
+      marginBottom: "-2px",
+      flexShrink: 0,
     },
-    // Style for active tab
     tabLinkActive: {
       backgroundColor: colors.tabActiveBg,
       color: colors.electricBlue,
-      fontWeight: "600", // Make active bolder
-      borderBottom: `3px solid ${colors.electricBlue}`, // Thicker border
+      fontWeight: "600",
+      borderBottom: `3px solid ${colors.electricBlue}`,
     },
-    // Style for *important* but *inactive* tab
     tabLinkImportantInactive: {
-      backgroundColor: colors.tabImportantBg, // Subtle background highlight
-      fontWeight: "500", // Slightly bolder than normal inactive
-      color: colors.slate, // Slightly darker text than default inactive
+      backgroundColor: colors.tabImportantBg,
+      fontWeight: "500",
+      color: colors.slate,
     },
-
-    // Card, Grid, FeatureCard, Timeline, etc., styles remain the same...
     card: {
       backgroundColor: "white",
       borderRadius: "0.75rem",
@@ -158,7 +165,9 @@ function App() {
       marginBottom: "24px",
       borderTop: `3px solid ${colors.primary}`,
     },
+    // Updated cardTitle to match FixItCards usage more closely if needed, or keep your original
     cardTitle: {
+      // This is your original cardTitle
       fontSize: "1.25rem",
       fontWeight: "600",
       color: colors.slate,
@@ -167,12 +176,20 @@ function App() {
       paddingBottom: "16px",
       borderBottom: `1px solid ${colors.cloudGrey}`,
     },
+    // Added grid style for FixItCards from my previous suggestion
     grid: {
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+      gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))", // Adjusted minmax for FixItCards
       gap: "24px",
-      marginBottom: "24px",
+      // marginBottom: "24px", // Your original grid had this, FixItCards might not need it if cards have their own mb
     },
+    // Your original grid style if it's for something else:
+    // grid: {
+    //   display: "grid",
+    //   gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+    //   gap: "24px",
+    //   marginBottom: "24px",
+    // },
     featureCard: {
       backgroundColor: "white",
       borderRadius: "0.75rem",
@@ -263,12 +280,21 @@ function App() {
       marginTop: "24px",
     },
     paragraph: {
+      // Your original paragraph style
       fontSize: "1rem",
       lineHeight: "1.7",
       marginBottom: "16px",
       color: colors.ash,
     },
+    // Paragraph style from my suggestion, if different styling needed elsewhere
+    // paragraph: {
+    //   fontSize: "1rem",
+    //   lineHeight: 1.6,
+    //   color: colors.ash, // or colors.dark
+    //   marginBottom: "16px",
+    // },
     list: {
+      // Your original list style
       listStylePosition: "inside",
       paddingLeft: "8px",
       marginBottom: "16px",
@@ -276,15 +302,39 @@ function App() {
       lineHeight: "1.7",
       color: colors.ash,
     },
-    listItem: { marginBottom: "8px" },
+    // List style from my suggestion
+    // list: {
+    //   listStyleType: "disc",
+    //   paddingLeft: "20px",
+    //   marginBottom: "16px",
+    // },
+    listItem: {
+      // Your original listItem style
+      marginBottom: "8px",
+    },
+    // ListItem from my suggestion
+    // listItem: {
+    //   fontSize: "0.95rem",
+    //   color: colors.ash, // or colors.dark
+    //   marginBottom: "8px",
+    //   lineHeight: 1.5,
+    // },
     strong: { fontWeight: "600", color: colors.slate },
     heading3: {
+      // Your original heading3
       fontSize: "1.1rem",
       fontWeight: "600",
       color: colors.slate,
       marginTop: "24px",
       marginBottom: "12px",
     },
+    // Heading3 from my suggestion (if needed for FixItCards specifically)
+    // heading3: {
+    //   fontSize: "1.25rem",
+    //   fontWeight: 600,
+    //   color: colors.dark,
+    //   marginBottom: "12px",
+    // },
     tableContainer: { overflowX: "auto", marginBottom: "24px" },
     table: { width: "100%", borderCollapse: "collapse", minWidth: "600px" },
     th: {
@@ -335,7 +385,7 @@ function App() {
     },
   };
 
-  // --- Animation Variants --- (Keep as before)
+  // --- Animation Variants ---
   const pageVariants = {
     initial: { opacity: 0, y: 10 },
     in: { opacity: 1, y: 0 },
@@ -344,138 +394,166 @@ function App() {
   const pageTransition = { type: "tween", ease: "easeInOut", duration: 0.3 };
 
   React.useEffect(() => {
-    // Apply background color to the entire page
-    document.body.style.backgroundColor = "#F5F7FA";
+    // Apply background color to the entire page using 'colors.light'
+    document.body.style.backgroundColor = colors.light; // Use color from your styles object
     document.body.style.margin = "0";
+    document.body.style.fontFamily = '"DM Sans", sans-serif'; // Ensure consistent font
 
     // Clean up function to reset styles when component unmounts
     return () => {
       document.body.style.backgroundColor = "";
       document.body.style.margin = "";
+      document.body.style.fontFamily = "";
     };
-  }, []);
+  }, [colors.light]); // Add colors.light to dependency array if it can change (though unlikely for a constant)
 
   // --- App Render ---
+  // Applying the wrapper div with flex column layout and minHeight
   return (
-    <div style={styles.container}>
-      {/* Header uses its specific styles */}
-      <HeaderComponent
-        headerStyle={styles.header}
-        titleStyle={styles.headerTitle}
-        subtitleStyle={styles.headerSubtitle}
-        title="TalkTalk Trial - Info Portal"
-        subtitle="INTERNAL USE ONLY | RouteThis Professional Services Team"
-      />
-      {/* Tabs now uses the new/updated styles */}
-      <TabsComponent
-        tabs={tabsConfig} // Pass config with icons/flags
-        containerStyle={styles.tabsContainer}
-        linkStyle={styles.tabLink}
-        iconStyle={styles.tabIcon} // Pass icon style
-        activeLinkStyle={styles.tabLinkActive}
-        importantInactiveStyle={styles.tabLinkImportantInactive} // Pass important style
-      />
-      {/* Main content section remains the same, passing down styles */}
-      <main style={{ position: "relative", marginTop: "32px" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+        backgroundColor: colors.light,
+      }}
+    >
+      <div style={styles.container}>
         {" "}
-        {/* Increased marginTop */}
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route
-              path="/"
-              element={
-                <motion.div
-                  key="home"
-                  initial="initial"
-                  animate="in"
-                  exit="out"
-                  variants={pageVariants}
-                  transition={pageTransition}
-                >
-                  {" "}
-                  <HomeContent styles={styles} navigate={navigate} />{" "}
-                </motion.div>
-              }
-            />
-            <Route
-              path="/smc-workflow"
-              element={
-                <motion.div
-                  key="smc"
-                  initial="initial"
-                  animate="in"
-                  exit="out"
-                  variants={pageVariants}
-                  transition={pageTransition}
-                >
-                  {" "}
-                  <SMCWorkflowContent styles={styles} />{" "}
-                </motion.div>
-              }
-            />
-            <Route
-              path="/agent-training"
-              element={
-                <motion.div
-                  key="agent"
-                  initial="initial"
-                  animate="in"
-                  exit="out"
-                  variants={pageVariants}
-                  transition={pageTransition}
-                >
-                  {" "}
-                  <AgentTrainingContent styles={styles} />{" "}
-                </motion.div>
-              }
-            />
-            <Route
-              path="/leadership"
-              element={
-                <motion.div
-                  key="lead"
-                  initial="initial"
-                  animate="in"
-                  exit="out"
-                  variants={pageVariants}
-                  transition={pageTransition}
-                >
-                  {" "}
-                  <LeadershipContent styles={styles} />{" "}
-                </motion.div>
-              }
-            />
-            <Route
-              path="/trial-resources"
-              element={
-                <motion.div
-                  key="resources"
-                  initial="initial"
-                  animate="in"
-                  exit="out"
-                  variants={pageVariants}
-                  transition={pageTransition}
-                >
-                  {" "}
-                  <TrialResourcesContent styles={styles} />{" "}
-                </motion.div>
-              }
-            />
-            <Route
-              path="*"
-              element={
-                <div style={styles.card}>
-                  <h2 style={styles.cardTitle}>Page Not Found</h2>
-                  <p style={styles.paragraph}>
-                    The page you requested could not be found.
-                  </p>
-                </div>
-              }
-            />
-          </Routes>
-        </AnimatePresence>
-      </main>
-      <footer style={styles.footer}>Prepared by: Randy Panté</footer>
+        {/* This is your original container */}
+        <HeaderComponent
+          headerStyle={styles.header}
+          titleStyle={styles.headerTitle}
+          subtitleStyle={styles.headerSubtitle}
+          title="TalkTalk Trial - Info Portal"
+          subtitle="INTERNAL USE ONLY | RouteThis Professional Services Team"
+        />
+        <TabsComponent
+          tabs={tabsConfig}
+          containerStyle={styles.tabsContainer}
+          linkStyle={styles.tabLink}
+          iconStyle={styles.tabIcon}
+          activeLinkStyle={styles.tabLinkActive}
+          importantInactiveStyle={styles.tabLinkImportantInactive}
+        />
+        {/* Main content section with flexGrow and modified styles for centering */}
+        <main
+          style={{
+            flexGrow: 1,
+            position: "relative",
+            marginTop: "32px",
+            width: "100%",
+          }}
+        >
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              <Route
+                path="/"
+                element={
+                  <motion.div
+                    key="home"
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={pageVariants}
+                    transition={pageTransition}
+                  >
+                    <HomeContent styles={styles} navigate={navigate} />
+                  </motion.div>
+                }
+              />
+              <Route
+                path="/smc-workflow"
+                element={
+                  <motion.div
+                    key="smc"
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={pageVariants}
+                    transition={pageTransition}
+                  >
+                    <SMCWorkflowContent styles={styles} />
+                  </motion.div>
+                }
+              />
+              <Route
+                path="/agent-training"
+                element={
+                  <motion.div
+                    key="agent"
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={pageVariants}
+                    transition={pageTransition}
+                  >
+                    <AgentTrainingContent styles={styles} />
+                  </motion.div>
+                }
+              />
+              <Route
+                path="/fix-it-cards"
+                element={
+                  <motion.div
+                    key="fixitcards"
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={pageVariants}
+                    transition={pageTransition}
+                  >
+                    <FixItCardsContent styles={styles} />{" "}
+                    {/* Passing your styles object */}
+                  </motion.div>
+                }
+              />
+              <Route
+                path="/leadership"
+                element={
+                  <motion.div
+                    key="lead"
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={pageVariants}
+                    transition={pageTransition}
+                  >
+                    <LeadershipContent styles={styles} />
+                  </motion.div>
+                }
+              />
+              <Route
+                path="/trial-resources"
+                element={
+                  <motion.div
+                    key="resources"
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={pageVariants}
+                    transition={pageTransition}
+                  >
+                    <TrialResourcesContent styles={styles} />
+                  </motion.div>
+                }
+              />
+              <Route
+                path="*"
+                element={
+                  <div style={styles.card}>
+                    <h2 style={styles.cardTitle}>Page Not Found</h2>
+                    <p style={styles.paragraph}>
+                      The page you requested could not be found.
+                    </p>
+                  </div>
+                }
+              />
+            </Routes>
+          </AnimatePresence>
+        </main>
+        <footer style={styles.footer}>Prepared by: Randy Panté</footer>
+      </div>
     </div>
   );
 }

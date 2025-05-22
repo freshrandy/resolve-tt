@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+// REMOVED Mermaid imports
 import {
   FaChevronDown,
   FaChevronRight,
   FaSitemap, // Workflow Overview
-  FaClipboardList, // Pre-Contact, Documentation Req
-  FaClipboardCheck,
-  FaFileAlt,
+  FaClipboardList, // Pre-Contact, Documentation Req Title, Doc Issues
+  FaClipboardCheck, // Feedback Form Req Title
   FaPhoneAlt, // Customer Contact
   FaTools, // Resolution Phase, Appendix Tools
-  FaRoute, // Router/Special Cases
-  FaProjectDiagram, // Mermaid Placeholder Icon
+  FaRoute, // Router/Special Cases, Resolution Paths Title
+  // FaProjectDiagram, // REMOVED
   FaFileInvoice, // Case Receipt
   FaSearch, // Initial Investigation
   FaTasks, // Pre-Contact Strategy / Key Activities
@@ -18,17 +18,41 @@ import {
   FaMobileAlt, // Resolve Implementation
   FaChartPie, // Diagnostics Analysis
   FaEye, // Visual Diagnostics
-  FaBroadcastTower, // Coverage Analysis
+  FaBroadcastTower, // Coverage Analysis, Shell Acquisition
   FaServer, // Router Configuration
-  FaCheckCircle, // Implementing Fixes / Decision Point
+  FaCheckCircle, // Implementing Fixes / Decision Point, Testing Results
   FaArrowRight, // Next Steps
-  FaEdit, // Documentation & Feedback
-  FaLaptopCode, // Router-Specific Workflows
-  FaExclamationCircle, // Special Cases
+  FaEdit, // Documentation & Feedback Title, MyDesk Docs Title
+  FaLaptopCode, // Router-Specific Workflows Title
+  FaExclamationCircle, // Special Cases Title
   FaInfoCircle, // Notes / Outstanding Items
   FaTable, // Appendix Table
-  FaQuestionCircle, // Appendix Question
-} from "react-icons/fa"; // Added relevant icons
+  FaQuestionCircle, // Appendix Question Title
+  FaFileAlt, // Example MyDesk Docs Title
+  FaUserTie, // Agent Interviews
+  FaLaptopHouse, // Eero/BYOD Router Notes
+  // FaHeadset, // Removed if not used elsewhere
+  FaUsers, // Multi-device Households
+  FaExclamationTriangle, // Intermittent Issues
+  FaDatabase, // Data Requirements
+  FaTicketAlt, // Ticket ID
+  FaFileExport, // Daily Export
+  FaLink, // Data Matching
+  FaChartLine, // Weekly Reporting
+  FaEyeSlash, // Visibility issue
+  FaSignOutAlt, // Churn
+  FaWrench, // Truck roll cost
+  FaLock, // Permissions
+  FaUserPlus, // Add User
+  FaLayerGroup, // Group Mgmt
+  FaUserShield, // User Admin Title Alt
+  FaHeadset, // Real-Time Support
+  FaChalkboardTeacher, // Coaching, Practice
+  FaLightbulb, // Barrier examples
+  FaCommentDots, // Overcoming Barriers
+  FaChartBar, // Monitoring Progress
+  FaBullseye, // Strategies Subsections
+} from "react-icons/fa";
 
 const SMCWorkflowContent = ({ styles }) => {
   // State for expanded sections, default most to visible
@@ -40,16 +64,13 @@ const SMCWorkflowContent = ({ styles }) => {
     routerWorkflows: true,
     specialCases: true,
     documentation: true,
-    outstanding: false, // Default closed
-    appendix: false, // Default closed
+    outstanding: false,
+    appendix: false,
   });
 
   // Toggle helper
   const toggleSection = (section) => {
-    setExpandedSections((prev) => ({
-      ...prev,
-      [section]: !prev[section],
-    }));
+    setExpandedSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
 
   // Animation variants for cards
@@ -58,15 +79,11 @@ const SMCWorkflowContent = ({ styles }) => {
     visible: (i) => ({
       opacity: 1,
       y: 0,
-      transition: {
-        delay: i * 0.08,
-        duration: 0.5,
-        ease: "easeOut",
-      },
+      transition: { delay: i * 0.08, duration: 0.5, ease: "easeOut" },
     }),
   };
 
-  // Helper to render list items consistently
+  // Helper functions
   const renderListItem = (text, indent = false) => (
     <li
       style={{
@@ -78,21 +95,19 @@ const SMCWorkflowContent = ({ styles }) => {
       {text}
     </li>
   );
-
-  // Helper for sub-section lists with strong labels
   const renderSubListItem = (label, text) => (
     <li style={{ ...styles.listItem, marginBottom: "6px" }}>
       <strong style={styles.strong}>{label}:</strong> {text}
     </li>
   );
-
-  // Helper for Decision Criteria Table Row
   const renderDecisionRow = (useCase, dontUseCase) => (
     <tr>
       <td
         style={{
           ...styles.td,
-          borderBottom: `1px solid ${styles.colors?.cloudGrey || "#e5e7eb"}`,
+          border:
+            styles.td?.border ??
+            `1px solid ${styles.colors?.cloudGrey || "#e5e7eb"}`,
         }}
       >
         ✅ {useCase}
@@ -100,32 +115,105 @@ const SMCWorkflowContent = ({ styles }) => {
       <td
         style={{
           ...styles.td,
-          borderBottom: `1px solid ${styles.colors?.cloudGrey || "#e5e7eb"}`,
+          border:
+            styles.td?.border ??
+            `1px solid ${styles.colors?.cloudGrey || "#e5e7eb"}`,
         }}
       >
         ❌ {dontUseCase}
       </td>
     </tr>
   );
-
-  // Helper for styling code blocks
+  const renderAppendixRow = (col1, col2, col3, col4) => (
+    <tr>
+      <td
+        style={{
+          ...styles.td,
+          border:
+            styles.td?.border ??
+            `1px solid ${styles.colors?.cloudGrey || "#e5e7eb"}`,
+        }}
+      >
+        {col1}
+      </td>
+      <td
+        style={{
+          ...styles.td,
+          border:
+            styles.td?.border ??
+            `1px solid ${styles.colors?.cloudGrey || "#e5e7eb"}`,
+        }}
+      >
+        {col2}
+      </td>
+      <td
+        style={{
+          ...styles.td,
+          border:
+            styles.td?.border ??
+            `1px solid ${styles.colors?.cloudGrey || "#e5e7eb"}`,
+        }}
+      >
+        {col3}
+      </td>
+      <td
+        style={{
+          ...styles.td,
+          border:
+            styles.td?.border ??
+            `1px solid ${styles.colors?.cloudGrey || "#e5e7eb"}`,
+        }}
+      >
+        {col4}
+      </td>
+    </tr>
+  );
   const codeBlockStyle = {
-    backgroundColor: styles.colors?.ash ? `${styles.colors.ash}10` : "#F3F4F6", // Light greyish background
+    backgroundColor: styles.colors?.ash ? `${styles.colors.ash}10` : "#F3F4F6",
     padding: "12px",
     borderRadius: "6px",
     fontFamily: "monospace",
     fontSize: "0.85rem",
     color: styles.colors?.ash || "#374151",
-    whiteSpace: "pre-wrap", // Handles line breaks
+    whiteSpace: "pre-wrap",
     wordBreak: "break-word",
     marginTop: "8px",
     marginBottom: "16px",
     border: `1px solid ${styles.colors?.cloudGrey || "#E5E7EB"}`,
   };
 
+  // REMOVED Mermaid useEffect hook
+
+  // Text-based workflow
+  const textWorkflow = `
+[PROCESS] 📥 Case Received in SMC Queue
+    -> [PROCESS] 📋 Review Case Notes/History
+        -> [PROCESS] 🔍 Perform Line Tests via Pathfinder
+            -> [DECISION] ❓ Line Fault Detected?
+                --> Yes: [STANDARD] ⚠️ Proceed with Standard Line Fault Process (END)
+                --> No:  [DECISION] ❓ In-Home WiFi Issue Suspected?
+                    --> Yes: [PROCESS] 📞 Initiate Contact with Customer
+                        -> [ROUTETHIS] 🚀 Introduce RouteThis Resolve
+                            -> [ROUTETHIS] 📱 Guide Customer Through App Setup
+                                -> [ROUTETHIS] 📊 Run Network Scan
+                                    -> [ROUTETHIS] 🔎 Analyze Results & Follow Fix-It Flows
+                                        -> [DECISION] ❓ Issue Identified?
+                                            --> Yes: [ROUTETHIS] 🛠️ Guide Customer Through Fixes
+                                                -> [DECISION] ❓ Issue Resolved?
+                                                    --> Yes: [DOCUMENTATION] 📝 Document Findings & Resolution (END)
+                                                    --> No:  [ROUTETHIS] 🧰 Use Additional Resolve Tools
+                                                        -> [DECISION] ❓ Issue Resolved?
+                                                            --> Yes: [DOCUMENTATION] 📝 Document Findings & Resolution (END)
+                                                            --> No:  [STANDARD] ⚠️ Escalate or Schedule Equip/Engineer Visit
+                                                                -> [DOCUMENTATION] 📝 Document Findings & Resolution (END)
+                                            --> No:  [PROCESS] 🔬 Run Additional Tests (Deep Line/Manual)
+                                                -> [DOCUMENTATION] 📝 Document Findings & Resolution (END)
+                    --> No:  [STANDARD] ⚙️ Proceed with Standard Non-WiFi Troubleshooting (END)
+  `;
+
   return (
     <div>
-      {/* Introduction Text (Not a card) */}
+      {/* Introduction Text */}
       <div
         style={{
           marginBottom: "16px",
@@ -141,12 +229,11 @@ const SMCWorkflowContent = ({ styles }) => {
         <p style={{ ...styles.paragraph, marginBottom: 0 }}>
           This guide outlines how Service Management Center (SMC) agents
           integrate RouteThis Resolve into existing processes during the Phase 1
-          trial, focusing on complex technical cases escalated from first-line
-          support.
+          trial...
         </p>
       </div>
 
-      {/* Workflow Integration Card */}
+      {/* Workflow Overview Card */}
       <motion.div
         custom={0}
         initial="hidden"
@@ -178,38 +265,12 @@ const SMCWorkflowContent = ({ styles }) => {
         {expandedSections.workflowOverview && (
           <div style={{ animation: "fadeIn 0.3s ease-in", paddingTop: "16px" }}>
             <p style={styles.paragraph}>
-              The following diagram illustrates the standard SMC case flow with
-              integrated decision points for using RouteThis Resolve.
+              The following represents the standard SMC case flow with
+              integrated decision points for using RouteThis Resolve. Details
+              for each step are in the sections below.
             </p>
-            {/* Placeholder for Mermaid Diagram */}
-            <div
-              style={{
-                border: `1px dashed ${styles.colors?.cloudGrey || "#ccc"}`,
-                borderRadius: "8px",
-                padding: "24px",
-                textAlign: "center",
-                marginTop: "16px",
-                backgroundColor: `${styles.colors?.cloudGrey}20`,
-              }}
-            >
-              <FaProjectDiagram
-                style={{
-                  fontSize: "2.5rem",
-                  color: styles.colors?.ash,
-                  marginBottom: "16px",
-                }}
-              />
-              <p
-                style={{
-                  margin: 0,
-                  color: styles.colors?.ash,
-                  fontStyle: "italic",
-                }}
-              >
-                Mermaid Flowchart Placeholder <br /> (Visual representation of
-                the decision process described below)
-              </p>
-            </div>
+            {/* Text-based Workflow Diagram */}
+            <div style={codeBlockStyle}>{textWorkflow}</div>
           </div>
         )}
       </motion.div>
@@ -222,6 +283,7 @@ const SMCWorkflowContent = ({ styles }) => {
         variants={cardVariants}
         style={styles.card}
       >
+        {/* Content remains the same */}
         <div
           style={{
             display: "flex",
@@ -241,7 +303,6 @@ const SMCWorkflowContent = ({ styles }) => {
         </div>
         {expandedSections.preContact && (
           <div style={{ animation: "fadeIn 0.3s ease-in", paddingTop: "16px" }}>
-            {/* Subsection 1: Case Receipt */}
             <div style={{ marginBottom: "20px" }}>
               <h3
                 style={{
@@ -270,7 +331,6 @@ const SMCWorkflowContent = ({ styles }) => {
                 )}
               </ul>
             </div>
-            {/* Subsection 2: Investigation */}
             <div style={{ marginBottom: "20px" }}>
               <h3
                 style={{
@@ -298,8 +358,7 @@ const SMCWorkflowContent = ({ styles }) => {
                 )}
               </ul>
             </div>
-            {/* Subsection 3: Strategy */}
-            <div style={{ marginBottom: "20px" }}>
+            <div style={{ marginBottom: 0 }}>
               <h3
                 style={{
                   ...styles.heading3,
@@ -321,7 +380,6 @@ const SMCWorkflowContent = ({ styles }) => {
                   "Decision Point: Will Resolve add diagnostic value?"
                 )}
               </ul>
-              {/* Decision Criteria Table */}
               <h4
                 style={{
                   ...styles.heading3,
@@ -393,6 +451,7 @@ const SMCWorkflowContent = ({ styles }) => {
         variants={cardVariants}
         style={styles.card}
       >
+        {/* Content remains the same */}
         <div
           style={{
             display: "flex",
@@ -416,7 +475,6 @@ const SMCWorkflowContent = ({ styles }) => {
         </div>
         {expandedSections.contactPhase && (
           <div style={{ animation: "fadeIn 0.3s ease-in", paddingTop: "16px" }}>
-            {/* Subsection 4: Engagement */}
             <div style={{ marginBottom: "20px" }}>
               <h3
                 style={{
@@ -448,29 +506,22 @@ const SMCWorkflowContent = ({ styles }) => {
                 SMC-Specific Introduction Script
               </h4>
               <div style={codeBlockStyle}>
-                "Hello, I'm [Name] from the TalkTalk Service Management Center,
-                looking into the WiFi issue that was escalated to our team. I've
-                already checked your line and can see [brief summary of line
-                test results], which suggests the issue may be within your home
-                WiFi environment.
+                "Hello, I'm [Name] from the TalkTalk Service Management
+                Center... I've already checked your line... suggests the issue
+                may be within your home WiFi environment.
                 <br />
                 <br />
-                To help diagnose this properly, we need deeper insights than our
-                standard tools provide. I'd like to use our advanced diagnostic
-                system called Resolve, which will require you to use your mobile
-                phone to scan your home network. This gives us much more
-                detailed technical information about your WiFi setup without
-                accessing any personal data.
+                To help diagnose this properly... I'd like to use our advanced
+                diagnostic system called Resolve... use your mobile phone to
+                scan your home network... gives us much more detailed technical
+                information... without accessing any personal data.
                 <br />
                 <br />
-                As a specialist team, we find this tool particularly helpful for
-                complex issues like yours. Would it be okay if I send you a text
-                message with a link to start this process? It only takes about 2
-                minutes to complete."
+                As a specialist team... helpful for complex issues like yours.
+                Would it be okay if I send you a text message... start this
+                process? It only takes about 2 minutes..."
               </div>
             </div>
-
-            {/* Subsection 5: Implementation */}
             <div style={{ marginBottom: "20px" }}>
               <h3
                 style={{
@@ -500,8 +551,6 @@ const SMCWorkflowContent = ({ styles }) => {
                 {renderListItem("Decision: Does scan complete successfully?")}
               </ul>
             </div>
-
-            {/* Subsection 6: Analysis */}
             <div style={{ marginBottom: "20px" }}>
               <h3
                 style={{
@@ -524,12 +573,10 @@ const SMCWorkflowContent = ({ styles }) => {
                   "Select the most relevant fix-it workflow(s) to follow."
                 )}
                 {renderListItem(
-                  "Decision: Is additional visual diagnostic needed (e.g., check lights/cables)?"
+                  "Decision: Is additional visual diagnostic needed?"
                 )}
               </ul>
             </div>
-
-            {/* Subsection 7: Visual Diagnostics */}
             <div style={{ marginBottom: "20px" }}>
               <h3
                 style={{
@@ -556,10 +603,9 @@ const SMCWorkflowContent = ({ styles }) => {
                   "Save critical images if needed for documentation/escalation."
                 )}
                 {renderListItem(
-                  "Decision: Do visuals confirm suspected issue (e.g., wrong port, error light)?"
+                  "Decision: Do visuals confirm suspected issue?"
                 )}
               </ul>
-              {/* FTTP Specific Box */}
               <div
                 style={{
                   marginTop: "16px",
@@ -598,14 +644,10 @@ const SMCWorkflowContent = ({ styles }) => {
                     "Verify Ethernet cable: ONT port -> Router WAN port."
                   )}
                   {renderListItem("Check Router indicator lights.")}
-                  {renderListItem(
-                    "Inspect any additional network gear (switches, extenders)."
-                  )}
+                  {renderListItem("Inspect any additional network gear.")}
                 </ol>
               </div>
             </div>
-
-            {/* Subsection 8: Coverage */}
             <div style={{ marginBottom: "20px" }}>
               <h3
                 style={{
@@ -638,11 +680,7 @@ const SMCWorkflowContent = ({ styles }) => {
                 )}
               </ul>
             </div>
-
-            {/* Subsection 9: Router Config */}
             <div style={{ marginBottom: 0 }}>
-              {" "}
-              {/* Last subsection */}
               <h3
                 style={{
                   ...styles.heading3,
@@ -662,14 +700,12 @@ const SMCWorkflowContent = ({ styles }) => {
                   "Verify current settings (WiFi channel, band steering, security)."
                 )}
                 {renderListItem(
-                  "Make necessary adjustments based on scan findings (e.g., change channel)."
+                  "Make necessary adjustments based on scan findings."
                 )}
                 {renderListItem(
                   "Re-run Speed Test or limited scan to test effectiveness."
                 )}
-                {renderListItem(
-                  "Decision: Are config changes sufficient, or is issue elsewhere?"
-                )}
+                {renderListItem("Decision: Are config changes sufficient?")}
               </ul>
             </div>
           </div>
@@ -684,6 +720,7 @@ const SMCWorkflowContent = ({ styles }) => {
         variants={cardVariants}
         style={styles.card}
       >
+        {/* Content remains the same */}
         <div
           style={{
             display: "flex",
@@ -707,7 +744,6 @@ const SMCWorkflowContent = ({ styles }) => {
         </div>
         {expandedSections.resolutionPhase && (
           <div style={{ animation: "fadeIn 0.3s ease-in", paddingTop: "16px" }}>
-            {/* Subsection 10: Fixes */}
             <div style={{ marginBottom: "20px" }}>
               <h3
                 style={{
@@ -731,14 +767,13 @@ const SMCWorkflowContent = ({ styles }) => {
                   "Re-test using Speed Test or another Network Scan."
                 )}
                 {renderListItem(
-                  "Provide customer education on preventing recurrence (e.g., router placement)."
+                  "Provide customer education on preventing recurrence."
                 )}
                 {renderListItem(
                   "Decision: Has the primary issue been resolved?"
                 )}
               </ul>
             </div>
-            {/* Subsection 11: Next Steps */}
             <div style={{ marginBottom: "20px" }}>
               <h3
                 style={{
@@ -756,23 +791,18 @@ const SMCWorkflowContent = ({ styles }) => {
                   "If issue persists, determine appropriate next action."
                 )}
                 {renderListItem(
-                  "Schedule CPE replacement via standard process if diagnostics indicate hardware failure."
+                  "Schedule CPE replacement via standard process if needed."
                 )}
-                {renderListItem(
-                  "Arrange engineer visit if in-home wiring or complex issue suspected."
-                )}
+                {renderListItem("Arrange engineer visit if required.")}
                 {renderListItem(
                   "Clearly set follow-up expectations with the customer."
                 )}
                 {renderListItem(
-                  "Decision: What is the final appropriate resolution/escalation path?"
+                  "Decision: What is the final resolution/escalation path?"
                 )}
               </ul>
             </div>
-            {/* Subsection 12: Docs */}
             <div style={{ marginBottom: 0 }}>
-              {" "}
-              {/* Last subsection */}
               <h3
                 style={{
                   ...styles.heading3,
@@ -806,7 +836,7 @@ const SMCWorkflowContent = ({ styles }) => {
         )}
       </motion.div>
 
-      {/* Router-Specific & Special Cases Card */}
+      {/* Router-Specific Workflows Card */}
       <motion.div
         custom={4}
         initial="hidden"
@@ -814,6 +844,7 @@ const SMCWorkflowContent = ({ styles }) => {
         variants={cardVariants}
         style={styles.card}
       >
+        {/* Content remains the same */}
         <div
           style={{
             display: "flex",
@@ -824,7 +855,7 @@ const SMCWorkflowContent = ({ styles }) => {
           onClick={() => toggleSection("routerWorkflows")}
         >
           <h2 style={styles.cardTitle}>
-            <FaRoute
+            <FaLaptopCode
               style={{ marginRight: "8px", color: styles.colors?.primary }}
             />{" "}
             Router-Specific Workflows
@@ -899,8 +930,6 @@ const SMCWorkflowContent = ({ styles }) => {
               </ul>
             </div>
             <div style={{ marginBottom: 0 }}>
-              {" "}
-              {/* Last item */}
               <h4
                 style={{
                   ...styles.heading3,
@@ -931,6 +960,7 @@ const SMCWorkflowContent = ({ styles }) => {
         variants={cardVariants}
         style={styles.card}
       >
+        {/* Content remains the same */}
         <div
           style={{
             display: "flex",
@@ -1004,8 +1034,6 @@ const SMCWorkflowContent = ({ styles }) => {
               </ul>
             </div>
             <div style={{ marginBottom: 0 }}>
-              {" "}
-              {/* Last item */}
               <h4
                 style={{
                   ...styles.heading3,
@@ -1040,6 +1068,7 @@ const SMCWorkflowContent = ({ styles }) => {
         variants={cardVariants}
         style={styles.card}
       >
+        {/* Content remains the same */}
         <div
           style={{
             display: "flex",
@@ -1137,10 +1166,7 @@ const SMCWorkflowContent = ({ styles }) => {
                 {renderListItem("Provide suggestions for improvement.")}
               </ul>
             </div>
-            {/* Example MyDesk Notes */}
             <div style={{ marginBottom: 0 }}>
-              {" "}
-              {/* Last subsection */}
               <h3
                 style={{
                   ...styles.heading3,
@@ -1152,27 +1178,9 @@ const SMCWorkflowContent = ({ styles }) => {
                 <FaFileAlt style={{ color: styles.colors?.electricBlue }} />{" "}
                 Example MyDesk Documentation
               </h3>
-              <div style={codeBlockStyle}>
-                {`CASE: WiFi Connectivity Issues - Multiple Devices
-
-DIAGNOSIS: Used RouteThis Resolve (Customer Key: RH7K) to perform network diagnostics. Network Scan identified:
-- High channel congestion on 2.4GHz band (15 competing networks)
-- Router uptime of 73 days without reboot
-- Double NAT configuration detected (customer's own secondary router)
-
-ACTIONS:
-1. Used Live View to verify router/ONT physical connections - confirmed correct
-2. Guided customer to remove secondary router and connect directly
-3. Rebooted primary TalkTalk router
-4. Changed WiFi channel to less congested option (Ch 11)
-5. Ran second scan confirming improvements
-
-RESOLUTION:
-Issue resolved. Customer confirmed all devices now connecting successfully with improved speeds. Educated customer on router placement and avoiding double router setup.
-
-NOTES:
-Customer found RouteThis easy to use. Live View particularly helpful in identifying the customer's TP-Link router causing Double NAT.`}
-              </div>
+              <div
+                style={codeBlockStyle}
+              >{`CASE: WiFi Connectivity Issues - Multiple Devices\n\nDIAGNOSIS: Used RouteThis Resolve (Customer Key: RH7K)... Network Scan identified:\n- High channel congestion on 2.4GHz band (15 competing networks)\n- Router uptime of 73 days without reboot\n- Double NAT configuration detected...\n\nACTIONS:\n1. Used Live View to verify connections - confirmed correct\n2. Guided customer to remove secondary router...\n3. Rebooted primary TalkTalk router\n4. Changed WiFi channel to less congested (Ch 11)\n5. Ran second scan confirming improvements\n\nRESOLUTION:\nIssue resolved. Customer confirmed all devices connecting... Educated customer...\n\nNOTES:\nCustomer found RouteThis easy to use. Live View helpful in identifying TP-Link causing Double NAT.`}</div>
             </div>
           </div>
         )}
@@ -1186,6 +1194,7 @@ Customer found RouteThis easy to use. Live View particularly helpful in identify
         variants={cardVariants}
         style={styles.card}
       >
+        {/* Content remains the same */}
         <div
           style={{
             display: "flex",
@@ -1251,6 +1260,7 @@ Customer found RouteThis easy to use. Live View particularly helpful in identify
         variants={cardVariants}
         style={styles.card}
       >
+        {/* Content remains the same */}
         <div
           style={{
             display: "flex",
@@ -1291,9 +1301,7 @@ Customer found RouteThis easy to use. Live View particularly helpful in identify
                       <th style={{ ...styles.th, width: "25%" }}>
                         Customer Problem
                       </th>
-                      <th style={{ ...styles.th, width: "25%" }}>
-                        First Tool to Use
-                      </th>
+                      <th style={{ ...styles.th, width: "25%" }}>First Tool</th>
                       <th style={{ ...styles.th, width: "25%" }}>
                         Secondary Tools
                       </th>
@@ -1301,55 +1309,53 @@ Customer found RouteThis easy to use. Live View particularly helpful in identify
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td style={styles.td}>"Internet is slow"</td>
-                      <td style={styles.td}>Network Scan</td>
-                      <td style={styles.td}>Speed Test</td>
-                      <td style={styles.td}>Capture plan speeds</td>
-                    </tr>
-                    <tr>
-                      <td style={styles.td}>"WiFi doesn't reach..."</td>
-                      <td style={styles.td}>Network Scan</td>
-                      <td style={styles.td}>Dead Spot Detector</td>
-                      <td style={styles.td}>Check physical barriers</td>
-                    </tr>
-                    <tr>
-                      <td style={styles.td}>"Some devices connect..."</td>
-                      <td style={styles.td}>Network Scan</td>
-                      <td style={styles.td}>Live View</td>
-                      <td style={styles.td}>Check MAC filtering</td>
-                    </tr>
-                    <tr>
-                      <td style={styles.td}>"Router lights strange"</td>
-                      <td style={styles.td}>Network Scan</td>
-                      <td style={styles.td}>Live View (Video)</td>
-                      <td style={styles.td}>Focus on status lights</td>
-                    </tr>
-                    <tr>
-                      <td style={styles.td}>"Connection drops..."</td>
-                      <td style={styles.td}>Network Scan</td>
-                      <td style={styles.td}>Router Login</td>
-                      <td style={styles.td}>Check scheduled reboots</td>
-                    </tr>
-                    <tr>
-                      <td style={styles.td}>"New device won't connect"</td>
-                      <td style={styles.td}>Network Scan</td>
-                      <td style={styles.td}>Live View</td>
-                      <td style={styles.td}>Verify password entry</td>
-                    </tr>
-                    <tr>
-                      <td style={styles.td}>"Router keeps rebooting"</td>
-                      <td style={styles.td}>Network Scan</td>
-                      <td style={styles.td}>Live View</td>
-                      <td style={styles.td}>Check power source</td>
-                    </tr>
+                    {renderAppendixRow(
+                      '"Internet is slow"',
+                      "Network Scan",
+                      "Speed Test",
+                      "Capture plan speeds"
+                    )}
+                    {renderAppendixRow(
+                      '"WiFi doesn\'t reach..."',
+                      "Network Scan",
+                      "Dead Spot Detector",
+                      "Check barriers"
+                    )}
+                    {renderAppendixRow(
+                      '"Some devices connect..."',
+                      "Network Scan",
+                      "Live View",
+                      "Check MAC filtering"
+                    )}
+                    {renderAppendixRow(
+                      '"Router lights strange"',
+                      "Network Scan",
+                      "Live View (Video)",
+                      "Focus on status lights"
+                    )}
+                    {renderAppendixRow(
+                      '"Connection drops..."',
+                      "Network Scan",
+                      "Router Login",
+                      "Check scheduled reboots"
+                    )}
+                    {renderAppendixRow(
+                      '"New device won\'t connect"',
+                      "Network Scan",
+                      "Live View",
+                      "Verify password entry"
+                    )}
+                    {renderAppendixRow(
+                      '"Router keeps rebooting"',
+                      "Network Scan",
+                      "Live View",
+                      "Check power source"
+                    )}
                   </tbody>
                 </table>
               </div>
             </div>
             <div>
-              {" "}
-              {/* Last subsection */}
               <h3
                 style={{
                   ...styles.heading3,
@@ -1380,48 +1386,48 @@ Customer found RouteThis easy to use. Live View particularly helpful in identify
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td style={styles.td}>Channel Congestion</td>
-                      <td style={styles.td}>Change WiFi Channel</td>
-                      <td style={styles.td}>Split 2.4/5GHz</td>
-                      <td style={styles.td}>N/A</td>
-                    </tr>
-                    <tr>
-                      <td style={styles.td}>Signal Weakness</td>
-                      <td style={styles.td}>Optimize Placement</td>
-                      <td style={styles.td}>Dead Spot Analysis</td>
-                      <td style={styles.td}>Recommend Extenders</td>
-                    </tr>
-                    <tr>
-                      <td style={styles.td}>Double NAT</td>
-                      <td style={styles.td}>Remove 2nd Router</td>
-                      <td style={styles.td}>Configure Bridge Mode</td>
-                      <td style={styles.td}>N/A</td>
-                    </tr>
-                    <tr>
-                      <td style={styles.td}>Device Compatibility</td>
-                      <td style={styles.td}>Verify Standards</td>
-                      <td style={styles.td}>Update Drivers</td>
-                      <td style={styles.td}>Recommend Hardwiring</td>
-                    </tr>
-                    <tr>
-                      <td style={styles.td}>Router Overloaded</td>
-                      <td style={styles.td}>Reboot Router</td>
-                      <td style={styles.td}>Limit Devices</td>
-                      <td style={styles.td}>Consider Replacement</td>
-                    </tr>
-                    <tr>
-                      <td style={styles.td}>Outdated Firmware</td>
-                      <td style={styles.td}>Update Firmware</td>
-                      <td style={styles.td}>Factory Reset</td>
-                      <td style={styles.td}>N/A</td>
-                    </tr>
-                    <tr>
-                      <td style={styles.td}>Physical Damage</td>
-                      <td style={styles.td}>Identify w/ Live View</td>
-                      <td style={styles.td}>N/A</td>
-                      <td style={styles.td}>Replace Equipment</td>
-                    </tr>
+                    {renderAppendixRow(
+                      "Channel Congestion",
+                      "Change WiFi Channel",
+                      "Split 2.4/5GHz",
+                      "N/A"
+                    )}
+                    {renderAppendixRow(
+                      "Signal Weakness",
+                      "Optimize Placement",
+                      "Dead Spot Analysis",
+                      "Recommend Extenders"
+                    )}
+                    {renderAppendixRow(
+                      "Double NAT",
+                      "Remove 2nd Router",
+                      "Configure Bridge Mode",
+                      "N/A"
+                    )}
+                    {renderAppendixRow(
+                      "Device Compatibility",
+                      "Verify Standards",
+                      "Update Drivers",
+                      "Recommend Hardwiring"
+                    )}
+                    {renderAppendixRow(
+                      "Router Overloaded",
+                      "Reboot Router",
+                      "Limit Devices",
+                      "Consider Replacement"
+                    )}
+                    {renderAppendixRow(
+                      "Outdated Firmware",
+                      "Update Firmware",
+                      "Factory Reset",
+                      "N/A"
+                    )}
+                    {renderAppendixRow(
+                      "Physical Damage",
+                      "Identify w/ Live View",
+                      "N/A",
+                      "Replace Equipment"
+                    )}
                   </tbody>
                 </table>
               </div>
