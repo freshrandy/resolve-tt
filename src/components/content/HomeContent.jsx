@@ -88,7 +88,7 @@ const HomeContent = ({ styles }) => {
               }}
             >
               <li style={styles.listItem}>
-                Participants: 10 UK-based Second Line Support (SMC) agents
+                Participants: 6-8 UK-based Second Line Support (SMC) agents
               </li>
               <li style={styles.listItem}>Duration: 1-2 week timeframe</li>
               <li style={styles.listItem}>
@@ -168,7 +168,6 @@ const HomeContent = ({ styles }) => {
               style={{ ...styles.list, paddingLeft: "20px", marginBottom: 0 }}
             >
               <li style={styles.listItem}>Feedback forms submitted</li>
-              <li style={styles.listItem}>Direct agent interviews</li>
               <li style={styles.listItem}>Manager observations & feedback</li>
               <li style={styles.listItem}>Trial team weekly check-ins</li>
             </ul>
@@ -185,41 +184,106 @@ const HomeContent = ({ styles }) => {
       dates: "June-July 2025 (30 days)",
       content: (
         <>
-          <p style={styles.paragraph}>
-            15-20 South Africa-based Call Center agents will integrate Resolve
-            into daily workflows for 30 days. Focus: operational impact and ROI
-            based on key metrics.
-          </p>
-          <p style={styles.paragraph}>
-            <strong style={styles.strong}>Integration Points:</strong>
-          </p>
-          <ul style={{ ...styles.list, marginTop: "8px", paddingLeft: "16px" }}>
-            <li style={styles.listItem}>
-              Use for suspected in-home WiFi issues
-            </li>
-            <li style={styles.listItem}>
-              Leverage tools (Scan, Video, etc.) for diagnosis
-            </li>
-            <li style={styles.listItem}>
-              Apply before escalating WiFi tickets
-            </li>
-          </ul>
-          <p style={styles.paragraph}>
-            <strong style={styles.strong}>Success Metrics Focus:</strong>
-          </p>
-          <ul
-            style={{
-              ...styles.list,
-              marginTop: "8px",
-              paddingLeft: "16px",
-              marginBottom: 0,
-            }}
-          >
-            <li style={styles.listItem}>Repeat Calls & Truck Rolls</li>
-            <li style={styles.listItem}>CPE Replacement Rate</li>
-            <li style={styles.listItem}>NPS & AHT impact</li>
-            <li style={styles.listItem}>Agent adoption & feedback</li>
-          </ul>
+          <div>
+            <h4
+              style={{
+                ...styles.heading3,
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                marginTop: 0,
+                marginBottom: "8px",
+              }}
+            >
+              <FaListAlt style={{ color: styles.colors?.electricBlue }} /> Trial
+              Parameters
+            </h4>
+            <ul
+              style={{
+                ...styles.list,
+                paddingLeft: "20px",
+                marginBottom: "16px",
+              }}
+            >
+              <li style={styles.listItem}>
+                Participants: 24 South Africa CCI Agents
+              </li>
+              <li style={styles.listItem}>Duration: 30 day timeframe</li>
+              <li style={styles.listItem}>
+                Focus: operational impact and ROI based on key metrics.
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              style={{
+                ...styles.heading3,
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                marginTop: 0,
+                marginBottom: "8px",
+              }}
+            >
+              <FaClipboardList style={{ color: styles.colors?.electricBlue }} />{" "}
+              Agent Key Activities
+            </h4>
+            <ul
+              style={{
+                ...styles.list,
+                paddingLeft: "20px",
+                marginBottom: "16px",
+              }}
+            >
+              <li style={{ ...styles.listItem, marginBottom: "8px" }}>
+                <strong style={styles.strong}>Mandatory Feedback:</strong>{" "}
+                Agents will need to complete the "RouteThis Resolve Usage
+                Survey" form after <strong style={styles.strong}>EACH</strong>{" "}
+                use:
+                <ul
+                  style={{
+                    ...styles.list,
+                    paddingLeft: "20px",
+                    marginTop: "6px",
+                  }}
+                >
+                  <li style={styles.listItem}>
+                    Select tools used (Scan, Speedtest, Photo, Video, Deadspots,
+                    Router Login).
+                  </li>
+                  <li style={styles.listItem}>Rate ease of use (1-5 stars).</li>
+                  <li style={styles.listItem}>
+                    Indicate if Resolve helped resolution.
+                  </li>
+                  <li style={styles.listItem}>Provide additional comments.</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              style={{
+                ...styles.heading3,
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                marginTop: 0,
+                marginBottom: "8px",
+              }}
+            >
+              <FaUserTie style={{ color: styles.colors?.electricBlue }} />{" "}
+              Success Measurement
+            </h4>
+            {/* No introductory paragraph as per your Phase 2 request */}
+            <ul
+              style={{ ...styles.list, paddingLeft: "20px", marginBottom: 0 }}
+            >
+              <li style={styles.listItem}>Repeat Calls & Truck Rolls</li>
+              <li style={styles.listItem}>CPE Replacement Rate</li>
+              <li style={styles.listItem}>NPS & AHT impact</li>
+              <li style={styles.listItem}>Agent adoption & feedback</li>
+            </ul>
+          </div>
         </>
       ),
       icon: <FaChartLine />,
@@ -616,7 +680,7 @@ const HomeContent = ({ styles }) => {
                   </span>
                 </div>
               </div>
-              {/* Phase Content (Now includes updated Phase 1) */}
+              {/* Phase Content (Now includes updated Phase 1 & Phase 2) */}
               <div>{phase.content}</div>
             </div>
           ))}
