@@ -62,7 +62,7 @@ const HomeContent = ({ styles }) => {
     {
       id: "phase1",
       title: "Phase 1: SMC Trial Overview", // Updated Title
-      dates: "May 2025 (1-2 weeks)",
+      dates: "May 2025",
       content: (
         <>
           {/* Using subsections for clarity */}
@@ -144,10 +144,6 @@ const HomeContent = ({ styles }) => {
                   <li style={styles.listItem}>Provide additional comments.</li>
                 </ul>
               </li>
-              <li style={styles.listItem}>
-                <strong style={styles.strong}>Interviews:</strong> Participate
-                in a 30-minute interview with RouteThis team (if selected).
-              </li>
             </ul>
           </div>
           <div>
@@ -180,7 +176,7 @@ const HomeContent = ({ styles }) => {
         </>
       ),
       icon: <FaLaptopHouse />,
-      status: "Upcoming",
+      status: "Completed",
       color: styles.colors?.electricBlue || "#4F46E5",
     },
     {
@@ -227,7 +223,7 @@ const HomeContent = ({ styles }) => {
         </>
       ),
       icon: <FaChartLine />,
-      status: "Planning",
+      status: "In-Progress",
       color: styles.colors?.success || "#10B981",
     },
   ];
